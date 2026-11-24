@@ -1,0 +1,20 @@
+services:
+  # Rédaction du guide ASSOCIATIONS — http://localhost:8000
+  asso:
+    build: { context: ., target: build }
+    command: sh -c "./sync-commun.sh && mkdocs serve -f mkdocs.association.yml --dev-addr=0.0.0.0:8000 --watch commun"
+    ports: ["8000:8000"]
+    volumes: ["./:/projet"]
+
+  # Rédaction du guide DÉPARTEMENTAL — http://localhost:8001
+  dep:
+    build: { context: ., target: build }
+    command: sh -c "./sync-commun.sh && mkdocs serve -f mkdocs.departemental.yml --dev-addr=0.0.0.0:8001 --watch commun"
+    ports: ["8001:8001"]
+    volumes: ["./:/projet"]
+
+  # Version publiée, servie par nginx — http://localhost:8090/association/ et /departemental/
+  prod:
+    build: { context: ., target: prod }
+    ports: ["8090:80"]
+    profiles: ["prod"]

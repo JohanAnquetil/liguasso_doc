@@ -1,0 +1,5 @@
+site/
+.git/
+*.zip
+docs-association/img/
+docs-departemental/img/

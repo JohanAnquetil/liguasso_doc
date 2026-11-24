@@ -1,0 +1,29 @@
+INHERIT: ./mkdocs.base.yml
+site_name: Guide Ligu'asso — Associations
+site_description: Guide d'utilisation de Ligu'asso pour les responsables d'association
+docs_dir: docs-association
+site_dir: site/association
+
+nav:
+  - Démarrer:
+      - Bienvenue: index.md
+      - Se connecter: connexion.md
+      - Ça ne marche pas comme prévu: probleme.md
+  - Affiliation:
+      - Affilier mon association: affiliation.md
+      - Valider et transmettre: affiliation-valider.md
+      - Modifier mon affiliation: affiliation-modifier.md
+  - Mon association:
+      - Coordonnées et logo: association-coordonnees.md
+      - Sections et écoles: association-sections.md
+      - Attestations: association-attestations.md
+  - Mes adhérent.e.s:
+      - Rechercher et gérer: adherents-gerer.md
+      - Enregistrer une adhésion: adherents-nouveau.md
+      - Importer un fichier: adherents-import.md
+      - Lots et TIPO: adherents-lots.md
+      - Campagne de ré-adhésion: adherents-campagne.md
+  - Factures et règlements: comptabilite.md
+  - Statistiques: statistiques.md
+  - Rencontres USEP: rencontres.md
+  - Actualités: actualites.md

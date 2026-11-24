@@ -1,0 +1,71 @@
+site_author: La Ligue de l'enseignement
+copyright: >
+  La Ligue de l'enseignement — UFOLEP — USEP ·
+  Support : <a href="mailto:support.liguasso@laligue.org">support.liguasso@laligue.org</a>
+  · 01 43 58 96 08
+
+theme:
+  name: material
+  language: fr
+  font:
+    text: Inter
+    code: Roboto Mono
+  icon:
+    logo: material/account-group
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: custom
+      accent: custom
+      toggle:
+        icon: material/weather-night
+        name: Passer en mode sombre
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: custom
+      accent: custom
+      toggle:
+        icon: material/weather-sunny
+        name: Passer en mode clair
+  features:
+    - navigation.sections
+    - navigation.tabs
+    - navigation.top
+    - navigation.footer
+    - navigation.indexes
+    - content.tabs.link
+    - search.highlight
+    - search.suggest
+    - toc.follow
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - md_in_html
+  - tables
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.snippets:
+      base_path: ["commun/partiels"]
+      check_paths: true
+  - pymdownx.tabbed:
+      alternate_style: true
+      slugify: !!python/object/apply:pymdownx.slugs.slugify {kwds: {case: lower}}
+  - toc:
+      permalink: true
+      permalink_title: Lien vers cette section
+
+plugins:
+  - search:
+      lang: fr
+  - mkdocs-video
+
+extra_css:
+  - stylesheets/extra.css
+
+extra:
+  generator: false
+  social:
+    - icon: material/email
+      link: mailto:support.liguasso@laligue.org
+      name: Support Ligu'asso
