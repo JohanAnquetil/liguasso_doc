@@ -97,4 +97,17 @@ https://guide-liguasso.laligue.org/test/ pour essayer des modifications
 - Construit sans `--strict` : un avertissement n'empêche pas la publication,
   et un échec du bac à sable ne bloque jamais les deux vrais guides.
 - Non indexé par les moteurs de recherche, mais accessible à qui connaît l'adresse.
-- Une fois une modification validée, la reporter à la main dans `docs-departemental/`.
+- Styles à essayer uniquement sur `/test` : `docs-test/test.css`.
+  Mise en page (en-tête, pied de page…) : `overrides-test/`.
+- Une fois une modification validée, la reporter à la main dans `docs-departemental/`
+  (et les styles dans `commun/stylesheets/extra.css`). Pour voir les écarts :
+
+      diff -r -x img -x stylesheets -x test.css docs-departemental docs-test
+
+- Repartir de zéro (pages, menu et `test.css` remis comme le départemental,
+  le bandeau est conservé) :
+
+      ./reset-test.sh
+
+**Attention** : `mkdocs.base.yml`, `commun/stylesheets/`, `commun/img/` et
+`commun/partiels/` sont partagés. Les modifier change aussi les vrais guides.
