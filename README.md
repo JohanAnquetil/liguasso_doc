@@ -89,6 +89,13 @@ Reportez-la aussi dans `docs-departemental/limitations.md`, qui les recense tout
 
 ## Bac à sable `/test`
 
+Aperçu en local, avec rechargement automatique :
+
+    docker compose up test
+
+→ http://localhost:8002
+
+
 `docs-test/` est une copie du guide départemental, publiée sur
 https://guide-liguasso.laligue.org/test/ pour essayer des modifications
 (mise en page, nouvelles pages…) sans toucher aux vrais guides.

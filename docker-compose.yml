@@ -13,13 +13,21 @@ services:
     ports: ["8001:8001"]
     volumes: ["./:/projet"]
 
-  # Version publiée en HTTPS, servie par Caddy — https://<DOMAINE>/association/ et /departemental/
-  # Le domaine se règle dans le fichier .env : DOMAINE=doc.exemple.fr
+  # Bac à sable /test, en local uniquement — http://localhost:8002
+  test:
+    build: { context: ., target: build }
+    command: sh -c "./sync-commun.sh && mkdocs serve -f mkdocs.test.yml --dev-addr=0.0.0.0:8002 --watch commun --watch overrides-test"
+    ports: ["127.0.0.1:8002:8002"]
+    volumes: ["./:/projet"]
+
+  # Version publiée en HTTPS, servie par Caddy — https://<DOMAINE>/association/, /departemental/ et /test/
+  # Le domaine se règle dans le fichier .env du serveur : DOMAINE=doc.exemple.fr
+  # Sans .env (en local), Caddy sert https://localhost avec un certificat local.
   prod:
     build: { context: ., target: prod }
     ports: ["80:80", "443:443", "443:443/udp"]
     environment:
-      DOMAINE: ${DOMAINE:?Renseigner DOMAINE dans le fichier .env}
+      DOMAINE: ${DOMAINE:-localhost}
     volumes:
       - caddy_data:/data      # certificats : à conserver
       - caddy_config:/config
