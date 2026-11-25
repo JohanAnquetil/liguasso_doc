@@ -1,3 +1,93 @@
 /* Styles essayés uniquement sur /test.
    Une fois validés, les reporter dans commun/stylesheets/extra.css
    (attention : ce fichier-là s'applique aux deux vrais guides). */
+
+/* ---------- Page d'accueil : bandeau d'introduction ---------- */
+.accueil-hero {
+  margin: 0 0 2rem;
+  padding: 2rem 2rem 1.6rem;
+  border-radius: 14px;
+  background: linear-gradient(135deg,
+    color-mix(in srgb, var(--md-primary-fg-color) 10%, var(--md-default-bg-color)),
+    var(--md-default-bg-color));
+  border: 1px solid color-mix(in srgb, var(--md-primary-fg-color) 18%, transparent);
+}
+.accueil-hero h1 {
+  margin: 0 0 .3rem;
+  font-weight: 700;
+  color: var(--md-primary-fg-color);
+}
+.accueil-hero .accueil-sous-titre {
+  margin: 0 0 1rem;
+  font-size: 1.05rem;
+  color: var(--md-default-fg-color--light);
+}
+.accueil-hero .md-button { margin: .4rem .5rem 0 0; }
+
+/* ---------- Comment ça marche : 3 étapes ---------- */
+.etapes {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  margin: 1rem 0 2rem;
+}
+.etape {
+  padding: 1.1rem 1.2rem .4rem;
+  border-radius: 10px;
+  border: 1px solid var(--md-default-fg-color--lightest);
+}
+.etape p { margin: .3rem 0 .7rem; }
+.etape-num {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 1.8rem; height: 1.8rem; margin-bottom: .4rem;
+  border-radius: 50%;
+  background: var(--md-primary-fg-color);
+  color: var(--md-primary-bg-color);
+  font-weight: 700;
+}
+
+/* ---------- FAQ ---------- */
+.faq h3 {
+  margin-top: 1.6rem;
+  font-size: .95rem;
+  text-transform: uppercase;
+  letter-spacing: .04em;
+  color: var(--md-default-fg-color--light);
+}
+.faq details.question {
+  border-radius: 8px;
+  border-color: var(--md-default-fg-color--lightest);
+  box-shadow: none;
+}
+.faq details.question > summary {
+  background: transparent;
+  font-weight: 600;
+}
+.faq details.question[open] {
+  border-color: var(--md-primary-fg-color);
+}
+
+/* ---------- Encadré contact ---------- */
+.contact {
+  margin: 2.5rem 0 1rem;
+  padding: 1.1rem 1.3rem;
+  border-radius: 10px;
+  background: color-mix(in srgb, var(--md-primary-fg-color) 6%, var(--md-default-bg-color));
+}
+.contact p { margin: 0; }
+
+/* ---------- Correctif des cartes (bug aussi présent sur les vrais guides) ----------
+   Markdown range les liens dans un <p>, donc la règle `.cartes > a` de extra.css
+   ne s'applique pas. On fait « disparaître » le <p> pour que la grille marche. */
+.cartes > p { display: contents; }
+.cartes a {
+  display: block; padding: 1rem 1.2rem; border-radius: 10px; text-decoration: none;
+  border: 1px solid var(--md-default-fg-color--lightest);
+  background: var(--md-default-bg-color); transition: .15s ease;
+}
+.cartes a:hover { border-color: var(--md-primary-fg-color); transform: translateY(-2px); }
+
+/* Icône des questions de la FAQ aux couleurs de la charte (au lieu du vert) */
+.faq details.question > summary::before { background-color: var(--md-primary-fg-color); }
+.faq details.question > summary::after { color: var(--md-primary-fg-color); }
+.cartes a br { display: none; } /* <strong> passe déjà à la ligne */
