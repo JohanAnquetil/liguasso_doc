@@ -1,0 +1,41 @@
+# Met à jour le guide en ligne (https://guide-liguasso.laligue.org) à chaque push sur main.
+# Le VPS récupère le dépôt, reconstruit l'image (mkdocs build --strict) et relance Caddy.
+# Si la construction échoue, l'ancien site reste en ligne.
+#
+# Secrets du dépôt : VPS_HOST, VPS_USER, VPS_SSH_KEY (clé privée dédiée),
+# VPS_KNOWN_HOSTS (empreinte du serveur, pour refuser un faux serveur).
+
+name: Déploiement du guide
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: deploiement
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Préparer la connexion SSH
+        run: |
+          install -m 700 -d ~/.ssh
+          printf '%s\n' "${{ secrets.VPS_SSH_KEY }}" > ~/.ssh/id_ed25519
+          chmod 600 ~/.ssh/id_ed25519
+          printf '%s\n' "${{ secrets.VPS_KNOWN_HOSTS }}" > ~/.ssh/known_hosts
+
+      - name: Mettre à jour le site sur le VPS
+        run: |
+          ssh -o StrictHostKeyChecking=yes "${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }}" 'bash -s' <<'EOF'
+          set -euo pipefail
+          cd /home/debian/liguasso-doc/liguasso-doc
+          git fetch origin main
+          git reset --hard origin/main
+          docker compose --profile prod up -d --build prod
+          docker image prune -f
+          echo "Déployé : $(git log --oneline -1)"
+          EOF
