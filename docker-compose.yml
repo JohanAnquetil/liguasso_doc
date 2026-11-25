@@ -13,8 +13,19 @@ services:
     ports: ["8001:8001"]
     volumes: ["./:/projet"]
 
-  # Version publiée, servie par nginx — http://localhost:8090/association/ et /departemental/
+  # Version publiée en HTTPS, servie par Caddy — https://<DOMAINE>/association/ et /departemental/
+  # Le domaine se règle dans le fichier .env : DOMAINE=doc.exemple.fr
   prod:
     build: { context: ., target: prod }
-    ports: ["8090:80"]
+    ports: ["80:80", "443:443", "443:443/udp"]
+    environment:
+      DOMAINE: ${DOMAINE:?Renseigner DOMAINE dans le fichier .env}
+    volumes:
+      - caddy_data:/data      # certificats : à conserver
+      - caddy_config:/config
+    restart: unless-stopped
     profiles: ["prod"]
+
+volumes:
+  caddy_data:
+  caddy_config:

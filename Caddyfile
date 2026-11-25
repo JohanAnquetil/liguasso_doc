@@ -1,0 +1,7 @@
+# Nom de domaine fourni par la variable DOMAINE (fichier .env)
+# Caddy obtient et renouvelle automatiquement le certificat Let's Encrypt.
+{$DOMAINE} {
+	root * /srv
+	encode zstd gzip
+	file_server
+}

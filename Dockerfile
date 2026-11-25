@@ -8,7 +8,7 @@ RUN ./sync-commun.sh \
  && mkdocs build --strict -f mkdocs.association.yml \
  && mkdocs build --strict -f mkdocs.departemental.yml
 
-# --- Étape 2 : service des sites statiques ---
-FROM nginx:alpine AS prod
-COPY --from=build /projet/site /usr/share/nginx/html
-EXPOSE 80
+# --- Étape 2 : service des sites statiques en HTTPS (Caddy) ---
+FROM caddy:2-alpine AS prod
+COPY Caddyfile /etc/caddy/Caddyfile
+COPY --from=build /projet/site /srv

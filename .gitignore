@@ -4,3 +4,7 @@ docs-association/stylesheets/
 docs-departemental/img/
 docs-departemental/stylesheets/
 .DS_Store
+
+# Réglages propres au serveur
+.env
+.env.*
