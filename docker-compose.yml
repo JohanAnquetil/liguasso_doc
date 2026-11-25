@@ -3,14 +3,14 @@ services:
   asso:
     build: { context: ., target: build }
     command: sh -c "./sync-commun.sh && mkdocs serve -f mkdocs.association.yml --dev-addr=0.0.0.0:8000 --watch commun"
-    ports: ["8000:8000"]
+    ports: ["127.0.0.1:8000:8000"]
     volumes: ["./:/projet"]
 
   # Rédaction du guide DÉPARTEMENTAL — http://localhost:8001
   dep:
     build: { context: ., target: build }
     command: sh -c "./sync-commun.sh && mkdocs serve -f mkdocs.departemental.yml --dev-addr=0.0.0.0:8001 --watch commun"
-    ports: ["8001:8001"]
+    ports: ["127.0.0.1:8001:8001"]
     volumes: ["./:/projet"]
 
   # Bac à sable /test, en local uniquement — http://localhost:8002
