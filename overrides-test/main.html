@@ -1,0 +1,16 @@
+{#- Bandeau affiché en haut de chaque page du bac à sable /test uniquement -#}
+{% extends "base.html" %}
+
+{% block announce %}
+  <strong>Site de test</strong> — ce guide sert à essayer des modifications.
+  Le guide officiel est ici :
+  <a href="/departemental/">guide départemental</a>.
+{% endblock %}
+
+{% block styles %}
+  {{ super() }}
+  <style>
+    .md-banner { background-color: #b45309; color: #fff; font-weight: 500; }
+    .md-banner a { color: #fff; text-decoration: underline; }
+  </style>
+{% endblock %}

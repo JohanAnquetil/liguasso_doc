@@ -4,6 +4,10 @@ site_description: "Copie de test du guide départemental, pour essayer des modif
 docs_dir: docs-test
 site_dir: site/test
 
+# Bandeau « Site de test » (overrides-test/main.html)
+theme:
+  custom_dir: overrides-test
+
 nav:
   - Démarrer:
       - Bienvenue: index.md
