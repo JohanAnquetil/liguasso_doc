@@ -3,6 +3,8 @@ docs-association/img/
 docs-association/stylesheets/
 docs-departemental/img/
 docs-departemental/stylesheets/
+docs-test/img/
+docs-test/stylesheets/
 .DS_Store
 
 # Réglages propres au serveur

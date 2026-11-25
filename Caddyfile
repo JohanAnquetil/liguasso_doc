@@ -4,4 +4,6 @@
 	root * /srv
 	encode zstd gzip
 	file_server
+	# Le bac à sable ne doit pas être indexé par les moteurs de recherche
+	header /test/* X-Robots-Tag "noindex, nofollow"
 }

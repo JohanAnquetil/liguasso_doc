@@ -86,3 +86,15 @@ Reportez-la aussi dans `docs-departemental/limitations.md`, qui les recense tout
 - MkDocs 1.6 + Material 9, versions bloquées sous MkDocs 2.0 (incompatible avec Material).
 - `sync-commun.sh` recopie `commun/img` et `commun/stylesheets` dans chaque site avant
   construction. Ces copies sont ignorées par Git : la source reste `commun/`.
+
+## Bac à sable `/test`
+
+`docs-test/` est une copie du guide départemental, publiée sur
+https://guide-liguasso.laligue.org/test/ pour essayer des modifications
+(mise en page, nouvelles pages…) sans toucher aux vrais guides.
+
+- Configuration : `mkdocs.test.yml` (même navigation que le départemental au départ).
+- Construit sans `--strict` : un avertissement n'empêche pas la publication,
+  et un échec du bac à sable ne bloque jamais les deux vrais guides.
+- Non indexé par les moteurs de recherche, mais accessible à qui connaît l'adresse.
+- Une fois une modification validée, la reporter à la main dans `docs-departemental/`.

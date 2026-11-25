@@ -1,0 +1,41 @@
+INHERIT: ./mkdocs.base.yml
+site_name: "[TEST] Guide Ligu'asso — bac à sable"
+site_description: "Copie de test du guide départemental, pour essayer des modifications"
+docs_dir: docs-test
+site_dir: site/test
+
+nav:
+  - Démarrer:
+      - Bienvenue: index.md
+      - Ma fédération: ma-federation.md
+      - Ça ne marche pas comme prévu: probleme.md
+      - Limitations connues: limitations.md
+  - Affiliations:
+      - Gérer les affiliations: affiliations-gerer.md
+      - Créer une affiliation: affiliations-creer.md
+      - Réaffilier une association: reaffiliation-association.md
+      - Lancer la campagne de réaffiliation: reaffiliation-campagne.md
+      - Bulletins de ré-adhésion: reaffiliation-bulletins.md
+      - Corriger une affiliation: affiliations-corriger.md
+      - Documents, sections et écoles: affiliations-annexes.md
+      - Donner accès aux associations: utilisateurs-associations.md
+  - Adhésions et licences:
+      - Rechercher et gérer: adhesions-gerer.md
+      - Enregistrer une adhésion: adhesions-nouvelle.md
+      - Importer un fichier: adhesions-import.md
+      - Lots: adhesions-lots.md
+      - Valider en masse: adhesions-valider.md
+      - Cartes et licences: adhesions-impression.md
+      - Participants TIPO: adhesions-tipo.md
+      - Adhésions individuelles: adhesions-individuelles.md
+  - Facturation et comptabilité:
+      - Facturation et règlements: facturation.md
+      - Remise en banque: facturation-remise.md
+      - Comptabilité: comptabilite.md
+  - Statistiques et extractions: statistiques.md
+  - Rencontres USEP: rencontres.md
+  - Actualités: actualites.md
+  - Paramétrage:
+      - Produits et tarifs: parametrage-produits.md
+      - Plans comptables: parametrage-plans-comptables.md
+      - Champs supplémentaires: parametrage-champs.md
