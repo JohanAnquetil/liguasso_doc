@@ -1,0 +1,6 @@
+# Configuration de rédaction locale uniquement (docker compose up), jamais utilisée par la production.
+# Elle reprend mkdocs.departemental.yml et ajoute la bulle de l'assistant Ligu'asso (projet liguasso-rag),
+# servie par le chatbot lancé en local sur http://localhost:8080.
+INHERIT: ./mkdocs.departemental.yml
+extra_javascript:
+  - http://localhost:8080/widget.js

@@ -1,15 +1,19 @@
 services:
+  # Les services de rédaction utilisent les fichiers mkdocs.*.local.yml : ils ajoutent la bulle de
+  # l'assistant Ligu'asso, servie par le projet liguasso-rag sur http://localhost:8080. Sans ce chatbot
+  # lancé, le guide fonctionne normalement, sans bulle. La production (Dockerfile) n'est pas concernée.
+
   # Rédaction du guide ASSOCIATIONS — http://localhost:8000
   asso:
     build: { context: ., target: build }
-    command: sh -c "./sync-commun.sh && mkdocs serve -f mkdocs.association.yml --dev-addr=0.0.0.0:8000 --watch commun"
+    command: sh -c "./sync-commun.sh && mkdocs serve -f mkdocs.association.local.yml --dev-addr=0.0.0.0:8000 --watch commun"
     ports: ["127.0.0.1:8000:8000"]
     volumes: ["./:/projet"]
 
   # Rédaction du guide DÉPARTEMENTAL — http://localhost:8001
   dep:
     build: { context: ., target: build }
-    command: sh -c "./sync-commun.sh && mkdocs serve -f mkdocs.departemental.yml --dev-addr=0.0.0.0:8001 --watch commun"
+    command: sh -c "./sync-commun.sh && mkdocs serve -f mkdocs.departemental.local.yml --dev-addr=0.0.0.0:8001 --watch commun"
     ports: ["127.0.0.1:8001:8001"]
     volumes: ["./:/projet"]
 
