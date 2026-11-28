@@ -1,0 +1,11 @@
+# Configuration de rédaction locale du bac à sable (docker compose up test), jamais utilisée en ligne.
+# Elle reprend mkdocs.test.yml et branche les commentaires et les propositions sur le service
+# lancé en local (http://localhost:8003, docker compose up commentaires).
+# La liste remplace celle de mkdocs.test.yml : la garder complète.
+INHERIT: ./mkdocs.test.yml
+extra_javascript:
+  - javascripts/impression.js
+  - javascripts/commentaires-local.js   # API des commentaires sur le port 8003
+  - javascripts/commentaires.js
+  - javascripts/propositions.js
+  - videos.js

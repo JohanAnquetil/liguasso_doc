@@ -17,10 +17,10 @@ services:
     ports: ["127.0.0.1:8001:8001"]
     volumes: ["./:/projet"]
 
-  # Bac à sable /test, en local uniquement — http://localhost:8002
+  # Bac à sable /test, en local uniquement — http://localhost:8002 (commentaires : lancer aussi « commentaires »)
   test:
     build: { context: ., target: build }
-    command: sh -c "./sync-commun.sh && mkdocs serve -f mkdocs.test.yml --dev-addr=0.0.0.0:8002 --watch commun --watch overrides-test"
+    command: sh -c "./sync-commun.sh && mkdocs serve -f mkdocs.test.local.yml --dev-addr=0.0.0.0:8002 --watch commun --watch overrides-test"
     ports: ["127.0.0.1:8002:8002"]
     volumes: ["./:/projet"]
 
