@@ -5,6 +5,7 @@ from dataclasses import dataclass
 
 from ..domaine import modeles as m
 from ..domaine.erreurs import Conflit, Indisponible, Introuvable, Invalide
+from ..domaine.menu import ajouter_au_menu, lire_menu
 from ..domaine.textes import (SHA_VALIDE, differences, fichier_de_page, nettoyer, nom_de_fiche,
                               normaliser_fiche, verifier_page)
 from .ports import AntiRobot, DepotPropositions, Fiches, Horloge, Limiteur
@@ -22,6 +23,10 @@ class NouvelleProposition:
     commit_sha: str = ""
     preuve: str = ""
     piege: str = ""
+    # Nouvelle fiche : place dans le menu (facultatif)
+    menu_rubrique: str = ""
+    menu_sous_rubrique: str = ""
+    menu_libelle: str = ""
 
 
 class GestionPropositions:
@@ -36,6 +41,17 @@ class GestionPropositions:
         version = self.fiches.version_actuelle()
         texte, blob_sha = self.fiches.lire(chemin, version)
         return {"texte": texte, "blob_sha": blob_sha, "commit_sha": version}
+
+    def _fichier_menu(self, page: str) -> str:
+        guide = verifier_page(page).partition("/")[0]
+        if guide not in self.regles.menus:
+            raise Invalide("Guide inconnu.")
+        return self.regles.menus[guide]
+
+    def menu(self, page: str) -> list[dict]:
+        """Rubriques et sous-rubriques actuelles du menu du guide de cette page."""
+        texte, _ = self.fiches.lire(self._fichier_menu(page), self.fiches.version_actuelle())
+        return [{"titre": r.titre, "sous_rubriques": r.sous_rubriques} for r in lire_menu(texte)]
 
     def proposer(self, d: NouvelleProposition, visiteur: str, ip: str) -> int:
         if d.piege:
@@ -74,10 +90,20 @@ class GestionPropositions:
             avant, blob_sha, commit_sha = "", None, None   # partira de la version actuelle du dépôt
             if not texte.lstrip().startswith("# "):
                 texte = f"# {titre}\n\n{texte}"
+        menu = (None, None, None)
+        if d.type == m.NOUVELLE and d.menu_rubrique.strip():
+            menu = (nettoyer(d.menu_rubrique, 60), nettoyer(d.menu_sous_rubrique, 60) or None,
+                    nettoyer(d.menu_libelle, 60) or nettoyer(titre, 60))
+            if any("\n" in (x or "") for x in menu):
+                raise Invalide("Les noms du menu tiennent sur une ligne.")
+            # Vérifie dès maintenant que l'entrée peut s'ajouter au menu actuel (sinon Invalide)
+            menu_actuel, _ = self.fiches.lire(self._fichier_menu(d.page), self.fiches.version_actuelle())
+            ajouter_au_menu(menu_actuel, menu[0], menu[1], menu[2], "verification.md")
         return self.depot.ajouter(m.Proposition(
             id=0, type=d.type, page=d.page, chemin=chemin, titre=titre, pseudo=pseudo, resume=resume,
             texte_avant=avant, texte=texte, blob_sha=blob_sha, commit_sha=commit_sha,
-            statut=m.P_ATTENTE, cree_le=self.horloge.maintenant()), visiteur, ip)
+            statut=m.P_ATTENTE, cree_le=self.horloge.maintenant(),
+            menu_rubrique=menu[0], menu_sous_rubrique=menu[1], menu_libelle=menu[2]), visiteur, ip)
 
     # --- Modération ---
 
@@ -89,6 +115,7 @@ class GestionPropositions:
             "id": p.id, "type": p.type, "page": p.page, "chemin": p.chemin, "titre": p.titre,
             "pseudo": p.pseudo, "resume": p.resume, "cree_le": p.cree_le, "statut": p.statut,
             "pr_url": p.pr_url, "differences": differences(p.texte_avant, p.texte),
+            "menu": " › ".join(x for x in (p.menu_rubrique, p.menu_sous_rubrique, p.menu_libelle) if x) or None,
         } for p in self.depot.lister(statuts[filtre])]}
 
     def accepter(self, pid: int) -> str:
@@ -110,12 +137,21 @@ class GestionPropositions:
         lien = f"{self.site_public}/{p.page}/"
         corps = (f"**Proposée par** « {p.pseudo} » le {p.cree_le[:10]}, depuis [{p.page}]({lien}).\n\n"
                  f"**Résumé** : {p.resume}\n\n"
-                 + ("Nouvelle fiche : pensez à l'ajouter au menu (`nav`) dans `mkdocs.*.yml`.\n\n"
+                 + ((f"**Menu** : {' › '.join(x for x in (p.menu_rubrique, p.menu_sous_rubrique, p.menu_libelle) if x)} "
+                     f"(ajouté dans `{self.regles.menus.get(p.page.partition('/')[0], 'mkdocs.*.yml')}`).\n\n")
+                    if p.type == m.NOUVELLE and p.menu_rubrique else
+                    "Nouvelle fiche : pensez à l'ajouter au menu (`nav`) dans `mkdocs.*.yml`.\n\n"
                     if p.type == m.NOUVELLE else "")
                  + "Validée dans la page de modération du guide. Relisez puis fusionnez pour mettre en ligne.")
+        fichiers = [m.FichierPropose(p.chemin, p.texte, p.blob_sha)]
+        if p.type == m.NOUVELLE and p.menu_rubrique:
+            chemin_menu = self._fichier_menu(p.page)
+            menu_avant, menu_sha = self.fiches.lire(chemin_menu, depart)
+            dossier = self.regles.dossiers[p.page.partition("/")[0]] + "/"
+            fichiers.append(m.FichierPropose(chemin_menu, ajouter_au_menu(
+                menu_avant, p.menu_rubrique, p.menu_sous_rubrique, p.menu_libelle, p.chemin.removeprefix(dossier)), menu_sha))
         url = self.fiches.proposer(
-            branche=f"proposition-{p.id}-{nom}", depart=depart, chemin=p.chemin, texte=p.texte,
-            blob_sha=p.blob_sha, message=f"{message}\n\nProposée par « {p.pseudo} » depuis le guide en ligne.",
+            branche=f"proposition-{p.id}-{nom}", depart=depart, fichiers=fichiers, message=f"{message}\n\nProposée par « {p.pseudo} » depuis le guide en ligne.",
             titre_pr=message[:120], corps_pr=corps)
         self.depot.accepter(p.id, url, self.horloge.maintenant())
         return url

@@ -53,6 +53,17 @@ class Proposition:
     blob_sha: Optional[str] = None
     commit_sha: Optional[str] = None
     pr_url: Optional[str] = None
+    # Place dans le menu (nouvelle fiche) : rubrique › sous-rubrique › libellé
+    menu_rubrique: Optional[str] = None
+    menu_sous_rubrique: Optional[str] = None
+    menu_libelle: Optional[str] = None
+
+
+@dataclass
+class FichierPropose:
+    chemin: str
+    texte: str
+    blob_sha: Optional[str] = None   # version de départ (fichier existant), None pour un nouveau fichier
 
 
 @dataclass
@@ -66,3 +77,6 @@ class Regles:
     taille_max_fiche: int = 100_000
     dossiers: dict = field(default_factory=lambda: {
         "association": "docs-association", "departemental": "docs-departemental", "test": "docs-test"})
+    # Guide -> fichier de configuration qui contient son menu
+    menus: dict = field(default_factory=lambda: {
+        "association": "mkdocs.association.yml", "departemental": "mkdocs.departemental.yml", "test": "mkdocs.test.yml"})

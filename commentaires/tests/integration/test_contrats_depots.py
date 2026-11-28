@@ -111,3 +111,25 @@ def test_base_existante_reutilisee(tmp_path):
     fichier = tmp_path / "commentaires.sqlite3"
     cid = DepotCommentairesSQLite(Base(fichier)).ajouter(nouveau(), "ip")
     assert DepotCommentairesSQLite(Base(fichier)).trouver(cid).texte == "T"
+
+
+def test_migration_d_une_base_sans_colonnes_de_menu(tmp_path):
+    """Une base créée avant l'ajout du menu (production) reçoit les nouvelles colonnes au démarrage."""
+    import sqlite3
+    fichier = tmp_path / "ancienne.sqlite3"
+    cnx = sqlite3.connect(fichier)
+    cnx.executescript("""CREATE TABLE propositions (
+      id INTEGER PRIMARY KEY AUTOINCREMENT, type TEXT NOT NULL, page TEXT NOT NULL, chemin TEXT NOT NULL, titre TEXT,
+      pseudo TEXT NOT NULL, resume TEXT NOT NULL, texte_avant TEXT NOT NULL, texte TEXT NOT NULL, blob_sha TEXT,
+      commit_sha TEXT, statut TEXT NOT NULL, pr_url TEXT, visiteur TEXT, ip TEXT, cree_le TEXT NOT NULL, modere_le TEXT);
+      INSERT INTO propositions (type, page, chemin, pseudo, resume, texte_avant, texte, statut, cree_le)
+      VALUES ('nouvelle', 'g/p', 'docs/x.md', 'S', 'R', '', 'T', 'attente', 't');""")
+    cnx.commit(); cnx.close()
+    depot = DepotPropositionsSQLite(Base(fichier))
+    ancienne = depot.lister(m.P_ATTENTE)[0]
+    assert (ancienne.texte, ancienne.menu_rubrique) == ("T", None)
+    pid = depot.ajouter(m.Proposition(id=0, type=m.NOUVELLE, page="g/p", chemin="docs/y.md", pseudo="S", resume="R",
+                                      texte_avant="", texte="T", statut=m.P_ATTENTE, cree_le="t", menu_rubrique="A",
+                                      menu_libelle="Y"), "v", "ip")
+    assert depot.trouver(pid).menu_rubrique == "A"
+    DepotPropositionsSQLite(Base(fichier))          # un second démarrage ne refait pas la migration

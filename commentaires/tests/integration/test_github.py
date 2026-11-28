@@ -78,7 +78,8 @@ def test_fiche_absente_et_erreur(serveur):
 def test_proposer_cree_branche_fichier_et_pull_request(serveur):
     api, recu = serveur
     fiches = FichesGitHub("o/d", jeton="jeton", api=api)
-    url = fiches.proposer("proposition-1-lots", "c" * 40, "docs/lots.md", "# Lots modifié\n", "b" * 40,
+    from liguasso_contrib.domaine.modeles import FichierPropose
+    url = fiches.proposer("proposition-1-lots", "c" * 40, [FichierPropose("docs/lots.md", "# Lots modifié\n", "b" * 40)],
                           "Message", "Titre", "Corps")
     assert url == "https://github.com/o/d/pull/7"
     (m1, c1, ref), (m2, c2, fichier), (m3, c3, pr) = recu

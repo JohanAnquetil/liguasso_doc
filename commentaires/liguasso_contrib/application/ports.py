@@ -6,7 +6,7 @@ from __future__ import annotations
 
 from typing import Optional, Protocol
 
-from ..domaine.modeles import Commentaire, Proposition, Signalement
+from ..domaine.modeles import Commentaire, FichierPropose, Proposition, Signalement
 
 
 class DepotCommentaires(Protocol):
@@ -55,9 +55,9 @@ class Fiches(Protocol):
     def lire(self, chemin: str, version: str) -> tuple[str, str]:
         """(texte, blob_sha). Lève Introuvable si le fichier n'existe pas."""
     def existe(self, chemin: str, version: str) -> bool: ...
-    def proposer(self, branche: str, depart: str, chemin: str, texte: str, blob_sha: Optional[str],
+    def proposer(self, branche: str, depart: str, fichiers: list[FichierPropose],
                  message: str, titre_pr: str, corps_pr: str) -> str:
-        """Crée la branche, y écrit le fichier, ouvre la pull request ; renvoie son adresse."""
+        """Crée la branche, y écrit les fichiers, ouvre la pull request ; renvoie son adresse."""
 
 
 class Horloge(Protocol):

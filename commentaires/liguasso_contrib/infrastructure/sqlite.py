@@ -69,6 +69,11 @@ CREATE TABLE IF NOT EXISTS propositions (
 );
 """
 
+# Colonnes ajoutées après la première mise en ligne : ajoutées aux bases existantes au démarrage
+MIGRATIONS = {
+    "propositions": [("menu_rubrique", "TEXT"), ("menu_sous_rubrique", "TEXT"), ("menu_libelle", "TEXT")],
+}
+
 FILTRES_ADMIN = {
     "attente": "c.statut = 'attente'",
     "signales": "(c.statut = 'masque' OR EXISTS (SELECT 1 FROM signalements s WHERE s.commentaire_id = c.id AND s.traite = 0))",
@@ -88,6 +93,12 @@ class Base:
         self._cnx.execute("PRAGMA foreign_keys = ON")
         self._cnx.execute("PRAGMA journal_mode = WAL")
         self._cnx.executescript(SCHEMA)
+        for table, colonnes in MIGRATIONS.items():
+            existantes = {r[1] for r in self._cnx.execute(f"PRAGMA table_info({table})")}
+            for nom, type_ in colonnes:
+                if nom not in existantes:
+                    self._cnx.execute(f"ALTER TABLE {table} ADD COLUMN {nom} {type_}")
+        self._cnx.commit()
         self._verrou = threading.Lock()
 
     @contextmanager
@@ -205,7 +216,8 @@ class DepotCommentairesSQLite:
 def _proposition(l: sqlite3.Row) -> m.Proposition:
     return m.Proposition(**{k: l[k] for k in (
         "id", "type", "page", "chemin", "titre", "pseudo", "resume", "texte_avant", "texte",
-        "blob_sha", "commit_sha", "statut", "pr_url", "cree_le")})
+        "blob_sha", "commit_sha", "statut", "pr_url", "cree_le",
+        "menu_rubrique", "menu_sous_rubrique", "menu_libelle")})
 
 
 class DepotPropositionsSQLite:
@@ -216,10 +228,12 @@ class DepotPropositionsSQLite:
         with self.base.transaction() as db:
             return db.execute(
                 """INSERT INTO propositions (type, page, chemin, titre, pseudo, resume, texte_avant, texte,
-                     blob_sha, commit_sha, statut, visiteur, ip, cree_le)
-                   VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""",
+                     blob_sha, commit_sha, statut, visiteur, ip, cree_le,
+                     menu_rubrique, menu_sous_rubrique, menu_libelle)
+                   VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""",
                 (p.type, p.page, p.chemin, p.titre, p.pseudo, p.resume, p.texte_avant, p.texte,
-                 p.blob_sha, p.commit_sha, p.statut, visiteur, ip, p.cree_le)).lastrowid
+                 p.blob_sha, p.commit_sha, p.statut, visiteur, ip, p.cree_le,
+                 p.menu_rubrique, p.menu_sous_rubrique, p.menu_libelle)).lastrowid
 
     def trouver(self, pid):
         with self.base.transaction() as db:

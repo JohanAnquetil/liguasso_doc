@@ -3,6 +3,7 @@
 // Si le service ne répond pas (rédaction locale sans lui), la section n'apparaît pas.
 (function () {
   var API = window.LIGUASSO_COMMENTAIRES_API || "/api/commentaires";
+  var N = window.LiguassoNoyau;   // règles pures (noyau.js)
 
   document.addEventListener("DOMContentLoaded", function () {
     var article = document.querySelector("article.md-content__inner");
@@ -11,16 +12,10 @@
     var config = document.getElementById("__config");
     var base = config ? JSON.parse(config.textContent).base : ".";
     var racine = new URL(base.replace(/\/?$/, "/"), location.href).pathname;   // ex. /departemental/
-    var relatif = location.pathname.slice(racine.length).replace(/(index\.html)?\/?$/, "");
-    var guide = racine.replace(/^\/|\/$/g, "") || guideLocal();
-    var PAGE = guide + (relatif ? "/" + relatif : "");
+    var nomSite = (document.querySelector(".md-header__topic .md-ellipsis") || {}).textContent || "";
+    var PAGE = N.clePage(location.pathname, racine, nomSite);
     var visiteur = identifiantVisiteur();
     var scriptAltcha = new URL(base.replace(/\/?$/, "/") + "javascripts/altcha/", location.href).href;
-
-    function guideLocal() {   // rédaction locale : un seul guide par port, servi à la racine
-      var nom = (document.querySelector(".md-header__topic .md-ellipsis") || {}).textContent || "";
-      return /test/i.test(nom) ? "test" : /associations/i.test(nom) ? "association" : "departemental";
-    }
 
     function identifiantVisiteur() {
       var id = localStorage.getItem("liguasso-visiteur");
@@ -57,12 +52,7 @@
       return n;
     }
 
-    function quand(iso) {
-      var s = (Date.now() - new Date(iso).getTime()) / 1000;
-      if (s < 3600) return "il y a " + Math.max(1, Math.round(s / 60)) + " min";
-      if (s < 86400) return "il y a " + Math.round(s / 3600) + " h";
-      return "le " + new Date(iso).toLocaleDateString("fr-FR", { day: "numeric", month: "long", year: "numeric" });
-    }
+    var quand = N.quand;
 
     // --- Anti-robot ALTCHA (chargé à la première utilisation) ---
     var altchaPret = null;

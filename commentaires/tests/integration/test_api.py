@@ -15,7 +15,8 @@ FICHE = "# Lots\n\nUn lot regroupe des adhésions.\n"
 
 @pytest.fixture
 def fiches():
-    return FichesEnMemoire({"docs-departemental/lots.md": FICHE})
+    return FichesEnMemoire({"docs-departemental/lots.md": FICHE,
+                            "mkdocs.departemental.yml": "nav:\n  - Démarrer:\n      - Bienvenue: index.md\n"})
 
 
 @pytest.fixture
@@ -119,3 +120,26 @@ def test_parcours_d_une_proposition(client, fiches):
 
 def test_sante(client):
     assert client.get("/sante").json() == {"ok": True}
+
+
+def test_menu_et_nouvelle_fiche_placee(client, fiches):
+    assert client.get("/api/commentaires/propositions/menu", params={"page": PAGE}).json() == [
+        {"titre": "Démarrer", "sous_rubriques": []}]
+    r = client.post("/api/commentaires/propositions", headers=VISITEUR, json={
+        "type": "nouvelle", "page": PAGE, "titre": "Rembourser", "pseudo": "Sam", "resume": "Fiche manquante",
+        "texte": "Étapes", "menu_rubrique": "Facturation", "menu_libelle": "Rembourser une adhésion", "altcha": preuve(client)})
+    assert r.status_code == 201
+    connecter(client)
+    assert client.get("/api/commentaires/admin/propositions").json()["propositions"][0]["menu"] == "Facturation › Rembourser une adhésion"
+    client.post(f"/api/commentaires/admin/propositions/{r.json()['id']}/accepter")
+    assert [f.chemin for f in fiches.pull_requests[0]["fichiers"]] == ["docs-departemental/rembourser.md", "mkdocs.departemental.yml"]
+
+
+def test_refuser_une_proposition(client):
+    source = client.get("/api/commentaires/propositions/source", params={"page": PAGE}).json()
+    r = client.post("/api/commentaires/propositions", headers=VISITEUR, json={
+        "type": "modification", "page": PAGE, "pseudo": "Sam", "resume": "R", "texte": "# Autre\n",
+        "blob_sha": source["blob_sha"], "commit_sha": source["commit_sha"], "altcha": preuve(client)})
+    connecter(client)
+    assert client.post(f"/api/commentaires/admin/propositions/{r.json()['id']}/refuser").json() == {"ok": True}
+    assert client.get("/api/commentaires/admin/propositions", params={"filtre": "refusees"}).json()["propositions"]

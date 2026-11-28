@@ -71,11 +71,12 @@ class FichesGitHub:
         except Introuvable:
             return False
 
-    def proposer(self, branche, depart, chemin, texte, blob_sha, message, titre_pr, corps_pr) -> str:
+    def proposer(self, branche, depart, fichiers, message, titre_pr, corps_pr) -> str:
         self._appel("POST", "/git/refs", {"ref": f"refs/heads/{branche}", "sha": depart})
-        fichier = {"message": message, "content": base64.b64encode(texte.encode()).decode(), "branch": branche}
-        if blob_sha:
-            fichier["sha"] = blob_sha
-        self._appel("PUT", f"/contents/{chemin}", fichier)
+        for f in fichiers:   # un commit par fichier, sur la même branche
+            corps = {"message": message, "content": base64.b64encode(f.texte.encode()).decode(), "branch": branche}
+            if f.blob_sha:
+                corps["sha"] = f.blob_sha
+            self._appel("PUT", f"/contents/{f.chemin}", corps)
         pr = self._appel("POST", "/pulls", {"title": titre_pr, "head": branche, "base": self.branche, "body": corps_pr})
         return pr.get("html_url", "")

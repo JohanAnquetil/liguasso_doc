@@ -54,6 +54,9 @@ class CorpsProposition(BaseModel):
     commit_sha: str = ""
     altcha: str = ""
     site_web: str = ""
+    menu_rubrique: str = Field("", max_length=60)
+    menu_sous_rubrique: str = Field("", max_length=60)
+    menu_libelle: str = Field("", max_length=60)
 
 
 def creer_api(s) -> FastAPI:
@@ -106,11 +109,18 @@ def creer_api(s) -> FastAPI:
         response.headers["Cache-Control"] = "no-store"
         return s.propositions.source(page)
 
+    @api.get("/propositions/menu")
+    def menu(page: str, response: Response):
+        response.headers["Cache-Control"] = "no-store"
+        return s.propositions.menu(page)
+
     @api.post("/propositions", status_code=201)
     def proposer(c: CorpsProposition, request: Request, v: str = Depends(visiteur)):
         pid = s.propositions.proposer(NouvelleProposition(
             type=c.type, page=c.page, pseudo=c.pseudo, resume=c.resume, texte=c.texte, titre=c.titre,
-            blob_sha=c.blob_sha, commit_sha=c.commit_sha, preuve=c.altcha, piege=c.site_web), v, ip(request))
+            blob_sha=c.blob_sha, commit_sha=c.commit_sha, preuve=c.altcha, piege=c.site_web,
+            menu_rubrique=c.menu_rubrique, menu_sous_rubrique=c.menu_sous_rubrique, menu_libelle=c.menu_libelle),
+            v, ip(request))
         return {"id": pid}
 
     # --- Modération ---

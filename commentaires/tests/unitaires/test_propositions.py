@@ -10,11 +10,12 @@ from tests.doublures import (V1, AntiRobotFactice, DepotPropositionsMemoire, Fic
 PAGE = "departemental/lots"
 CHEMIN = "docs-departemental/lots.md"
 FICHE = "# Lots\n\nUn lot regroupe des adhésions.\n"
+MENU = "INHERIT: ./mkdocs.base.yml\n\nnav:\n  - Démarrer:\n      - Bienvenue: index.md\n  - Adhésions:\n      - Lots: lots.md\n  - Statistiques: statistiques.md\n"
 
 
 @pytest.fixture
 def fiches():
-    return FichesEnMemoire({CHEMIN: FICHE})
+    return FichesEnMemoire({CHEMIN: FICHE, "mkdocs.departemental.yml": MENU})
 
 
 @pytest.fixture
@@ -148,3 +149,41 @@ class TestModeration:
         p = service.pour_admin("attente")["propositions"][0]
         assert [(l["type"], l["texte"]) for l in p["differences"] if l["type"] in "+-"] == [
             ("-", "Un lot regroupe des adhésions."), ("+", "Un lot regroupe des adhésions importées.")]
+
+
+class TestPlaceDansLeMenu:
+    def proposer(self, service, **menu):
+        return service.proposer(NouvelleProposition(type=m.NOUVELLE, page=PAGE, pseudo="Sam", resume="R", texte="Étapes",
+                                                    titre="Rembourser une adhésion", preuve="ok", **menu), "visiteur", "ip")
+
+    def test_lire_le_menu_du_guide(self, service):
+        assert service.menu(PAGE) == [{"titre": "Démarrer", "sous_rubriques": []}, {"titre": "Adhésions", "sous_rubriques": []}]
+
+    def test_le_libelle_reprend_le_titre_par_defaut(self, service, depot):
+        p = depot.trouver(self.proposer(service, menu_rubrique="Adhésions"))
+        assert (p.menu_rubrique, p.menu_sous_rubrique, p.menu_libelle) == ("Adhésions", None, "Rembourser une adhésion")
+        assert service.pour_admin("attente")["propositions"][0]["menu"] == "Adhésions › Rembourser une adhésion"
+
+    def test_accepter_cree_la_fiche_et_l_entree_de_menu(self, service, fiches):
+        pid = self.proposer(service, menu_rubrique="Facturation", menu_sous_rubrique="Cas particuliers", menu_libelle="Rembourser")
+        service.accepter(pid)
+        pr = fiches.pull_requests[0]
+        assert [f.chemin for f in pr["fichiers"]] == ["docs-departemental/rembourser-une-adhesion.md", "mkdocs.departemental.yml"]
+        menu = pr["fichiers"][1]
+        assert menu.blob_sha == fiches.sha(MENU)
+        assert menu.texte.endswith("  - Facturation:\n      - Cas particuliers:\n          - Rembourser: rembourser-une-adhesion.md\n")
+        assert "**Menu** : Facturation › Cas particuliers › Rembourser" in pr["corps"]
+        assert "pensez à l'ajouter au menu" not in pr["corps"]
+
+    def test_sans_menu_la_pr_rappelle_de_l_ajouter(self, service, fiches):
+        service.accepter(self.proposer(service))
+        assert len(fiches.pull_requests[0]["fichiers"]) == 1
+        assert "pensez à l'ajouter au menu" in fiches.pull_requests[0]["corps"]
+
+    def test_une_fiche_ne_peut_pas_servir_de_rubrique(self, service):
+        with pytest.raises(Invalide):
+            self.proposer(service, menu_rubrique="Statistiques")
+
+    def test_le_menu_ne_concerne_que_les_nouvelles_fiches(self, service, depot):
+        p = depot.trouver(modification(service, menu_rubrique="Adhésions"))
+        assert p.menu_rubrique is None

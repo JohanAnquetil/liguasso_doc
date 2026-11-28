@@ -43,6 +43,8 @@
   .diff .moins { background: #fde8e6; } .diff .moins::before { content: "− "; color: var(--rouge); }
   .diff .ctx { color: var(--doux); } .diff .ctx::before { content: "  "; }
   .diff .saut { color: var(--doux); text-align: center; background: var(--fond); }
+  .menu-prevu { font-size: .88rem; color: var(--doux); margin: .2rem 0 .4rem; }
+  .menu-prevu::before { content: "☰ "; }
   .type { background: var(--texte); color: #fff; border-radius: 4px; padding: 0 .45em; font-size: .78rem; }
   [hidden] { display: none !important; }
 </style>
@@ -191,6 +193,7 @@ function carteProposition(p) {
       el("span", { class: "type" }, p.type === "nouvelle" ? "Nouvelle fiche" : "Modification"),
       el("span", { class: "pseudo" }, p.pseudo), el("span", {}, date(p.cree_le)), lien, el("code", {}, p.chemin)),
     p.titre ? el("div", { class: "texte" }, el("strong", {}, p.titre)) : null,
+    p.menu ? el("div", { class: "menu-prevu" }, "Menu : " + p.menu) : null,
     el("div", { class: "texte" }, "Résumé : " + p.resume));
   const diff = el("div", { class: "diff" });
   p.differences.forEach(l => diff.append(el("div", { class: { "+": "plus", "-": "moins", "@": "saut" }[l.type] || "ctx" }, l.texte)));
