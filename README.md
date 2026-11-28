@@ -88,6 +88,18 @@ Le test lit les intitulés en gras après « dans le menu », jusqu'au mot « bo
 Sans passer par le menu : `Depuis le **tableau de bord** (logo central), cliquez sur le bouton **Modifier votre affiliation**.`
 Seules les pages d'accueil et d'aide (`index`, `probleme`, `limitations`, `connexion`, `glossaire`, `videos`) n'en ont pas.
 
+### Éditeur visuel des propositions
+
+Le bouton **Modifier** ouvre la fiche dans un éditeur visuel (`commun/javascripts/editeur-fiche.js`),
+sans Markdown à l'écran : les textes (titres, paragraphes, listes, encadrés, onglets) se modifient
+directement, avec gras, italique et lien ; « + Ajouter » insère un paragraphe, un sous-titre, une
+liste ou un encadré. Les éléments techniques (encadré « Accès », vidéos, captures, blocs communs,
+mises en page HTML, tableaux) sont verrouillés ; une capture peut être retirée. Un **mode avancé**
+donne accès au Markdown brut.
+
+Les blocs non modifiés sont réécrits à l'identique : la proposition ne contient que les vrais
+changements. Le test `npm run test:editeur` (dans `verification/`) le vérifie sur toutes les fiches.
+
 ### Tests de bout en bout (Playwright)
 
 `verification/e2e` rejoue les parcours dans un vrai navigateur, sur les guides lancés en

@@ -9,6 +9,7 @@ test.describe('Propositions de modification', () => {
     const resume = unique('Astuce sur les lots validés');
     await visiteur.ouvrir(FICHE);
     const fenetre = await visiteur.proposerUneModification();
+    await fenetre.modeAvance();
     await expect(fenetre.texte).toHaveValue(/^# Suivre et valider les lots/);
     await fenetre.remplacer(PHRASE, `Astuce : ${PHRASE.toLowerCase()}`);
     await fenetre.envoyer({ resume, pseudo: 'Sam' });
@@ -36,6 +37,7 @@ test.describe('Propositions de modification', () => {
     await visiteur.ouvrir(FICHE);
     const fenetre = await visiteur.proposerUneNouvelleFiche();
     await fenetre.titreFiche.fill(titre);
+    await fenetre.modeAvance();
     await fenetre.texte.fill('1. Dans le menu, cliquez sur Facturation.\n2. Choisissez l\'association.');
     await fenetre.envoyer({ resume: titre, pseudo: 'Sam' });
     await expect(fenetre.merci).toBeVisible();

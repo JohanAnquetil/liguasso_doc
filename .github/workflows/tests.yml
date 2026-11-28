@@ -44,6 +44,10 @@ jobs:
           npm ci
           npx playwright install --with-deps chromium
 
+      - name: Éditeur visuel (relecture à l'identique de toutes les fiches)
+        working-directory: verification
+        run: npm run test:editeur
+
       - name: Tests de bout en bout
         working-directory: verification
         env:

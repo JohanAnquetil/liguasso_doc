@@ -6,6 +6,7 @@ extra_javascript:
   - javascripts/impression.js
   - javascripts/commentaires-local.js   # API des commentaires sur le port 8003
   - javascripts/commentaires.js
+  - javascripts/editeur-fiche.js
   - javascripts/propositions.js
   - javascripts/videos.js
   - http://localhost:8080/widget.js

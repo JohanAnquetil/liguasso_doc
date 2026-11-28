@@ -6,7 +6,8 @@
     "test:e2e": "playwright test -c playwright.e2e.config.js",
     "test:recette": "playwright test -c playwright.recette.config.js",
     "rapport:e2e": "playwright show-report playwright-report/e2e",
-    "rapport:recette": "playwright show-report"
+    "rapport:recette": "playwright show-report",
+    "test:editeur": "node --test editeur/*.test.js"
   },
   "devDependencies": {
     "@playwright/test": "^1.65.1"

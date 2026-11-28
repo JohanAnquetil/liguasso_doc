@@ -36,8 +36,10 @@ document.addEventListener("liguasso:contributions", function () {
     var titre = el("h2", { texte: type === "modification" ? "Proposer une modification : " + titrePage : "Proposer une nouvelle fiche" });
     var aide = el("p", { classe: "proposition-aide",
       texte: type === "modification"
-        ? "Modifiez le texte ci-dessous. Il est écrit en Markdown : **gras**, « - » pour une liste, « ## » pour un titre. Laissez tels quels les blocs qui commencent par « !!! », « === » ou « --8<-- » si vous ne savez pas à quoi ils servent. L'équipe relira votre proposition avant toute publication."
-        : "Décrivez la démarche, étape par étape. Pas besoin d'une mise en forme parfaite : l'équipe relira, complétera et ajoutera les captures d'écran avant publication." });
+        ? (window.LiguassoEditeur
+            ? "Cliquez dans un texte pour le modifier ; la barre d'outils met en gras, en italique ou ajoute un lien. « + Ajouter » insère un paragraphe, une liste ou un encadré. Les éléments grisés (encadré Accès, captures, blocs communs) ne se modifient pas ici. L'équipe relira votre proposition avant toute publication."
+            : "Modifiez le texte ci-dessous. Il est écrit en Markdown : **gras**, « - » pour une liste, « ## » pour un titre. Laissez tels quels les blocs qui commencent par « !!! », « === » ou « --8<-- ». L'équipe relira votre proposition avant toute publication.")
+        : "Décrivez la démarche, étape par étape : « + Ajouter » permet d'insérer une liste numérotée, un sous-titre ou un encadré. Pas besoin d'une mise en forme parfaite : l'équipe relira, complétera et ajoutera les captures d'écran avant publication." });
     var message = el("p", { classe: "commentaires-message", role: "status" });
     var champTitre = el("input", { name: "titre", maxlength: "120", placeholder: "Ex. : Rembourser une adhésion" });
     var texte = el("textarea", { name: "texte", rows: "16", spellcheck: "true",
@@ -52,9 +54,20 @@ document.addEventListener("liguasso:contributions", function () {
     var annuler = el("button", { type: "button", classe: "md-button", texte: "Annuler" });
     var champ = function (libelle, entree) { return el("label", { classe: "commentaires-champ" }, el("span", { texte: libelle }), entree); };
 
+    // Éditeur visuel (editeur-fiche.js) ; à défaut, la zone de texte Markdown
+    var Editeur = window.LiguassoEditeur, editeur = null;
+    var zone = el("div", { classe: "proposition-zone" });
+    var config = document.getElementById("__config");
+    var racineImages = new URL((config ? JSON.parse(config.textContent).base : ".").replace(/\/?$/, "/"), location.href).href;
+    function installer(markdown) {
+      if (Editeur) { editeur = Editeur.creer(zone, markdown, { racineImages: racineImages }); }
+      else { zone.replaceChildren(texte); texte.value = markdown; }
+    }
+    function valeurTexte() { return editeur ? editeur.markdown() : texte.value; }
+
     var formulaire = el("form", { classe: "proposition-formulaire", novalidate: "" },
       type === "nouvelle" ? champ("Titre de la fiche", champTitre) : null,
-      champ(type === "modification" ? "Texte de la fiche" : "Contenu", texte),
+      el("div", { classe: "commentaires-champ" }, el("span", { texte: type === "modification" ? "Texte de la fiche" : "Contenu" }), zone),
       champ("Résumé de votre proposition", resume),
       champ("Pseudo", pseudo),
       el("label", { classe: "commentaires-piege" }, "Ne pas remplir ", piege),
@@ -65,14 +78,16 @@ document.addEventListener("liguasso:contributions", function () {
 
     var versions = {};
     if (type === "modification") {
-      texte.value = "Chargement du texte de la fiche…";
-      texte.disabled = true; envoyer.disabled = true;
+      zone.replaceChildren(el("p", { classe: "proposition-chargement", texte: "Chargement du texte de la fiche…" }));
+      envoyer.disabled = true;
       C.appel("/propositions/source?page=" + encodeURIComponent(C.PAGE)).then(function (s) {
-        texte.value = s.texte; versions = s;
-        texte.disabled = false; envoyer.disabled = false;
-        texte.focus(); texte.setSelectionRange(0, 0); texte.scrollTop = 0;   // début de la fiche
-      }).catch(function (e) { texte.value = ""; message.textContent = e.message; });
+        versions = s;
+        installer(s.texte);
+        envoyer.disabled = false;
+        if (editeur) editeur.focus(); else { texte.focus(); texte.setSelectionRange(0, 0); texte.scrollTop = 0; }
+      }).catch(function (e) { zone.replaceChildren(); message.textContent = e.message; });
     } else {
+      installer("");
       champTitre.focus();
     }
 
@@ -83,7 +98,7 @@ document.addEventListener("liguasso:contributions", function () {
 
     formulaire.addEventListener("submit", function (e) {
       e.preventDefault();
-      if ((type === "nouvelle" && !champTitre.value.trim()) || !texte.value.trim() || !resume.value.trim() || !pseudo.value.trim()) {
+      if ((type === "nouvelle" && !champTitre.value.trim()) || !valeurTexte().trim() || !resume.value.trim() || !pseudo.value.trim()) {
         message.textContent = "Tous les champs sont obligatoires.";
         return;
       }
@@ -91,7 +106,7 @@ document.addEventListener("liguasso:contributions", function () {
       message.textContent = "Envoi…";
       C.payloadAltcha(widget).then(function (charge) {
         return C.appel("/propositions", { method: "POST", corps: {
-          type: type, page: C.PAGE, titre: champTitre.value, texte: texte.value, resume: resume.value,
+          type: type, page: C.PAGE, titre: champTitre.value, texte: valeurTexte(), resume: resume.value,
           pseudo: pseudo.value, blob_sha: versions.blob_sha || "", commit_sha: versions.commit_sha || "",
           site_web: piege.value, altcha: charge } });
       }).then(function () {
