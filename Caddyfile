@@ -2,6 +2,8 @@
 # Caddy obtient et renouvelle automatiquement le certificat Let's Encrypt.
 {$DOMAINE} {
 	root * /srv
+	# Service de commentaires (dossier commentaires/)
+	reverse_proxy /api/commentaires* commentaires:8000
 	encode zstd gzip
 	file_server
 	# Le bac à sable ne doit pas être indexé par les moteurs de recherche

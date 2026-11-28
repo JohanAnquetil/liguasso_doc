@@ -105,7 +105,7 @@
 
   /* Tout ce qui sert à naviguer disparaît */
   .md-header, .md-tabs, .md-sidebar, .md-footer, .md-top, .md-banner,
-  .md-content__button, .bouton-pdf, .headerlink, .tabbed-labels,
+  .md-content__button, .bouton-pdf, .headerlink, .tabbed-labels, .commentaires,
   [class^="lgc-"], [class*=" lgc-"] { display: none !important; }
   .md-main__inner, .md-content, .md-content__inner { margin: 0 !important; padding: 0 !important; max-width: none !important; }
 
@@ -154,3 +154,48 @@
   .md-typeset h1, .md-typeset h2, .md-typeset h3 { break-after: avoid; }
   .md-typeset img { box-shadow: none; max-height: 120mm; width: auto; }
 }
+
+/* ---------- Commentaires (javascripts/commentaires.js) ---------- */
+.md-typeset .commentaires { margin-top: 3rem; padding-top: 1.2rem; border-top: 1px solid var(--md-default-fg-color--lightest); }
+.md-typeset .commentaires h2 { margin-top: 0; }
+.md-typeset .commentaires-intro, .md-typeset .commentaires-mentions { color: var(--md-default-fg-color--light); font-size: .72rem; }
+.md-typeset .commentaires-liste, .md-typeset .commentaires-reponses { list-style: none; margin: 0; padding: 0; }
+.md-typeset .commentaires-liste > li, .md-typeset .commentaires-reponses > li { margin-left: 0; }
+.md-typeset .commentaires-reponses { margin: .6rem 0 0 1.2rem; padding-left: .9rem; border-left: 2px solid var(--md-default-fg-color--lightest); }
+.md-typeset .commentaire { margin: 0 0 1rem; padding: .7rem .9rem; border-radius: 8px; background: var(--md-code-bg-color); }
+.md-typeset .commentaires-reponses .commentaire { margin-bottom: .6rem; }
+.md-typeset .commentaire--attente { background: transparent; border: 1px dashed var(--md-default-fg-color--lighter); }
+.md-typeset .commentaire-entete { display: flex; flex-wrap: wrap; align-items: baseline; gap: .5rem; font-size: .75rem; }
+.md-typeset .commentaire-date { color: var(--md-default-fg-color--light); }
+.md-typeset .commentaire-equipe { background: var(--md-primary-fg-color); color: var(--md-primary-bg-color); border-radius: 4px; padding: 0 .4em; font-size: .62rem; font-weight: 600; }
+.md-typeset .commentaire-texte { white-space: pre-wrap; margin: .3rem 0 .4rem; font-size: .78rem; }
+.md-typeset .commentaire-statut { margin: .3rem 0 0; color: var(--md-default-fg-color--light); font-size: .68rem; font-style: italic; }
+.md-typeset .commentaire-actions { display: flex; gap: .3rem; flex-wrap: wrap; }
+.md-typeset .commentaire-actions button {
+  font: inherit; font-size: .66rem; cursor: pointer; padding: .15em .6em; border-radius: 99px;
+  border: 1px solid var(--md-default-fg-color--lightest); background: var(--md-default-bg-color); color: var(--md-default-fg-color--light);
+}
+.md-typeset .commentaire-actions button:hover { border-color: var(--md-primary-fg-color); color: var(--md-primary-fg-color); }
+.md-typeset .commentaire-like[aria-pressed="true"] { color: var(--md-primary-fg-color); border-color: var(--md-primary-fg-color); }
+.md-typeset .commentaire-actions .commentaire-signaler { margin-left: auto; border-color: transparent; }
+
+.md-typeset .commentaires-formulaire, .md-typeset .commentaire-signalement {
+  display: grid; gap: .6rem; margin: 1rem 0 0; padding: .9rem; border-radius: 8px;
+  border: 1px solid var(--md-default-fg-color--lightest);
+}
+.md-typeset .commentaire-signalement { margin-top: .6rem; background: var(--md-default-bg-color); }
+.md-typeset .commentaire-signalement p { margin: 0; font-size: .72rem; }
+.md-typeset .commentaires-champ { display: grid; gap: .2rem; font-size: .72rem; font-weight: 600; }
+.md-typeset .commentaires-formulaire input, .md-typeset .commentaires-formulaire textarea,
+.md-typeset .commentaire-signalement input, .md-typeset .commentaire-signalement select {
+  font: inherit; font-size: .78rem; font-weight: 400; padding: .45em .6em; border-radius: 6px;
+  border: 1px solid var(--md-default-fg-color--lighter); background: var(--md-default-bg-color); color: var(--md-default-fg-color);
+}
+.md-typeset .commentaires-formulaire textarea { resize: vertical; min-height: 5rem; }
+.md-typeset .commentaires-contexte { margin: 0; font-size: .72rem; font-weight: 600; color: var(--md-primary-fg-color); }
+.md-typeset .commentaires-boutons { display: flex; gap: .5rem; flex-wrap: wrap; }
+.md-typeset .commentaires-boutons .md-button { margin: 0; font-size: .72rem; padding: .35em 1.2em; }
+.md-typeset .commentaires-message { min-height: 1em; font-size: .72rem; color: var(--md-primary-fg-color); margin: .6rem 0 0; }
+.md-typeset .commentaires-mentions { margin: 0; }
+/* Champ piège anti-robot : hors de l'écran, jamais rempli par un humain */
+.commentaires-piege { position: absolute !important; left: -9999px; width: 1px; height: 1px; overflow: hidden; }

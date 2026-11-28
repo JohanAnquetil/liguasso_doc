@@ -24,6 +24,20 @@ services:
     ports: ["127.0.0.1:8002:8002"]
     volumes: ["./:/projet"]
 
+  # Service de commentaires — API sur http://localhost:8003/api/commentaires
+  # Modération : http://localhost:8003/api/commentaires/admin (mot de passe ADMIN_MOT_DE_PASSE du .env)
+  # En ligne, Caddy le sert sous https://<DOMAINE>/api/commentaires.
+  commentaires:
+    build: ./commentaires
+    ports: ["127.0.0.1:8003:8000"]
+    environment:
+      ADMIN_MOT_DE_PASSE: ${ADMIN_MOT_DE_PASSE:-}
+      # Guides servis en local sur d'autres ports (rédaction)
+      CORS_ORIGINES: http://localhost:8000 http://localhost:8001 http://localhost:8002 http://127.0.0.1:8000 http://127.0.0.1:8001 http://127.0.0.1:8002
+    volumes:
+      - commentaires_donnees:/donnees   # base des commentaires : à sauvegarder
+    restart: unless-stopped
+
   # Version publiée en HTTPS, servie par Caddy — https://<DOMAINE>/association/, /departemental/ et /test/
   # Le domaine se règle dans le fichier .env du serveur : DOMAINE=doc.exemple.fr
   # Sans .env (en local), Caddy sert https://localhost avec un certificat local.
@@ -39,9 +53,11 @@ services:
     volumes:
       - caddy_data:/data      # certificats : à conserver
       - caddy_config:/config
+    depends_on: [commentaires]
     restart: unless-stopped
     profiles: ["prod"]
 
 volumes:
   caddy_data:
   caddy_config:
+  commentaires_donnees:

@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Modération des commentaires — Guide Ligu'asso</title>
+<style>
+  :root { --rouge: #B82F1D; --fond: #F7F6F2; --texte: #2a1a14; --doux: #6b625d; --bord: #e4e0d8; }
+  * { box-sizing: border-box; }
+  body { margin: 0; font: 15px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif; color: var(--texte); background: var(--fond); }
+  header { background: var(--rouge); color: #fff; padding: .9rem 1.5rem; display: flex; justify-content: space-between; align-items: center; }
+  header h1 { margin: 0; font-size: 1.1rem; }
+  main { max-width: 900px; margin: 0 auto; padding: 1.5rem; }
+  button { font: inherit; cursor: pointer; border-radius: 6px; border: 1px solid var(--bord); background: #fff; padding: .35rem .8rem; }
+  button.principal { background: var(--rouge); border-color: var(--rouge); color: #fff; }
+  button.danger { color: var(--rouge); border-color: var(--rouge); }
+  button:disabled { opacity: .5; cursor: wait; }
+  header button { background: transparent; color: #fff; border-color: rgba(255,255,255,.6); }
+  .onglets { display: flex; gap: .5rem; flex-wrap: wrap; margin-bottom: 1.2rem; }
+  .onglets button[aria-pressed="true"] { background: var(--texte); color: #fff; border-color: var(--texte); }
+  .compte { display: inline-block; min-width: 1.4em; padding: 0 .35em; margin-left: .3em; border-radius: 99px; background: var(--rouge); color: #fff; font-size: .8em; text-align: center; }
+  .carte { background: #fff; border: 1px solid var(--bord); border-radius: 10px; padding: 1rem 1.2rem; margin-bottom: 1rem; }
+  .meta { color: var(--doux); font-size: .85rem; display: flex; flex-wrap: wrap; gap: .3rem 1rem; }
+  .meta a { color: var(--rouge); }
+  .pseudo { font-weight: 700; color: var(--texte); }
+  .equipe { background: var(--rouge); color: #fff; border-radius: 4px; padding: 0 .4em; font-size: .78rem; }
+  .texte { white-space: pre-wrap; margin: .6rem 0; }
+  .parent { border-left: 3px solid var(--bord); padding: .2rem .8rem; color: var(--doux); font-size: .88rem; margin: .5rem 0; white-space: pre-wrap; }
+  .signalements { background: #fdf1ee; border-radius: 6px; padding: .5rem .8rem; font-size: .88rem; margin: .5rem 0; }
+  .signalements ul { margin: .2rem 0 0; padding-left: 1.2rem; }
+  .actions { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: .6rem; }
+  textarea { width: 100%; min-height: 5rem; font: inherit; padding: .5rem; border-radius: 6px; border: 1px solid var(--bord); margin-top: .6rem; }
+  .vide { color: var(--doux); text-align: center; padding: 2rem; }
+  #connexion { max-width: 360px; margin: 4rem auto; background: #fff; border: 1px solid var(--bord); border-radius: 10px; padding: 1.5rem; }
+  #connexion input { width: 100%; font: inherit; padding: .5rem; margin: .6rem 0 1rem; border-radius: 6px; border: 1px solid var(--bord); }
+  .erreur { color: var(--rouge); }
+  [hidden] { display: none !important; }
+</style>
+</head>
+<body>
+<header>
+  <h1>Modération des commentaires</h1>
+  <button id="deconnexion" hidden>Se déconnecter</button>
+</header>
+
+<form id="connexion" hidden>
+  <label for="mdp"><strong>Mot de passe</strong></label>
+  <input id="mdp" type="password" autocomplete="current-password" required>
+  <button class="principal" type="submit">Se connecter</button>
+  <p class="erreur" id="erreur-connexion"></p>
+</form>
+
+<main id="moderation" hidden>
+  <div class="onglets" role="group" aria-label="Filtrer">
+    <button data-filtre="attente">À valider<span class="compte" data-compte="attente"></span></button>
+    <button data-filtre="signales">Signalés<span class="compte" data-compte="signales"></span></button>
+    <button data-filtre="publies">Publiés</button>
+    <button data-filtre="refuses">Refusés</button>
+  </div>
+  <div id="liste"></div>
+</main>
+
+<script>
+const API = location.pathname.replace(/\/admin\/?$/, "");
+let filtre = "attente";
+const $ = s => document.querySelector(s);
+
+async function appel(chemin, options = {}) {
+  const r = await fetch(API + chemin, {
+    credentials: "same-origin",
+    headers: { "Content-Type": "application/json" },
+    ...options,
+  });
+  if (r.status === 401) { afficherConnexion(); throw new Error("Connexion requise."); }
+  const donnees = await r.json().catch(() => ({}));
+  if (!r.ok) throw new Error(donnees.detail || "Erreur " + r.status);
+  return donnees;
+}
+
+function afficherConnexion() {
+  $("#connexion").hidden = false; $("#moderation").hidden = true; $("#deconnexion").hidden = true;
+  $("#mdp").focus();
+}
+
+$("#connexion").addEventListener("submit", async e => {
+  e.preventDefault();
+  $("#erreur-connexion").textContent = "";
+  try {
+    await appel("/admin/connexion", { method: "POST", body: JSON.stringify({ mot_de_passe: $("#mdp").value }) });
+    $("#mdp").value = "";
+    charger();
+  } catch (err) { $("#erreur-connexion").textContent = err.message; }
+});
+
+$("#deconnexion").addEventListener("click", async () => {
+  await appel("/admin/deconnexion", { method: "POST" }).catch(() => {});
+  afficherConnexion();
+});
+
+document.querySelectorAll("[data-filtre]").forEach(b => b.addEventListener("click", () => {
+  filtre = b.dataset.filtre; charger();
+}));
+
+function el(tag, attrs = {}, ...enfants) {
+  const n = document.createElement(tag);
+  for (const [k, v] of Object.entries(attrs)) k === "class" ? n.className = v : n.setAttribute(k, v);
+  for (const e of enfants) if (e != null) n.append(e);
+  return n;
+}
+
+function date(iso) {
+  return new Date(iso).toLocaleString("fr-FR", { dateStyle: "short", timeStyle: "short" });
+}
+
+function carte(c) {
+  const lien = el("a", { href: "/" + c.page + "/#commentaires", target: "_blank", rel: "noopener" }, c.page);
+  const meta = el("div", { class: "meta" },
+    el("span", { class: "pseudo" }, c.pseudo), c.equipe ? el("span", { class: "equipe" }, "Équipe") : null,
+    el("span", {}, date(c.cree_le)), lien, el("span", {}, "♥ " + c.likes));
+  const bloc = el("div", { class: "carte" }, meta);
+  if (c.parent) bloc.append(el("div", { class: "parent" }, "En réponse à " + c.parent.pseudo + " : " + c.parent.texte));
+  bloc.append(el("div", { class: "texte" }, c.texte));
+  if (c.signalements.length) {
+    const ul = el("ul");
+    c.signalements.forEach(s => ul.append(el("li", {}, s.motif + (s.precision ? " — " + s.precision : "") + " (" + date(s.cree_le) + ")")));
+    bloc.append(el("div", { class: "signalements" },
+      el("strong", {}, c.statut === "masque" ? "Masqué automatiquement après signalements" : "Signalé"), ul));
+  }
+
+  const actions = el("div", { class: "actions" });
+  const bouton = (texte, action, classe) => {
+    const b = el("button", { class: classe || "" }, texte);
+    b.addEventListener("click", async () => {
+      if (action === "supprimer" && !confirm("Supprimer définitivement ce commentaire et ses réponses ?")) return;
+      b.disabled = true;
+      try { await appel(`/admin/${c.id}/${action}`, { method: "POST" }); charger(); }
+      catch (err) { alert(err.message); b.disabled = false; }
+    });
+    return b;
+  };
+  if (c.statut !== "publie") actions.append(bouton(c.statut === "attente" ? "Publier" : "Rétablir", "publier", "principal"));
+  else if (c.signalements.length) actions.append(bouton("Ignorer les signalements", "publier", "principal"));
+  if (c.statut !== "refuse") actions.append(bouton("Refuser", "refuser", "danger"));
+  actions.append(bouton("Supprimer", "supprimer", "danger"));
+
+  if (!c.equipe && c.statut !== "refuse") {
+    const repondre = el("button", {}, "Répondre au nom de l'équipe");
+    repondre.addEventListener("click", () => {
+      repondre.hidden = true;
+      const zone = el("textarea", { placeholder: "Votre réponse, publiée sous « Équipe Ligu'asso ». Le commentaire d'origine sera publié aussi." });
+      const envoyer = el("button", { class: "principal" }, "Publier la réponse");
+      envoyer.addEventListener("click", async () => {
+        if (!zone.value.trim()) return;
+        envoyer.disabled = true;
+        try {
+          await appel(`/admin/${c.id}/repondre`, { method: "POST", body: JSON.stringify({ texte: zone.value }) });
+          charger();
+        } catch (err) { alert(err.message); envoyer.disabled = false; }
+      });
+      bloc.append(zone, el("div", { class: "actions" }, envoyer));
+      zone.focus();
+    });
+    actions.append(repondre);
+  }
+  bloc.append(actions);
+  return bloc;
+}
+
+async function charger() {
+  let donnees;
+  try { donnees = await appel("/admin/liste?filtre=" + filtre); } catch { return; }
+  $("#connexion").hidden = true; $("#moderation").hidden = false; $("#deconnexion").hidden = false;
+  document.querySelectorAll("[data-filtre]").forEach(b => b.setAttribute("aria-pressed", b.dataset.filtre === filtre));
+  document.querySelectorAll("[data-compte]").forEach(s => {
+    const n = donnees.compteurs[s.dataset.compte]; s.textContent = n; s.hidden = !n;
+  });
+  const liste = $("#liste");
+  liste.replaceChildren(...(donnees.commentaires.length
+    ? donnees.commentaires.map(carte)
+    : [el("p", { class: "vide" }, "Rien à afficher ici.")]));
+}
+
+charger();
+</script>
+</body>
+</html>

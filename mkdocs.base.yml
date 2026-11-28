@@ -67,6 +67,7 @@ extra_css:
 # extra_javascript (la liste est remplacée, pas complétée) et doivent le reprendre.
 extra_javascript:
   - javascripts/impression.js
+  - javascripts/commentaires.js
 
 extra:
   generator: false

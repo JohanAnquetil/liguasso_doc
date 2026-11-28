@@ -19,3 +19,7 @@ verification/node_modules/
 verification/test-results/
 verification/playwright-report/
 verification/.auth/
+
+# Service de commentaires
+commentaires/__pycache__/
+commentaires/.pytest_cache/

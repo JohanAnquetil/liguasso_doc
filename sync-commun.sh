@@ -5,6 +5,6 @@ for site in docs-association docs-departemental docs-test; do
   mkdir -p "$site/img" "$site/stylesheets" "$site/javascripts"
   cp -Rf commun/img/.        "$site/img/"
   cp -f commun/stylesheets/* "$site/stylesheets/"
-  cp -f commun/javascripts/* "$site/javascripts/"
+  cp -Rf commun/javascripts/. "$site/javascripts/"
 done
 echo "Ressources partagées synchronisées."

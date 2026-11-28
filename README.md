@@ -23,6 +23,10 @@ Les deux en même temps :
 
     docker compose up asso dep
 
+Avec les commentaires (modération sur http://localhost:8003/api/commentaires/admin) :
+
+    docker compose up asso dep commentaires
+
 Version publiée (sites statiques servis par nginx) :
 
     docker compose --profile prod up --build prod
@@ -118,6 +122,12 @@ Tester la création des PDF sans Docker :
     pip install playwright && playwright install chromium
     mkdocs build -f mkdocs.departemental.yml
     python generer-pdf.py site/departemental     # crée site/departemental/<page>/page.pdf
+
+### Commentaires
+
+Chaque page se termine par des commentaires (pseudo seul, anti-robot, publication après
+validation). Service, modération et réglages : voir [`commentaires/README.md`](commentaires/README.md).
+Sur le serveur, définir `ADMIN_MOT_DE_PASSE` dans le `.env` pour activer la modération.
 
 ### Signaler une limitation
 
