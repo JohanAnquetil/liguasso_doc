@@ -48,6 +48,10 @@ Elle n'a sans doute pas de **compte tiers** dans la comptabilité choisie. Crée
 
 Des écritures n'ont pas de compte général (triangle rouge). Rattachez le produit ou le mode de règlement concerné à un compte. → [Suivre et transférer la comptabilité](comptabilite.md)
 
+## « Le compte d'attente n'apparaît pas dans mes écritures »
+
+Activez l'option **Compte d'attente pour facturation de juin à décembre** dans **Paramétrage** > **Comptabilité** > **Paramétres comptables**, pour la structure concernée (LIGUE, UFOLEP ou USEP). Sans elle, les comptes d'attente saisis sur les produits ne sont pas utilisés. Vérifiez aussi que chaque produit a bien un compte d'attente. → [Paramètres comptables : régler l'export](parametrage-plans-comptables.md#parametres-comptables-regler-lexport)
+
 ## « Un produit n'apparaît pas dans mes factures »
 
 Vérifiez que sa **famille de tarif** est **AUTRE - Autres produits**. → [Créer et gérer les produits facturés](parametrage-produits.md)
