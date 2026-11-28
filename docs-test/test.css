@@ -91,3 +91,77 @@
 .faq details.question > summary::before { background-color: var(--md-primary-fg-color); }
 .faq details.question > summary::after { color: var(--md-primary-fg-color); }
 .cartes a br { display: none; } /* <strong> passe déjà à la ligne */
+
+/* ---------- Tutos vidéo (hooks/videos.py, videos.js) ---------- */
+.md-typeset .tuto-video {
+  margin: 1.4rem 0; padding: 1rem 1.1rem 1.1rem; border-radius: 12px;
+  background: color-mix(in srgb, var(--md-primary-fg-color) 5%, var(--md-default-bg-color));
+  border: 1px solid color-mix(in srgb, var(--md-primary-fg-color) 18%, transparent);
+}
+.md-typeset .tuto-video__entete { display: flex; align-items: center; gap: .6rem; }
+.md-typeset .tuto-video__badge {
+  display: inline-flex; align-items: center; gap: .35em; padding: .15em .65em; border-radius: 99px;
+  background: var(--md-primary-fg-color); color: var(--md-primary-bg-color);
+  font-size: .62rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase;
+}
+.md-typeset .tuto-video__badge::before { content: "▶"; font-size: .85em; }
+.md-typeset .tuto-video__duree, .vignette-video__duree { font-size: .68rem; color: var(--md-default-fg-color--light); }
+.md-typeset .tuto-video__titre { margin: .5rem 0 .7rem; font-size: .95rem; font-weight: 700; }
+.md-typeset .tuto-video__resume { margin: .7rem 0 0; font-size: .74rem; color: var(--md-default-fg-color--light); }
+.md-typeset .tuto-video__lien { display: none; }
+
+/* Aperçu cliquable, puis lecteur, au format 16/9 */
+.md-typeset .tuto-video__lecteur, .md-typeset .tuto-video__cadre {
+  position: relative; display: block; width: 100%; aspect-ratio: 16 / 9; padding: 0; border: 0;
+  border-radius: 8px; overflow: hidden; background: #000; cursor: pointer;
+}
+.md-typeset .tuto-video__lecteur img { width: 100%; height: 100%; object-fit: cover; margin: 0; border: 0; border-radius: 0; box-shadow: none; transition: transform .3s ease, filter .3s ease; }
+.md-typeset .tuto-video__lecteur:hover img, .md-typeset .tuto-video__lecteur:focus-visible img { transform: scale(1.03); filter: brightness(.85); }
+.md-typeset .tuto-video__cadre iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+.tuto-video__play {
+  position: absolute; left: 50%; top: 50%; width: 4.2rem; height: 4.2rem; transform: translate(-50%, -50%);
+  border-radius: 50%; background: var(--md-primary-fg-color); box-shadow: 0 6px 24px rgba(0,0,0,.35);
+  transition: transform .2s ease;
+}
+.tuto-video__play::after {
+  content: ""; position: absolute; left: 54%; top: 50%; transform: translate(-50%, -50%);
+  border-style: solid; border-width: .75rem 0 .75rem 1.2rem; border-color: transparent transparent transparent #fff;
+}
+.md-typeset .tuto-video__lecteur:hover .tuto-video__play, .vignette-video:hover .tuto-video__play { transform: translate(-50%, -50%) scale(1.08); }
+.md-typeset .tuto-video__lecteur:focus-visible { outline: 3px solid var(--md-accent-fg-color); outline-offset: 3px; }
+
+/* Vignettes : accueil et vidéothèque */
+.md-typeset .videos-grille { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 1rem; margin: 1rem 0 1.5rem; }
+.md-typeset .vignette-video {
+  display: flex; flex-direction: column; gap: .3rem; color: inherit; text-decoration: none;
+  border-radius: 10px; padding: .5rem; transition: background .15s ease;
+}
+.md-typeset .vignette-video:hover { background: var(--md-code-bg-color); color: inherit; }
+.vignette-video__image { position: relative; display: block; aspect-ratio: 16 / 9; border-radius: 8px; overflow: hidden; background: #000; }
+.md-typeset .vignette-video__image img { width: 100%; height: 100%; object-fit: cover; margin: 0; border: 0; border-radius: 0; box-shadow: none; }
+.vignette-video .tuto-video__play { width: 2.8rem; height: 2.8rem; }
+.vignette-video .tuto-video__play::after { border-width: .5rem 0 .5rem .8rem; }
+.md-typeset .vignette-video__duree {
+  position: absolute; right: .4rem; bottom: .4rem; padding: .05em .45em; border-radius: 4px;
+  background: rgba(0,0,0,.75); color: #fff; font-size: .62rem; font-weight: 600;
+}
+.vignette-video__titre { font-weight: 700; font-size: .76rem; line-height: 1.3; }
+.vignette-video__fiche { font-size: .66rem; color: var(--md-default-fg-color--light); }
+
+/* Repère ▶ dans le menu */
+.repere-video::after {
+  content: "▶"; display: inline-block; margin-left: .35em; font-size: .62em; vertical-align: .1em;
+  color: var(--md-primary-fg-color);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .md-typeset .tuto-video__lecteur img, .tuto-video__play { transition: none; }
+}
+
+/* Impression et PDF : l'aperçu reste, avec l'adresse de la vidéo */
+@media print {
+  .tuto-video { break-inside: avoid; }
+  .md-typeset .tuto-video__lien { display: block; margin: .5rem 0 0; font-size: .7rem; }
+  .md-typeset .tuto-video__lecteur { max-height: 70mm; }
+  .tuto-video__play { box-shadow: none; }
+}

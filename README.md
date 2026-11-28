@@ -198,5 +198,19 @@ https://guide-liguasso.laligue.org/test/ pour essayer des modifications
 
       ./reset-test.sh
 
+### Essai en cours : tutos vidéo
+
+Dans le bac à sable uniquement (`hooks/videos.py`, `docs-test/videos.js`, styles dans
+`docs-test/test.css`). Une vidéo s'ajoute dans une fiche avec :
+
+    !!! video "Importer un fichier de demandes de licence"
+        https://youtu.be/lMVnP_gSw5U · 7 min
+        Choisir la saison et le type de licence, déposer le fichier CSV, puis vérifier l'import.
+
+Elle apparaît alors automatiquement : en carte dans la fiche (lecteur youtube-nocookie chargé au clic),
+avec un ▶ dans le menu, sur l'accueil (`<!-- videos:accueil -->`) et dans la page
+« Tutos vidéo » (`<!-- videos:toutes -->`). Image d'aperçu : `commun/img/videos/<identifiant>.jpg`
+(sinon celle de YouTube). `./reset-test.sh` efface cet essai.
+
 **Attention** : `mkdocs.base.yml`, `commun/stylesheets/`, `commun/img/` et
 `commun/partiels/` sont partagés. Les modifier change aussi les vrais guides.

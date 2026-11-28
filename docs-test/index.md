@@ -7,7 +7,7 @@ hide:
 
 # Bienvenue sur le guide Ligu'asso
 
-<p class="accueil-sous-titre">Pour les gestionnaires et administrateur.rice.s des fédérations départementales.</p>
+<p class="accueil-sous-titre">Pour les gestionnaires et administrateurs des fédérations départementales.</p>
 
 Affilier une association, valider des adhésions, facturer, exporter vers la comptabilité : tout est expliqué pas à pas, avec des captures d'écran.
 
@@ -15,6 +15,12 @@ Affilier une association, valider des adhésions, facturer, exporter vers la com
 [Une question ? Voir la FAQ](#questions-frequentes){ .md-button }
 
 </div>
+
+## En vidéo
+
+<!-- videos:accueil -->
+
+[Tous les tutos vidéo](videos.md){ .md-button }
 
 ## Comment ça marche
 

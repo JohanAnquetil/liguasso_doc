@@ -1,6 +1,17 @@
-# Enregistrer une adhésion
+# Enregistrer une adhésion pour une association
 
-Depuis **Gérer les adhésions**, cliquez sur **+ Nouvelle adhésion**. Le parcours diffère selon la fédération concernée.
+!!! chemin "Accès"
+    Dans le menu, cliquez sur **Adhésion**, puis sur **Gérer les adhésions**, puis sur le bouton **+ Nouvelle adhésion**.
+
+La fédération peut enregistrer une adhésion pour le compte d'une association. Pour de nombreuses adhésions, préférez l'[import de fichier](adhesions-import.md).
+
+## Avant de commencer
+
+L'association doit être **affiliée et validée pour la saison** de l'adhésion.
+
+## Remplir le parcours d'adhésion
+
+Le parcours dépend de la fédération concernée. À la première étape, choisissez l'association.
 
 === "Ligue (socioculturel)"
 
@@ -8,7 +19,7 @@ Depuis **Gérer les adhésions**, cliquez sur **+ Nouvelle adhésion**. Le parco
 
 === "UFOLEP"
 
-    Les étapes **Adhésion** et **Informations personnelles** sont identiques au parcours Ligue.
+    Les étapes **Adhésion** et **Informations personnelles** sont les mêmes que pour la Ligue (socioculturel). Les étapes propres à l'UFOLEP suivent.
 
     --8<-- "parcours-adhesion-ufolep.md"
 
@@ -16,8 +27,8 @@ Depuis **Gérer les adhésions**, cliquez sur **+ Nouvelle adhésion**. Le parco
 
     --8<-- "parcours-adhesion-usep.md"
 
-## Résumé et validation
+## Vérifier et valider l'adhésion
 
-Vérifiez les informations et les activités renseignées, puis enregistrez. Si tout est correct, vous pouvez **valider l'adhésion** directement.
+Sur le résumé, vérifiez les informations et les activités, puis enregistrez. Contrairement à une association, la fédération peut **valider l'adhésion directement**, sans étape de transmission.
 
 ![Résumé de l'adhésion](img/nouvelle-adhesion-resume.png)

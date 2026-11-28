@@ -1,24 +1,37 @@
 # Corriger une affiliation
 
-## Modifier ou supprimer un membre du bureau
+!!! chemin "Accès"
+    Dans le menu, cliquez sur **Affiliation**, puis sur **Gérer les affiliations**.
 
-!!! warning "Ce qui est modifiable"
-    Seules les **coordonnées** peuvent être modifiées. Pour remplacer un membre référent par un autre, vous ne pouvez pas changer le nom, le prénom ou la date de naissance : cela réattribuerait des accès existants.
+Cette fiche couvre deux corrections fréquentes : remplacer un membre du bureau, et finaliser une affiliation qui n'apparaît pas.
 
-1. Rendez-vous dans **Affiliation > Gérer les affiliations**.
-2. Recherchez l'association et cliquez sur le bouton de modification, colonne **Actions**.
+## Remplacer ou supprimer un membre du bureau
+
+!!! warning "On ne renomme pas un membre"
+    Pour un membre du bureau, seules les **coordonnées** sont modifiables. Le nom, le prénom et la date de naissance ne le sont pas : les changer donnerait les accès de l'ancien membre au nouveau. Pour remplacer une personne, on **supprime** l'ancien membre puis on **ajoute** le nouveau.
+
+1. Dans **Gérer les affiliations**, recherchez l'association.
+2. Dans la colonne **Actions**, cliquez sur l'icône de modification (crayon).
 
     ![Rechercher l'association](img/dep-membre-rechercher.png)
 
-3. Ouvrez l'onglet **Bureau et référents** et cliquez sur le bouton de suppression. Pour remplacer la personne, ajoutez ensuite un nouveau membre au même poste avec **Ajouter**.
+3. Ouvrez l'étape **Bureau et référents**.
+4. Sur la ligne du membre à remplacer, cliquez sur l'icône de suppression.
 
     ![Supprimer un membre](img/dep-membre-supprimer.png)
 
-## Une affiliation saisie n'apparaît pas
+5. Ajoutez le nouveau membre au même poste : choisissez le rôle dans la liste, puis cliquez sur **Ajouter**.
+6. Allez jusqu'au bout du parcours et validez l'affiliation.
 
-Il arrive qu'une affiliation pourtant complètement saisie n'apparaisse pas. Dans la plupart des cas, le parcours n'a pas été finalisé. Pour que les informations soient enregistrées, il faut :
+Les trois rôles **président**, **trésorier** et **correspondant** doivent toujours être pourvus.
+
+## Finaliser une affiliation qui n'apparaît pas
+
+Une affiliation complètement saisie peut ne pas apparaître dans **Gérer les affiliations**. Le plus souvent, le parcours n'a pas été finalisé. Pour que l'affiliation soit enregistrée, il faut :
 
 1. à la dernière page, cliquer sur **Valider** ;
-2. puis **Valider** à nouveau pour confirmer.
+2. puis cliquer de nouveau sur **Valider** dans la fenêtre de confirmation.
 
 ![Confirmation de validation](img/dep-affiliation-confirmer.png)
+
+Autres causes possibles : l'affiliation vient d'être validée (actualisez la page après quelques secondes), ou le siège de l'association n'est pas dans votre département. → [Gérer les affiliations](affiliations-gerer.md)

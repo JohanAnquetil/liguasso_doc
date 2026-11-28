@@ -1,38 +1,38 @@
-# Actualités
+# Publier une actualité
 
-En tant que gestionnaire ou administrateur.rice départemental.e, vous pouvez publier des actualités à destination des **associations affiliées** et des **adhérent.e.s enregistrés**.
+!!! chemin "Accès"
+    Dans le menu, cliquez sur **Paramétrage**, puis sur **Actualités**.
 
-## Accéder à la gestion des actualités
+En tant que gestionnaire ou administrateur départemental, vous pouvez publier des actualités pour les **associations affiliées** et pour les **adhérents**. Elles s'affichent sur leur tableau de bord quand ils se connectent à Ligu'asso.
 
-Dans le menu, survolez **Paramétrage** puis cliquez sur **Actualités**. Vous arrivez sur la page de gestion, où vous pouvez rechercher et agir sur les actualités existantes.
+## Retrouver une actualité
+
+L'écran **Gestion des actualités - Liste** affiche les actualités existantes. Dans le bloc **Recherche**, filtrez par **Titre**, **Mot clé**, destinataires (**A destination des** : **Associations** ou **Adhérents**), **Date de visibilité** ou **Top actu**, puis cliquez sur **Rechercher**.
+
+La colonne **Actions** permet de visualiser, modifier ou supprimer une actualité.
 
 ![Gestion des actualités](img/dep-actualites-liste.png)
 
-Pour en créer une, cliquez sur **Ajouter une actualité**.
+## Créer une actualité
+
+1. Cliquez sur **Ajouter une actualité**.
+2. Renseignez le **Titre** (obligatoire).
+3. Choisissez les destinataires dans **A destination des** (obligatoire) : **Associations** ou **Adhérents**.
+4. Indiquez si besoin la période d'affichage avec **Début parution** et **Fin parution**.
+5. Activez **Top actu** pour mettre l'actualité en avant.
+6. Selon vos droits, cochez la ou les fédérations concernées : **Ligue**, **Ufolep**, **Usep**.
+7. Rédigez le **Libellé court** (obligatoire), puis le texte de l'actualité, avec sa mise en page.
+8. Dans **Documents associés**, joignez si besoin des documents depuis votre ordinateur avec le bouton **+**.
+9. Cliquez sur **Valider**.
 
 ![Ajouter une actualité](img/dep-actualites-ajout.png)
 
-## Créer une actualité
-
-Sur cette page, vous pouvez :
-
-- choisir le **titre** de l'actualité (obligatoire) ;
-- choisir les **destinataires** — associations ou adhérent.e.s (obligatoire) ;
-- programmer la **parution**, et son importance avec le bouton **Top actu** ;
-- selon vos droits, cibler le **type de structure** : USEP, UFOLEP ou Ligue.
-
 ![Paramètres de l'actualité](img/dep-actualites-parametres.png)
-
-Rédigez ensuite l'actualité directement sur la plateforme et mettez-la en page.
 
 ![Rédaction](img/dep-actualites-redaction.png)
 
-Vous pouvez joindre des documents depuis votre poste en cliquant sur **+**.
-
 ![Documents joints](img/dep-actualites-documents.png)
 
-## Publier
-
-Cliquez sur **Valider**. Vous êtes renvoyé vers la page de gestion, où l'actualité apparaît. La colonne **Actions** permet de la visualiser, la modifier ou la supprimer.
+Vous revenez sur la liste, où l'actualité apparaît. Elle est visible par ses destinataires pendant sa période de parution.
 
 ![Actualité publiée](img/dep-actualites-resultat.png)

@@ -8,6 +8,17 @@ site_dir: site/test
 theme:
   custom_dir: overrides-test
 
+# Tutos vidéo (essai) : cartes, accueil, vidéothèque — hooks/videos.py
+hooks:
+  - hooks/videos.py
+
+# Scripts communs + scripts essayés uniquement ici (la liste remplace celle de mkdocs.base.yml)
+extra_javascript:
+  - javascripts/impression.js
+  - javascripts/commentaires.js
+  - javascripts/propositions.js
+  - videos.js
+
 # Styles communs + styles essayés uniquement ici
 extra_css:
   - stylesheets/extra.css
@@ -16,9 +27,11 @@ extra_css:
 nav:
   - Démarrer:
       - Bienvenue: index.md
+      - Tutos vidéo: videos.md
       - Ma fédération: ma-federation.md
       - Ça ne marche pas comme prévu: probleme.md
       - Limitations connues: limitations.md
+      - Glossaire: glossaire.md
   - Affiliations:
       - Gérer les affiliations: affiliations-gerer.md
       - Créer une affiliation: affiliations-creer.md

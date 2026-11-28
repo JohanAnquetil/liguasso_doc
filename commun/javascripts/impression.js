@@ -40,7 +40,8 @@ document.addEventListener("DOMContentLoaded", function () {
   var base = config ? JSON.parse(config.textContent).base : ".";
   var logos = base + "/img/logos/";
   var nom = (document.querySelector(".md-header__topic .md-ellipsis") || {}).textContent || "";
-  var public_ = /départementales/i.test(nom) ? "Gestion Départementale" : "Gestion Associative";
+  // Guide associations : « … — Associations » ; tout le reste (départemental, bac à sable) : départemental
+  var public_ = /—\s*Associations/i.test(nom) ? "Gestion Associative" : "Gestion Départementale";
   var date = (adressePdf ? "Mis à jour le " : "Extrait le ") + new Date().toLocaleDateString("fr-FR");
 
   var entete = document.createElement("div");
