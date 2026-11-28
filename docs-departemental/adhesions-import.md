@@ -1,7 +1,7 @@
 # Importer un fichier d'adhésions
 
 !!! chemin "Accès"
-    **Adhésion** › **Importer des adhésions**
+    Dans le menu, cliquez sur **Adhésion**, puis sur **Importer des adhésions**.
 
 ![type:video](https://www.youtube-nocookie.com/embed/lMVnP_gSw5U)
 

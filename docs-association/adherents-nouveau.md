@@ -1,7 +1,7 @@
 # Enregistrer une adhésion
 
 !!! chemin "Accès"
-    **Adhésion** › **Gérer les adhésions**, puis bouton **+ Nouvelle adhésion**
+    Dans le menu, cliquez sur **Adhésion**, puis sur **Gérer les adhésions**, puis sur le bouton **+ Nouvelle adhésion**.
 
 Depuis **Gérer les adhésions**, cliquez sur **+ Nouvelle adhésion**.
 

@@ -1,12 +1,12 @@
 # Plans comptables
 
 !!! chemin "Accès"
-    - **Paramétrage** › **Comptabilité** › **Paramétres comptables**
-    - **Paramétrage** › **Comptabilité** › **Plan comptable général**
-    - **Paramétrage** › **Comptabilité** › **Plan comptable analytique**
-    - **Paramétrage** › **Comptabilité** › **Plan comptable tiers**
-    - **Paramétrage** › **Comptabilité** › **Plan comptable des produits**
-    - **Paramétrage** › **Comptabilité** › **Plan comptable des modes de règlement**
+    - Dans le menu, cliquez sur **Paramétrage**, puis sur **Comptabilité**, puis sur **Paramétres comptables**.
+    - Dans le menu, cliquez sur **Paramétrage**, puis sur **Comptabilité**, puis sur **Plan comptable général**.
+    - Dans le menu, cliquez sur **Paramétrage**, puis sur **Comptabilité**, puis sur **Plan comptable analytique**.
+    - Dans le menu, cliquez sur **Paramétrage**, puis sur **Comptabilité**, puis sur **Plan comptable tiers**.
+    - Dans le menu, cliquez sur **Paramétrage**, puis sur **Comptabilité**, puis sur **Plan comptable des produits**.
+    - Dans le menu, cliquez sur **Paramétrage**, puis sur **Comptabilité**, puis sur **Plan comptable des modes de règlement**.
 
 Ce paramétrage indique à Ligu'asso comment transformer vos factures et vos règlements en écritures comptables. Il se remplit une fois, au démarrage, puis ne change qu'en cas d'évolution de votre comptabilité.
 

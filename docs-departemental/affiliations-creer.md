@@ -1,7 +1,7 @@
 # Créer une affiliation
 
 !!! chemin "Accès"
-    **Affiliation** › **Gérer les affiliations**, puis bouton **Nouvelle affiliation**
+    Dans le menu, cliquez sur **Affiliation**, puis sur **Gérer les affiliations**, puis sur le bouton **Nouvelle affiliation**.
 
 ## Le parcours commun
 

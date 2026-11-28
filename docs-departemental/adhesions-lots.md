@@ -1,7 +1,7 @@
 # Lots
 
 !!! chemin "Accès"
-    **Adhésion** › **Lots**
+    Dans le menu, cliquez sur **Adhésion**, puis sur **Lots**.
 
 Un **lot** correspond à un ensemble d'adhérent.e.s importés depuis un fichier Excel ou CSV (`.xls`, `.xlsx` ou `.csv`). Les adhésions issues d'un import ne se rangent pas dans **Gérer les adhésions** mais ici.
 

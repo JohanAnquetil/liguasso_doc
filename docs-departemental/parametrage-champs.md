@@ -1,7 +1,7 @@
 # Champs supplémentaires
 
 !!! chemin "Accès"
-    **Paramétrage** › **Champs supplémentaires**
+    Dans le menu, cliquez sur **Paramétrage**, puis sur **Champs supplémentaires**.
 
 Cette page permet à votre fédération d'ajouter ses **propres champs** aux formulaires de Ligu'asso, pour recueillir des informations qui n'existent pas par défaut.
 

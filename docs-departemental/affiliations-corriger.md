@@ -1,7 +1,7 @@
 # Corriger une affiliation
 
 !!! chemin "Accès"
-    **Affiliation** › **Gérer les affiliations**
+    Dans le menu, cliquez sur **Affiliation**, puis sur **Gérer les affiliations**.
 
 ## Modifier ou supprimer un membre du bureau
 

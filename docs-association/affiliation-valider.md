@@ -1,7 +1,7 @@
 # Valider et transmettre
 
 !!! chemin "Accès"
-    Dernière étape du parcours d'affiliation : voir [Affilier mon association](affiliation.md)
+    Dernière étape du parcours d'affiliation : voir [Affilier mon association](affiliation.md).
 
 ## Le résumé
 

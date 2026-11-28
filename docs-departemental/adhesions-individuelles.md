@@ -1,7 +1,7 @@
 # Adhésions individuelles
 
 !!! chemin "Accès"
-    **Adhésion** › **Adhésions individuelles**
+    Dans le menu, cliquez sur **Adhésion**, puis sur **Adhésions individuelles**.
 
 Cet écran permet d'enregistrer et de suivre les **adhésions individuelles**, c'est-à-dire celles qui ne passent pas par une association.
 

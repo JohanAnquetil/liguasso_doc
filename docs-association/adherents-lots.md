@@ -1,8 +1,8 @@
 # Lots et TIPO
 
 !!! chemin "Accès"
-    - Lots : **Adhésion** › **Lots**
-    - Participants TIPO : **Adhésion** › **Gestion des participants Tipo**
+    - Lots : dans le menu, cliquez sur **Adhésion**, puis sur **Lots**.
+    - Participants TIPO : dans le menu, cliquez sur **Adhésion**, puis sur **Gestion des participants Tipo**.
 
 ## Lots
 

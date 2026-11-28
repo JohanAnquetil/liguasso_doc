@@ -1,7 +1,7 @@
 # Rencontres USEP
 
 !!! chemin "Accès"
-    **Rencontres** › **Gérer les rencontres**
+    Dans le menu, cliquez sur **Rencontres**, puis sur **Gérer les rencontres**.
 
 Si vous êtes une association scolaire affiliée à l'**USEP**, renseignez ici les rencontres organisées par votre association sous l'égide de l'USEP.
 

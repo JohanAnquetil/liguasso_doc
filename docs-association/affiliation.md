@@ -1,7 +1,7 @@
 # Affilier mon association
 
 !!! chemin "Accès"
-    Depuis le **tableau de bord** (logo central), bouton **Renouveler son affiliation**, affiché pendant la campagne de réaffiliation
+    Depuis le **tableau de bord** (logo central), cliquez sur le bouton **Renouveler son affiliation**, affiché pendant la campagne de réaffiliation.
 
 Si vous êtes membre du bureau et habilité.e — président.e, trésorier.ère, correspondant.e ou gestionnaire web — vous pouvez réaffilier votre association pour la saison à venir.
 

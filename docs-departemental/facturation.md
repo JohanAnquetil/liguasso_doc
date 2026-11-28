@@ -1,7 +1,7 @@
 # Facturation et règlements
 
 !!! chemin "Accès"
-    **Facturation** › **Facturation et règlement**
+    Dans le menu, cliquez sur **Facturation**, puis sur **Facturation et règlement**.
 
 L'écran **Facturation et règlement** regroupe les factures des associations de votre département et le suivi de leur règlement. Il permet aussi de créer une facture vierge ou d'enregistrer un règlement.
 

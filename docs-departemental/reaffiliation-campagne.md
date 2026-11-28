@@ -1,7 +1,7 @@
 # Lancer la campagne de réaffiliation
 
 !!! chemin "Accès"
-    **Affiliation** › **Campagne de ré-affiliation**
+    Dans le menu, cliquez sur **Affiliation**, puis sur **Campagne de ré-affiliation**.
 
 Comme chaque saison, la campagne de réaffiliation est ouverte à chaque fédération. Elle peut être entièrement gérée depuis la plateforme.
 

@@ -1,7 +1,7 @@
 # Attestations
 
 !!! chemin "Accès"
-    **Mon association** › **Mes attestations**
+    Dans le menu, cliquez sur **Mon association**, puis sur **Mes attestations**.
 
 Le sous-menu **Mes attestations** regroupe vos attestations, par exemple l'attestation RC UFOLEP.
 

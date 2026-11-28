@@ -1,7 +1,7 @@
 # Rechercher et gérer
 
 !!! chemin "Accès"
-    **Adhésion** › **Gérer les adhésions**
+    Dans le menu, cliquez sur **Adhésion**, puis sur **Gérer les adhésions**.
 
 Le menu **Adhésion** vous permet de gérer vos adhérent.e.s. Vous pouvez y créer de nouvelles adhésions, les consulter, les modifier et les transmettre à votre fédération pour validation. Vous pouvez également importer des adhésions en nombre, suivre vos lots et organiser vos campagnes de ré-adhésion.
 

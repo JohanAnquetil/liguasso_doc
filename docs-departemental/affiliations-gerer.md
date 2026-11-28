@@ -1,7 +1,7 @@
 # Gérer les affiliations
 
 !!! chemin "Accès"
-    **Affiliation** › **Gérer les affiliations**
+    Dans le menu, cliquez sur **Affiliation**, puis sur **Gérer les affiliations**.
 
 Dans le menu, survolez **Affiliation** puis cliquez sur **Gérer les affiliations**.
 

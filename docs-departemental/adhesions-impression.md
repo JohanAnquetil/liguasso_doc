@@ -1,7 +1,7 @@
 # Cartes et licences
 
 !!! chemin "Accès"
-    **Adhésion** › **Impression des cartes et licences**
+    Dans le menu, cliquez sur **Adhésion**, puis sur **Impression des cartes et licences**.
 
 Rendez-vous dans **Adhésion > Impression des cartes et licences**.
 

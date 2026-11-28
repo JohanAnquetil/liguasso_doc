@@ -1,7 +1,7 @@
 # Importer un fichier
 
 !!! chemin "Accès"
-    **Adhésion** › **Importer des adhésions**
+    Dans le menu, cliquez sur **Adhésion**, puis sur **Importer des adhésions**.
 
 Pour créer ou renouveler un grand nombre d'adhésions en une seule fois, utilisez le sous-menu **Importer des adhésions**. L'outil intègre et transmet directement une base d'adhérent.e.s à votre fédération.
 

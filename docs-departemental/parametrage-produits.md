@@ -1,7 +1,7 @@
 # Produits et tarifs
 
 !!! chemin "Accès"
-    **Paramétrage** › **Facturation** › **Gestion des produits**
+    Dans le menu, cliquez sur **Paramétrage**, puis sur **Facturation**, puis sur **Gestion des produits**.
 
 Les produits sont les lignes que vous facturez aux associations : adhésions, cotisations, prestations diverses.
 

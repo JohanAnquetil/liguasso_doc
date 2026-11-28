@@ -1,8 +1,8 @@
 # Rencontres USEP
 
 !!! chemin "Accès"
-    - Groupes : **Rencontres** › **Paramétrage**
-    - Rencontres : **Rencontres** › **Gérer les rencontres**
+    - Groupes : dans le menu, cliquez sur **Rencontres**, puis sur **Paramétrage**.
+    - Rencontres : dans le menu, cliquez sur **Rencontres**, puis sur **Gérer les rencontres**.
 
 ## Paramétrer les groupes
 

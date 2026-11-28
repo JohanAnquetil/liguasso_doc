@@ -1,7 +1,7 @@
 # Donner accès aux associations
 
 !!! chemin "Accès"
-    **Affiliation** › **Utilisateurs des associations**
+    Dans le menu, cliquez sur **Affiliation**, puis sur **Utilisateurs des associations**.
 
 Les associations peuvent disposer d'un accès à Ligu'asso. Chaque fédération transmet les identifiants aux associations de son choix, ou à celles qui en font la demande.
 

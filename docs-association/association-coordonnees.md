@@ -1,7 +1,7 @@
 # Coordonnées et logo
 
 !!! chemin "Accès"
-    **Mon association** › **Mon Association**
+    Dans le menu, cliquez sur **Mon association**, puis sur **Mon Association**.
 
 Le menu **Mon association** permet de modifier les coordonnées de votre association, de gérer ses sections ou écoles et d'accéder à ses attestations.
 

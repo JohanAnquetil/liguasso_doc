@@ -1,7 +1,7 @@
 # Ma fédération
 
 !!! chemin "Accès"
-    **Ma fédération** › **Informations**
+    Dans le menu, cliquez sur **Ma fédération**, puis sur **Informations**.
 
 Dans le menu, survolez **Ma fédération** puis cliquez sur **Informations**.
 

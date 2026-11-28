@@ -1,8 +1,8 @@
 # Sections et écoles
 
 !!! chemin "Accès"
-    - Sections : **Mon association** › **Gérer mes sections**
-    - Écoles (associations scolaires) : **Mon association** › **Gérer mes écoles**
+    - Sections : dans le menu, cliquez sur **Mon association**, puis sur **Gérer mes sections**.
+    - Écoles (associations scolaires) : dans le menu, cliquez sur **Mon association**, puis sur **Gérer mes écoles**.
 
 Dans le sous-menu **Gérer mes sections** (ou **Gérer mes écoles** pour une association scolaire), vous pouvez créer des sections par type de pratique (par exemple Football) ou par école. Cliquez sur **+ Nouvelle Section / École**.
 

@@ -1,7 +1,7 @@
 # Participants TIPO
 
 !!! chemin "Accès"
-    **Adhésion** › **Gestion des participants Tipo**
+    Dans le menu, cliquez sur **Adhésion**, puis sur **Gestion des participants Tipo**.
 
 Cet écran permet de consulter les participants TIPO d'une association sur une saison, d'en exporter la liste et d'en ajouter de nouveaux.
 

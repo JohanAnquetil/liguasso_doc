@@ -1,9 +1,9 @@
 # Documents, sections et écoles
 
 !!! chemin "Accès"
-    - Documents d'affiliation : **Affiliation** › **Documents d'affiliation**
-    - Sections : **Affiliation** › **Gérer les sections**
-    - Écoles : **Affiliation** › **Gérer les écoles**
+    - Documents d'affiliation : dans le menu, cliquez sur **Affiliation**, puis sur **Documents d'affiliation**.
+    - Sections : dans le menu, cliquez sur **Affiliation**, puis sur **Gérer les sections**.
+    - Écoles : dans le menu, cliquez sur **Affiliation**, puis sur **Gérer les écoles**.
 
 ## Documents d'affiliation
 

@@ -1,7 +1,7 @@
 # Modifier mon affiliation
 
 !!! chemin "Accès"
-    Depuis le **tableau de bord** (logo central), bouton **Modifier votre affiliation**
+    Depuis le **tableau de bord** (logo central), cliquez sur le bouton **Modifier votre affiliation**.
 
 Vous pouvez modifier après coup les données enregistrées lors de l'affiliation : secteur, adresse, informations générales, bureau et référents.
 

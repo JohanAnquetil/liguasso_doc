@@ -71,15 +71,16 @@ Chaque page commence, juste sous le titre, par un encadré « Accès » qui donn
 dans le menu de Ligu'asso. Recopiez les intitulés **exactement** comme dans l'application :
 
     !!! chemin "Accès"
-        **Adhésion** › **Lots**, puis bouton **Nouveau lot**
+        Dans le menu, cliquez sur **Adhésion**, puis sur **Lots**, puis sur le bouton **Nouveau lot**.
 
 Plusieurs écrans sur la même page :
 
     !!! chemin "Accès"
-        - Sections : **Affiliation** › **Gérer les sections**
-        - Écoles : **Affiliation** › **Gérer les écoles**
+        - Sections : dans le menu, cliquez sur **Affiliation**, puis sur **Gérer les sections**.
+        - Écoles : dans le menu, cliquez sur **Affiliation**, puis sur **Gérer les écoles**.
 
-Sans passer par le menu : `Depuis le **tableau de bord**, bouton **Modifier votre affiliation**`.
+Le test lit les intitulés en gras après « dans le menu », jusqu'au mot « bouton » : gardez cette formule.
+Sans passer par le menu : `Depuis le **tableau de bord** (logo central), cliquez sur le bouton **Modifier votre affiliation**.`
 Seules les pages d'accueil et d'aide (`index`, `probleme`, `limitations`, `connexion`) n'en ont pas.
 
 ### Vérifier les chemins sur la recette (Playwright)

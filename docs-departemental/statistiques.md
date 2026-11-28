@@ -1,8 +1,8 @@
 # Statistiques et extractions
 
 !!! chemin "Accès"
-    - Adhérent.e.s : **Statistiques et Extractions** › **Extractions** › **Extraction adhérents**
-    - Associations : **Statistiques et Extractions** › **Extractions** › **Extraction associations**
+    - Adhérent.e.s : dans le menu, cliquez sur **Statistiques et Extractions**, puis sur **Extractions**, puis sur **Extraction adhérents**.
+    - Associations : dans le menu, cliquez sur **Statistiques et Extractions**, puis sur **Extractions**, puis sur **Extraction associations**.
 
 Le menu **Statistiques et Extractions** permet d'extraire la liste des adhérent.e.s ou des associations de votre département, selon les critères de votre choix.
 
