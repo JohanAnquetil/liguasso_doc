@@ -1,9 +1,12 @@
 site/
 docs-association/img/
+docs-association/javascripts/
 docs-association/stylesheets/
 docs-departemental/img/
+docs-departemental/javascripts/
 docs-departemental/stylesheets/
 docs-test/img/
+docs-test/javascripts/
 docs-test/stylesheets/
 .DS_Store
 

@@ -28,7 +28,11 @@ services:
   # Le domaine se règle dans le fichier .env du serveur : DOMAINE=doc.exemple.fr
   # Sans .env (en local), Caddy sert https://localhost avec un certificat local.
   prod:
-    build: { context: ., target: prod }
+    build:
+      context: .
+      target: prod
+      args:
+        DOMAINE: ${DOMAINE:-localhost}   # adresse affichée en bas des PDF
     ports: ["80:80", "443:443", "443:443/udp"]
     environment:
       DOMAINE: ${DOMAINE:-localhost}

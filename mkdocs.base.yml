@@ -63,6 +63,11 @@ plugins:
 extra_css:
   - stylesheets/extra.css
 
+# Bouton « PDF » et version imprimée. Attention : les fichiers *.local.yml redéfinissent
+# extra_javascript (la liste est remplacée, pas complétée) et doivent le reprendre.
+extra_javascript:
+  - javascripts/impression.js
+
 extra:
   generator: false
   social:

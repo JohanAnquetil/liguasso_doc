@@ -3,4 +3,5 @@
 # servie par le chatbot lancé en local sur http://localhost:8080.
 INHERIT: ./mkdocs.departemental.yml
 extra_javascript:
+  - javascripts/impression.js
   - http://localhost:8080/widget.js

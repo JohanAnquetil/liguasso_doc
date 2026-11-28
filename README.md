@@ -98,6 +98,26 @@ Profils utilisés par défaut : `Président.e|AL La Guerche` (guide associations
 `Gestionnaire départemental.e|Puy de Dôme` (guide départemental). Pour en changer :
 `PROFIL_ASSO="Gestionnaire de l'association|Chevaux fringants"`, `PROFIL_DEP="…"`.
 
+### Bouton « PDF »
+
+Chaque page a un bouton **PDF** à droite du titre. Sur le site publié, il télécharge le PDF
+de la page, préparé à chaque mise en ligne par `generer-pdf.py` (Chromium) : entête reprise
+de la couverture du guide PDF complet, onglets Ligue / UFOLEP / USEP tous affichés, chapitre
+et numéros de page en bas, logos des fédérations. Le PDF est identique quel que soit le
+navigateur de la personne.
+
+- En rédaction locale (`docker compose up asso dep`), les PDF n'existent pas : le bouton
+  ouvre l'impression du navigateur, avec la même mise en page (« Enregistrer en PDF »).
+- Mise en page : `commun/stylesheets/extra.css` (`@media print`) et `commun/javascripts/impression.js`.
+- Logos : `commun/img/logos/` (fichiers officiels de l'application).
+- Si la création des PDF échoue, le site est publié quand même et le bouton revient à l'impression.
+
+Tester la création des PDF sans Docker :
+
+    pip install playwright && playwright install chromium
+    mkdocs build -f mkdocs.departemental.yml
+    python generer-pdf.py site/departemental     # crée site/departemental/<page>/page.pdf
+
 ### Signaler une limitation
 
     !!! warning "Limitation connue — septembre 2026"

@@ -2,8 +2,11 @@ site/
 .git/
 *.zip
 docs-association/img/
+docs-association/javascripts/
 docs-departemental/img/
+docs-departemental/javascripts/
 docs-test/img/
+docs-test/javascripts/
 verification/node_modules/
 verification/test-results/
 verification/playwright-report/

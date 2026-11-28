@@ -1,3 +1,5 @@
+/* Police du titre « Guide d’utilisation » de la version imprimée (comme la couverture du guide PDF) */
+@import url("https://fonts.googleapis.com/css2?family=League+Spartan:wght@800&display=swap");
 :root { --md-text-font: "Inter", system-ui, sans-serif; }
 
 .md-typeset img {
@@ -76,3 +78,79 @@
 }
 .md-typeset .chemin ul { margin: .4em 0; }
 .md-typeset .chemin li { margin-bottom: .2em; }
+
+/* ---------- Bouton « PDF » et version imprimée (javascripts/impression.js) ---------- */
+.md-typeset .bouton-pdf {
+  float: right;
+  display: inline-flex; align-items: center; gap: .3em;
+  margin: .3rem 0 0 1rem; padding: .3em .75em;
+  font: inherit; font-size: .72rem; font-weight: 600;
+  color: var(--md-primary-fg-color); text-decoration: none;
+  background: transparent; cursor: pointer;
+  border: 1px solid var(--md-primary-fg-color); border-radius: 6px;
+  transition: .15s ease;
+}
+.md-typeset .bouton-pdf:hover { color: var(--md-primary-bg-color); background: var(--md-primary-fg-color); }
+.md-typeset .bouton-pdf svg { width: 1.1em; height: 1.1em; fill: currentColor; }
+
+.impression-entete, .impression-pied, .impression-onglet { display: none; }
+
+@media print {
+  @page {
+    margin: 14mm 14mm 18mm;
+    /* Contenu rempli par javascripts/impression.js (chapitre, page) */
+    @bottom-left  { font-family: "Inter", sans-serif; font-size: 8pt; color: #777; vertical-align: middle; }
+    @bottom-right { font-family: "Inter", sans-serif; font-size: 8pt; color: #777; vertical-align: middle; }
+  }
+
+  /* Tout ce qui sert à naviguer disparaît */
+  .md-header, .md-tabs, .md-sidebar, .md-footer, .md-top, .md-banner,
+  .md-content__button, .bouton-pdf, .headerlink, .tabbed-labels,
+  [class^="lgc-"], [class*=" lgc-"] { display: none !important; }
+  .md-main__inner, .md-content, .md-content__inner { margin: 0 !important; padding: 0 !important; max-width: none !important; }
+
+  /* Entête : reprend la couverture du guide PDF complet */
+  .impression-entete {
+    display: block !important;
+    margin: 0 0 1.6rem; padding: 1rem 1.3rem 1.1rem; border-radius: 10px;
+    background: #F7F6F2 !important;
+    -webkit-print-color-adjust: exact; print-color-adjust: exact;
+  }
+  .impression-entete__haut { display: flex; justify-content: space-between; align-items: center; }
+  .md-typeset .impression-entete__haut img {
+    height: 1.6rem; width: auto; margin: 0; border: 0; border-radius: 0; box-shadow: none;
+  }
+  .impression-entete__haut span { color: #391407; font-size: .62rem; letter-spacing: .04em; }
+  .impression-entete__titre {
+    margin-top: .9rem; text-align: right; line-height: 1;
+    font-family: "League Spartan", "Inter", sans-serif; font-weight: 800;
+    font-size: 2.1rem; letter-spacing: -.01em; color: #E45B35;
+  }
+  .impression-entete__public { text-align: right; margin-top: .3rem; color: #391407; font-size: .95rem; }
+  .md-typeset h1 { margin-top: 0; color: #391407; }
+
+  /* Pied : logos des fédérations, adresse, support */
+  .impression-pied {
+    display: block !important; margin-top: 2rem; padding-top: .8rem;
+    border-top: 1px solid #ddd; break-inside: avoid;
+  }
+  .impression-pied__logos { display: flex; justify-content: space-around; align-items: center; }
+  .md-typeset .impression-pied__logos img {
+    height: 1.7rem; width: auto; max-height: none; margin: 0; border: 0; border-radius: 0; box-shadow: none;
+  }
+  .md-typeset .impression-pied p { margin: .7rem 0 0; text-align: center; color: #777; font-size: .58rem; }
+
+  /* Onglets : tous affichés, chacun avec son nom */
+  .tabbed-set > .tabbed-content > .tabbed-block { display: block !important; }
+  .impression-onglet {
+    display: block !important; margin: 1.2em 0 .5em !important;
+    font-weight: 700; color: var(--md-primary-fg-color);
+    border-bottom: 2px solid var(--md-primary-fg-color);
+  }
+
+  /* Couleurs conservées, et pas de coupure au milieu d'une capture ou d'un encadré */
+  .admonition, .md-typeset img { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .md-typeset img, .admonition, .md-typeset table { break-inside: avoid; }
+  .md-typeset h1, .md-typeset h2, .md-typeset h3 { break-after: avoid; }
+  .md-typeset img { box-shadow: none; max-height: 120mm; width: auto; }
+}
