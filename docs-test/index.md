@@ -52,11 +52,11 @@ Vous préfacturez, suivez les règlements, puis exportez les écritures vers vot
 ## Par où commencer
 
 <div class="cartes" markdown>
-[**Ma fédération**<br><span>Informations, comités, mentions de bas de facture</span>](ma-federation.md)
+[**Ma fédération**<br><span>Coordonnées, responsables, horaires, bas de facture</span>](ma-federation.md)
 [**Créer une affiliation**<br><span>Le parcours complet, Ligue, UFOLEP et USEP</span>](affiliations-creer.md)
 [**Donner accès aux associations**<br><span>Transmettre les identifiants Ligu'asso</span>](utilisateurs-associations.md)
-[**Campagne de réaffiliation**<br><span>Solliciter les associations pour la saison à venir</span>](reaffiliation-campagne.md)
-[**Valider en masse**<br><span>Traiter un grand nombre d'adhésions d'un coup</span>](adhesions-valider.md)
+[**Campagne de réaffiliation**<br><span>Inviter les associations à renouveler</span>](reaffiliation-campagne.md)
+[**Valider en masse**<br><span>Traiter de nombreuses adhésions d'un coup</span>](adhesions-valider.md)
 [**Facturation et règlements**<br><span>Préfacturer, suivre les règlements, faire une remise</span>](facturation.md)
 [**Transfert comptable**<br><span>Exporter les écritures vers votre logiciel</span>](comptabilite.md)
 [**Limitations connues**<br><span>Ce qui ne marche pas encore, et comment faire en attendant</span>](limitations.md)
@@ -69,7 +69,7 @@ Vous préfacturez, suivez les règlements, puis exportez les écritures vers vot
 ### Accès des associations
 
 ??? question "Une association n'arrive pas à se connecter"
-    Les anciens identifiants Affiligue ne fonctionnent plus. Transmettez-lui ses identifiants Ligu'asso : elle doit ensuite passer par **J'ai oublié mon mot de passe** pour créer le sien.
+    Les anciens identifiants Affiligue ne fonctionnent plus. Transmettez-lui son identifiant Ligu'asso : elle crée ensuite son mot de passe avec **J'ai oublié mon mot de passe**.
 
     → [Donner accès aux associations](utilisateurs-associations.md)
 
@@ -102,46 +102,46 @@ Vous préfacturez, suivez les règlements, puis exportez les écritures vers vot
 ??? question "Une association n'a pas reçu la campagne de réaffiliation"
     La campagne n'est envoyée qu'aux associations qui n'ont pas renouvelé leur affiliation et qui ne sont pas en cours d'affiliation.
 
-    → [Lancer la campagne](reaffiliation-campagne.md)
+    → [Lancer la campagne de réaffiliation](reaffiliation-campagne.md)
 
 ### Adhésions et licences
 
 ??? question "Je ne retrouve pas des adhésions importées"
-    Elles sont dans **Lots**, pas dans **Gérer les adhésions**. Pensez à activer **Afficher les lots validés**.
+    Elles sont dans **Lots**, pas dans **Gérer les adhésions**. Si le lot est déjà validé, cochez **Afficher l'historique des lots validés**.
 
-    → [Lots](adhesions-lots.md)
+    → [Suivre et valider les lots](adhesions-lots.md)
 
 ??? question "Ma validation en masse ne prend qu'une partie des adhésions"
-    Seule la première page est comptabilisée, soit 100 adhésions au maximum. Créez plusieurs lots.
+    Seule la première page de résultats est prise en compte, soit 100 adhésions au maximum. Créez plusieurs lots.
 
-    → [Valider en masse](adhesions-valider.md)
+    → [Valider des adhésions en masse](adhesions-valider.md)
 
 ??? question "Des licences manquent à l'impression"
-    Vérifiez deux filtres : la **date de validation** doit couvrir la bonne période, et la case **Inclure les cartes/licences déjà imprimées** doit être cochée si besoin.
+    Vérifiez deux réglages : la **période de validation** doit couvrir les bonnes dates, et **Inclure les cartes/licences déjà imprimées** doit être coché pour retrouver une licence déjà imprimée.
 
-    → [Cartes et licences](adhesions-impression.md)
+    → [Imprimer les cartes et les licences](adhesions-impression.md)
 
 ??? question "L'envoi des cartes et licences échoue"
-    C'est une limitation connue (septembre 2026). Enregistrez les documents sur votre poste et envoyez-les depuis votre messagerie.
+    C'est une limitation connue (septembre 2026). Enregistrez les documents sur votre ordinateur et envoyez-les depuis votre messagerie.
 
-    → [Cartes et licences](adhesions-impression.md)
+    → [Imprimer les cartes et les licences](adhesions-impression.md)
 
 ### Facturation et comptabilité
 
 ??? question "Un message signale qu'il n'y a pas de compte tiers"
     L'association n'a pas encore de compte tiers dans cette comptabilité. Cliquez sur **Oui** pour le créer : le formulaire de facture s'ouvre ensuite.
 
-    → [Facturation et règlements](facturation.md)
+    → [Facturer les associations](facturation.md)
 
 ??? question "Un produit n'apparaît pas dans la liste"
-    Les produits se paramètrent dans **Produits et tarifs**. Si vous le cherchez là, désélectionnez **Mes produits** et **Produits calculés** pour élargir la recherche.
+    Pour qu'un produit apparaisse dans vos factures, sa **famille de tarif** doit être **AUTRE - Autres produits**. S'il n'apparaît pas dans la liste des produits, décochez **Mes produits** et **Produits calculés** pour élargir la recherche.
 
-    → [Produits et tarifs](parametrage-produits.md)
+    → [Créer et gérer les produits facturés](parametrage-produits.md)
 
-??? question "Mon export comptable pose problème"
-    Avant de lancer l'export, vérifiez que le débit et le crédit sont équilibrés.
+??? question "Le transfert comptable est bloqué"
+    Des écritures n'ont pas de compte général (triangle rouge). Rattachez le produit ou le mode de règlement concerné à un compte, et vérifiez que le débit et le crédit sont équilibrés.
 
-    → [Comptabilité](comptabilite.md)
+    → [Suivre et transférer la comptabilité](comptabilite.md)
 
 </div>
 

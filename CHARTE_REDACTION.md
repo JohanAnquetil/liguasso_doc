@@ -64,6 +64,7 @@ Une ou deux phrases : à quoi sert l'écran, pour qui.
 | `!!! warning` | Erreur fréquente ou action irréversible |
 | `!!! tip` | Astuce qui fait gagner du temps |
 | `!!! note` | Précision utile, sans risque |
+| `!!! video "Titre"` | Tuto vidéo : adresse YouTube et durée, puis ce qu'on y apprend (voir README) |
 | `!!! warning "Limitation connue — <mois année>"` | Défaut de la plateforme et contournement, aussi reporté dans `limitations.md` |
 
 ## Pages « Ça ne marche pas comme prévu »

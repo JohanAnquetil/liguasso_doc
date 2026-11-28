@@ -3,10 +3,10 @@
 Dans une fiche, une vidéo s'écrit ainsi :
 
     !!! video "Importer un fichier de licences"
-        https://youtu.be/lMVnP_gSw5U · 7 min
+        https://www.youtube-nocookie.com/embed/lMVnP_gSw5U · 7 min
         Préparer le fichier, l'importer, puis vérifier le lot créé.
 
-- 1re ligne : l'adresse YouTube (watch, youtu.be ou embed), puis la durée après « · » (facultatif) ;
+- 1re ligne : l'adresse YouTube (youtube-nocookie.com/embed, watch ou youtu.be), puis la durée après « · » (facultatif) ;
 - lignes suivantes (facultatif) : ce qu'on apprend dans la vidéo.
 
 Le hook remplace le bloc par une carte vidéo (YouTube ne se charge qu'au clic) et recense
@@ -78,7 +78,7 @@ def _carte(video: dict, page, config) -> str:
     e = html.escape
     duree = f'<span class="tuto-video__duree">{e(video["duree"])}</span>' if video["duree"] else ""
     resume = f'<p class="tuto-video__resume">{e(video["resume"])}</p>' if video["resume"] else ""
-    lien = f"https://youtu.be/{video['id']}"
+    lien = f"https://www.youtube-nocookie.com/embed/{video['id']}"   # sans cookie, comme le lecteur
     return (
         f'<div class="tuto-video" id="video-{video["id"]}">\n'
         f'<div class="tuto-video__entete"><span class="tuto-video__badge">Tuto vidéo</span>{duree}</div>\n'

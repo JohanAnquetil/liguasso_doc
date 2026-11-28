@@ -21,7 +21,7 @@ const GUIDES = [
 ];
 
 // Pages volontairement sans encadré « Accès » (accueil, aide…)
-const SANS_CHEMIN = ['index.md', 'probleme.md', 'limitations.md', 'connexion.md', 'glossaire.md'];
+const SANS_CHEMIN = ['index.md', 'probleme.md', 'limitations.md', 'connexion.md', 'glossaire.md', 'videos.md'];
 
 for (const guide of GUIDES) {
   test.describe(guide.dossier, () => {

@@ -1,4 +1,4 @@
-// Tutos vidéo (bac à sable) : lecture au clic et repère ▶ dans le menu.
+// Tutos vidéo : lecture au clic (youtube-nocookie) et repère ▶ dans le menu.
 // Les cartes et vignettes sont produites à la construction par hooks/videos.py.
 document.addEventListener("DOMContentLoaded", function () {
   // Lecture : l'image d'aperçu est remplacée par le lecteur YouTube seulement au clic

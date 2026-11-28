@@ -65,10 +65,15 @@ extra_css:
 
 # Bouton « PDF » et version imprimée. Attention : les fichiers *.local.yml redéfinissent
 # extra_javascript (la liste est remplacée, pas complétée) et doivent le reprendre.
+# Tutos vidéo : bloc « !!! video » dans les fiches -> carte, vignettes, page Tutos vidéo (hooks/videos.py)
+hooks:
+  - hooks/videos.py
+
 extra_javascript:
   - javascripts/impression.js
   - javascripts/commentaires.js
   - javascripts/propositions.js
+  - javascripts/videos.js
 
 extra:
   generator: false

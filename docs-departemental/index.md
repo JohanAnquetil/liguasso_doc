@@ -1,6 +1,55 @@
-# Guide Ligu'asso — Fédérations départementales
+---
+hide:
+  - toc
+---
 
-Ce guide s'adresse aux **gestionnaires et administrateurs départementaux** de la Ligue de l'enseignement, de l'UFOLEP et de l'USEP. Il couvre l'affiliation des associations, la validation des adhésions, la campagne de réaffiliation, la facturation, la comptabilité et le paramétrage de votre fédération.
+<div class="accueil-hero" markdown>
+
+# Bienvenue sur le guide Ligu'asso
+
+<p class="accueil-sous-titre">Pour les gestionnaires et administrateurs des fédérations départementales.</p>
+
+Affilier une association, valider des adhésions, facturer, exporter vers la comptabilité : tout est expliqué pas à pas, avec des captures d'écran.
+
+[Créer une affiliation](affiliations-creer.md){ .md-button .md-button--primary }
+[Une question ? Voir la FAQ](#questions-frequentes){ .md-button }
+
+</div>
+
+## En vidéo
+
+<!-- videos:accueil -->
+
+[Tous les tutos vidéo](videos.md){ .md-button }
+
+## Comment ça marche
+
+<div class="etapes" markdown>
+
+<div class="etape" markdown>
+<span class="etape-num">1</span>
+**L'association saisit**
+
+Elle remplit son affiliation et ses adhésions, puis les **transmet** à la fédération.
+</div>
+
+<div class="etape" markdown>
+<span class="etape-num">2</span>
+**Vous validez**
+
+Vous contrôlez et **validez** les affiliations et les adhésions. Vous pouvez aussi saisir directement pour le compte d'une association.
+</div>
+
+<div class="etape" markdown>
+<span class="etape-num">3</span>
+**Vous facturez**
+
+Vous préfacturez, suivez les règlements, puis exportez les écritures vers votre logiciel comptable.
+</div>
+
+</div>
+
+## Par où commencer
 
 <div class="cartes" markdown>
 [**Ma fédération**<br><span>Coordonnées, responsables, horaires, bas de facture</span>](ma-federation.md)
@@ -8,14 +57,96 @@ Ce guide s'adresse aux **gestionnaires et administrateurs départementaux** de l
 [**Donner accès aux associations**<br><span>Transmettre les identifiants Ligu'asso</span>](utilisateurs-associations.md)
 [**Campagne de réaffiliation**<br><span>Inviter les associations à renouveler</span>](reaffiliation-campagne.md)
 [**Valider en masse**<br><span>Traiter de nombreuses adhésions d'un coup</span>](adhesions-valider.md)
-[**Facturation et règlements**<br><span>Préfacturer, encaisser, faire une remise</span>](facturation.md)
+[**Facturation et règlements**<br><span>Préfacturer, suivre les règlements, faire une remise</span>](facturation.md)
 [**Transfert comptable**<br><span>Exporter les écritures vers votre logiciel</span>](comptabilite.md)
-[**Ça ne marche pas comme prévu**<br><span>Les situations les plus courantes, et quoi faire</span>](probleme.md)
+[**Limitations connues**<br><span>Ce qui ne marche pas encore, et comment faire en attendant</span>](limitations.md)
 </div>
 
-!!! note "Le rôle de la fédération"
-    Les associations saisissent et transmettent ; c'est vous qui **validez** les affiliations et les adhésions. Vous pouvez aussi saisir directement pour le compte d'une association.
+## Questions fréquentes
 
-## Les mots à connaître
+<div class="faq" markdown>
 
-Lot, préfacture, compte tiers, lettrage, homologation, TIPO… Le [glossaire](glossaire.md) les explique en une phrase.
+### Accès des associations
+
+??? question "Une association n'arrive pas à se connecter"
+    Les anciens identifiants Affiligue ne fonctionnent plus. Transmettez-lui son identifiant Ligu'asso : elle crée ensuite son mot de passe avec **J'ai oublié mon mot de passe**.
+
+    → [Donner accès aux associations](utilisateurs-associations.md)
+
+??? question "Le bouton d'envoi des identifiants par mail ne fonctionne pas"
+    C'est une limitation connue (septembre 2026). En attendant, envoyez les identifiants depuis votre messagerie.
+
+    → [Limitations connues](limitations.md)
+
+??? question "Puis-je me connecter à la place d'une association pour l'aider ?"
+    Non. Conformément au RGPD, les fédérations ne peuvent plus prendre le contrôle de l'espace d'une association affiliée. En cas de difficulté, orientez-la vers le support (coordonnées en bas de page).
+
+    → [Donner accès aux associations](utilisateurs-associations.md)
+
+### Affiliations
+
+??? question "Une affiliation saisie n'apparaît pas dans la liste"
+    Trois causes possibles :
+
+    - le parcours n'a pas été finalisé : il faut cliquer sur **Valider**, puis **Valider** à nouveau pour confirmer ;
+    - l'affiliation vient d'être validée : patientez quelques secondes et actualisez la page ;
+    - le siège de l'association n'est pas dans le département de votre fédération. Aucune dérogation n'est possible pour les affiliations USEP et socioculturelles.
+
+    → [Corriger une affiliation](affiliations-corriger.md)
+
+??? question "Je ne peux pas changer le nom d'un membre du bureau"
+    C'est normal : seules les coordonnées sont modifiables. Pour remplacer une personne, supprimez le membre puis ajoutez-en un nouveau au même poste.
+
+    → [Corriger une affiliation](affiliations-corriger.md)
+
+??? question "Une association n'a pas reçu la campagne de réaffiliation"
+    La campagne n'est envoyée qu'aux associations qui n'ont pas renouvelé leur affiliation et qui ne sont pas en cours d'affiliation.
+
+    → [Lancer la campagne de réaffiliation](reaffiliation-campagne.md)
+
+### Adhésions et licences
+
+??? question "Je ne retrouve pas des adhésions importées"
+    Elles sont dans **Lots**, pas dans **Gérer les adhésions**. Si le lot est déjà validé, cochez **Afficher l'historique des lots validés**.
+
+    → [Suivre et valider les lots](adhesions-lots.md)
+
+??? question "Ma validation en masse ne prend qu'une partie des adhésions"
+    Seule la première page de résultats est prise en compte, soit 100 adhésions au maximum. Créez plusieurs lots.
+
+    → [Valider des adhésions en masse](adhesions-valider.md)
+
+??? question "Des licences manquent à l'impression"
+    Vérifiez deux réglages : la **période de validation** doit couvrir les bonnes dates, et **Inclure les cartes/licences déjà imprimées** doit être coché pour retrouver une licence déjà imprimée.
+
+    → [Imprimer les cartes et les licences](adhesions-impression.md)
+
+??? question "L'envoi des cartes et licences échoue"
+    C'est une limitation connue (septembre 2026). Enregistrez les documents sur votre ordinateur et envoyez-les depuis votre messagerie.
+
+    → [Imprimer les cartes et les licences](adhesions-impression.md)
+
+### Facturation et comptabilité
+
+??? question "Un message signale qu'il n'y a pas de compte tiers"
+    L'association n'a pas encore de compte tiers dans cette comptabilité. Cliquez sur **Oui** pour le créer : le formulaire de facture s'ouvre ensuite.
+
+    → [Facturer les associations](facturation.md)
+
+??? question "Un produit n'apparaît pas dans la liste"
+    Pour qu'un produit apparaisse dans vos factures, sa **famille de tarif** doit être **AUTRE - Autres produits**. S'il n'apparaît pas dans la liste des produits, décochez **Mes produits** et **Produits calculés** pour élargir la recherche.
+
+    → [Créer et gérer les produits facturés](parametrage-produits.md)
+
+??? question "Le transfert comptable est bloqué"
+    Des écritures n'ont pas de compte général (triangle rouge). Rattachez le produit ou le mode de règlement concerné à un compte, et vérifiez que le débit et le crédit sont équilibrés.
+
+    → [Suivre et transférer la comptabilité](comptabilite.md)
+
+</div>
+
+<div class="contact" markdown>
+**Votre question n'est pas dans la liste ?**
+Consultez [Ça ne marche pas comme prévu](probleme.md), ou contactez le support :
+[support.liguasso@laligue.org](mailto:support.liguasso@laligue.org) · **01 43 58 96 08**
+</div>

@@ -8,17 +8,6 @@ site_dir: site/test
 theme:
   custom_dir: overrides-test
 
-# Tutos vidéo (essai) : cartes, accueil, vidéothèque — hooks/videos.py
-hooks:
-  - hooks/videos.py
-
-# Scripts communs + scripts essayés uniquement ici (la liste remplace celle de mkdocs.base.yml)
-extra_javascript:
-  - javascripts/impression.js
-  - javascripts/commentaires.js
-  - javascripts/propositions.js
-  - videos.js
-
 # Styles communs + styles essayés uniquement ici
 extra_css:
   - stylesheets/extra.css

@@ -85,7 +85,7 @@ Plusieurs écrans sur la même page :
 
 Le test lit les intitulés en gras après « dans le menu », jusqu'au mot « bouton » : gardez cette formule.
 Sans passer par le menu : `Depuis le **tableau de bord** (logo central), cliquez sur le bouton **Modifier votre affiliation**.`
-Seules les pages d'accueil et d'aide (`index`, `probleme`, `limitations`, `connexion`, `glossaire`) n'en ont pas.
+Seules les pages d'accueil et d'aide (`index`, `probleme`, `limitations`, `connexion`, `glossaire`, `videos`) n'en ont pas.
 
 ### Tests de bout en bout (Playwright)
 
@@ -154,14 +154,23 @@ Sur le serveur, définir `ADMIN_MOT_DE_PASSE` dans le `.env` pour activer la mod
 
 Reportez-la aussi dans `docs-departemental/limitations.md`, qui les recense toutes.
 
-### Ajouter une vidéo
+### Ajouter un tuto vidéo
 
-    <div class="video">
-      <iframe src="https://www.youtube-nocookie.com/embed/IDENTIFIANT"
-              title="Titre de la vidéo" allowfullscreen></iframe>
-    </div>
+Dans la fiche concernée, à l'endroit voulu :
 
-`youtube-nocookie.com` évite le dépôt de cookies tant que la vidéo n'est pas lancée.
+    !!! video "Importer un fichier de demandes de licence"
+        https://www.youtube-nocookie.com/embed/lMVnP_gSw5U · 7 min
+        Choisir la saison et le type de licence, déposer le fichier CSV, puis vérifier l'import.
+
+1re ligne : l'adresse YouTube (`youtube-nocookie.com/embed/…`, `watch?v=…` ou `youtu.be/…`) et
+la durée ; lignes suivantes (facultatif) : ce qu'on apprend dans la vidéo.
+
+La vidéo apparaît alors automatiquement (`hooks/videos.py`, `commun/javascripts/videos.js`) :
+en carte dans la fiche, avec un ▶ dans le menu, dans le bloc « En vidéo » de l'accueil
+(`<!-- videos:accueil -->`) et dans la page « Tutos vidéo » (`<!-- videos:toutes -->`).
+YouTube (`youtube-nocookie`) ne se charge qu'au clic. Pour une image d'aperçu servie par le
+guide (aucune requête vers Google avant le clic), ajoutez `commun/img/videos/<identifiant>.jpg` ;
+sinon celle de YouTube est utilisée.
 
 ## Notes techniques
 
@@ -197,20 +206,6 @@ https://guide-liguasso.laligue.org/test/ pour essayer des modifications
   le bandeau est conservé) :
 
       ./reset-test.sh
-
-### Essai en cours : tutos vidéo
-
-Dans le bac à sable uniquement (`hooks/videos.py`, `docs-test/videos.js`, styles dans
-`docs-test/test.css`). Une vidéo s'ajoute dans une fiche avec :
-
-    !!! video "Importer un fichier de demandes de licence"
-        https://youtu.be/lMVnP_gSw5U · 7 min
-        Choisir la saison et le type de licence, déposer le fichier CSV, puis vérifier l'import.
-
-Elle apparaît alors automatiquement : en carte dans la fiche (lecteur youtube-nocookie chargé au clic),
-avec un ▶ dans le menu, sur l'accueil (`<!-- videos:accueil -->`) et dans la page
-« Tutos vidéo » (`<!-- videos:toutes -->`). Image d'aperçu : `commun/img/videos/<identifiant>.jpg`
-(sinon celle de YouTube). `./reset-test.sh` efface cet essai.
 
 **Attention** : `mkdocs.base.yml`, `commun/stylesheets/`, `commun/img/` et
 `commun/partiels/` sont partagés. Les modifier change aussi les vrais guides.

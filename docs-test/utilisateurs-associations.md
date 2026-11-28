@@ -25,7 +25,7 @@ Les associations peuvent gérer elles-mêmes leur affiliation et leurs adhésion
 ## Comment l'association se connecte ensuite
 
 !!! video "Se connecter à Ligu'asso"
-    https://youtu.be/y3eYdnMkM3Q · 4 min
+    https://www.youtube-nocookie.com/embed/y3eYdnMkM3Q · 4 min
     Le tuto à envoyer aux associations : première connexion, choix du mot de passe et arrivée sur le tableau de bord.
 
 Expliquez ces étapes à la personne (elles sont aussi dans le guide des associations, fiche « Se connecter ») :

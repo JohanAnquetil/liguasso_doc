@@ -46,4 +46,6 @@ Après la connexion, vous arrivez sur votre **tableau de bord**. Vous y revenez 
 
 ## Tuto vidéo : se connecter
 
-![type:video](https://www.youtube-nocookie.com/embed/y3eYdnMkM3Q)
+!!! video "Se connecter à Ligu'asso"
+    https://www.youtube-nocookie.com/embed/y3eYdnMkM3Q · 4 min
+    Première connexion, choix du mot de passe et arrivée sur le tableau de bord.

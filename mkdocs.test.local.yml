@@ -8,4 +8,4 @@ extra_javascript:
   - javascripts/commentaires-local.js   # API des commentaires sur le port 8003
   - javascripts/commentaires.js
   - javascripts/propositions.js
-  - videos.js
+  - javascripts/videos.js

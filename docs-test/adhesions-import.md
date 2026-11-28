@@ -6,7 +6,7 @@
 L'import crée ou renouvelle de nombreuses adhésions d'une association en une seule fois, à partir d'un fichier Excel (`.xls`, `.xlsx`) ou CSV (`.csv`). Chaque fichier importé crée un **lot**.
 
 !!! video "Importer un fichier de demandes de licence"
-    https://youtu.be/lMVnP_gSw5U · 7 min
+    https://www.youtube-nocookie.com/embed/lMVnP_gSw5U · 7 min
     Choisir la saison et le type de licence, déposer le fichier CSV, puis vérifier et valider l'import.
 
 ![Menu Importer des adhésions](img/dep-import-menu.png)

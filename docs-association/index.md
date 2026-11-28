@@ -11,6 +11,12 @@ Bienvenue dans le guide d'utilisation de Ligu'asso pour les **responsables d'ass
 [**Ça ne marche pas comme prévu**<br><span>Les situations les plus courantes, et quoi faire</span>](probleme.md)
 </div>
 
+## En vidéo
+
+<!-- videos:accueil -->
+
+[Tous les tutos vidéo](videos.md){ .md-button }
+
 ## Comment se déroule une saison ?
 
 1. Vous **renouvelez l'affiliation** de l'association pour la saison, depuis le tableau de bord.
