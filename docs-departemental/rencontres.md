@@ -1,45 +1,46 @@
-# Rencontres USEP
+# Organiser les rencontres USEP
 
 !!! chemin "Accès"
-    - Groupes : dans le menu, cliquez sur **Rencontres**, puis sur **Paramétrage**.
+    - Questionnaires : dans le menu, cliquez sur **Rencontres**, puis sur **Paramétrage**.
     - Rencontres : dans le menu, cliquez sur **Rencontres**, puis sur **Gérer les rencontres**.
 
-## Paramétrer les groupes
+Les associations USEP et le comité déclarent dans Ligu'asso les rencontres sportives organisées dans le département. Ces données alimentent les statistiques nationales de l'USEP. Le comité définit d'abord, pour chaque saison, le **questionnaire** que l'on remplit pour chaque rencontre.
 
-Avant de saisir des rencontres, définissez les groupes et sous-groupes qui serviront à les organiser. Rendez-vous dans **Rencontres > Paramétrage** et sélectionnez la saison.
+## Paramétrer le questionnaire des rencontres
 
-**Ajouter un groupe.** Cliquez sur **Ajouter un groupe** : une ligne s'ajoute en bas de la liste, saisissez son nom dans le champ **Groupe** (par exemple CM1, CM2).
+L'écran **Gestion des questionnaires** organise les questions posées lors de la saisie d'une rencontre, en **groupes**, **sous-groupes** et **questions**.
 
-**Ajouter un sous-groupe.** Cliquez sur le **+** de la ligne du groupe concerné. Une ligne **Sous-groupe** apparaît juste en dessous, en retrait.
-
-**Supprimer.** Cliquez sur la croix **×** de la ligne. Attention : supprimer un groupe supprime aussi ses sous-groupes.
-
-**Réordonner.** Les flèches ↑ et ↓ déplacent le groupe dans la liste.
+1. Choisissez la **Saison**.
+2. **Ajouter un groupe** : cliquez sur **Ajouter un groupe**. Une ligne s'ajoute en bas de la liste ; saisissez son nom dans **Groupe**.
+3. **Ajouter un sous-groupe** : cliquez sur le **+** de la ligne du groupe. Une ligne **Sous-groupe** apparaît en dessous, en retrait.
+4. **Ajouter une question** : dans un sous-groupe, saisissez la **Question**, choisissez son **Type de question** (**Champ texte**, **Date**, **Entier** ou **Liste**), puis cochez **Obligatoire** si la réponse est exigée, et **Multiple** pour une liste à plusieurs choix.
+5. **Supprimer** : cliquez sur la croix **×** de la ligne. Supprimer un groupe supprime aussi ses sous-groupes et leurs questions.
+6. **Réordonner** : les flèches ↑ et ↓ déplacent une ligne.
 
 ![Paramétrage des groupes](img/dep-rencontres-parametrage.png)
 
-!!! warning "Enregistrer"
-    Rien n'est conservé tant que vous n'avez pas cliqué sur **Enregistrer**. Les boutons **Annuler** et **Enregistrer** sont disponibles en haut et en bas de l'écran.
+!!! warning "Enregistrez"
+    Rien n'est conservé tant que vous n'avez pas cliqué sur **Enregistrer**. Les boutons **Annuler** et **Enregistrer** sont en haut et en bas de l'écran.
 
-## Gérer les rencontres
+## Retrouver une rencontre
 
-Cet écran permet de déclarer les rencontres sportives USEP organisées dans votre département et de retrouver celles déjà saisies. Pour chaque rencontre, vous renseignez ses informations principales, ses caractéristiques sportives et le nombre de participants.
-
-### Rechercher une rencontre
-
-Dans le bloc **Recherche**, choisissez la saison concernée. Le champ **Département** est prérempli avec le vôtre. Vous pouvez affiner en sélectionnant un **Organisateur** ou en saisissant tout ou partie de l'**Intitulé**, puis cliquez sur **Rechercher** : les rencontres correspondantes s'affichent dans le bloc **Résultats**.
+Dans le bloc **Recherche**, choisissez la **Saison**. Le **Département** est déjà rempli. Affinez si besoin avec l'**Organisateur de la rencontre** ou une partie de l'**Intitulé**, puis cliquez sur **Rechercher** : les rencontres s'affichent dans **Résultats**. **Exporter** télécharge les rencontres de la saison.
 
 ![Rechercher une rencontre](img/dep-rencontres-recherche.png)
 
-### Saisir une nouvelle rencontre
+## Saisir une rencontre
 
-En haut de l'écran, sélectionnez la **saison** à laquelle rattacher la rencontre, puis cliquez sur **Saisir une rencontre**.
+1. En haut de l'écran, choisissez la **Saison** de la rencontre, puis cliquez sur **Saisir une rencontre**.
 
-![Saisir une rencontre](img/dep-rencontres-saisie.png)
+    ![Saisir une rencontre](img/dep-rencontres-saisie.png)
 
-Le formulaire est découpé en trois parties ; cliquez sur le bandeau d'une partie pour l'ouvrir ou la refermer. Les champs suivis d'un astérisque **\*** sont obligatoires.
+2. Le formulaire est découpé en blocs ; cliquez sur le bandeau d'un bloc pour l'ouvrir ou le refermer. Les champs suivis d'un astérisque **\*** sont obligatoires.
+    - **Informations principales** : **Intitulé de la rencontre**, **Organisateur de la rencontre**, **Date de la rencontre** ;
+    - **Lieu de la rencontre** : **Code Postal** et **Ville** ;
+    - **Rencontre sportive** et **Effectifs** : les questions de votre questionnaire.
+3. Cliquez sur **Valider**.
 
-![Formulaire de rencontre](img/dep-rencontres-formulaire.png)
+    ![Formulaire de rencontre](img/dep-rencontres-formulaire.png)
 
-!!! warning "Ne pas oublier"
-    Cliquez sur **Valider** à la fin : sans cette étape, la rencontre n'est pas enregistrée.
+!!! warning "N'oubliez pas de valider"
+    Sans clic sur **Valider**, la rencontre n'est pas enregistrée. **Retour** quitte le formulaire sans enregistrer.

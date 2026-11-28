@@ -9,6 +9,7 @@ nav:
       - Bienvenue: index.md
       - Se connecter: connexion.md
       - Ça ne marche pas comme prévu: probleme.md
+      - Glossaire: glossaire.md
   - Affiliation:
       - Affilier mon association: affiliation.md
       - Valider et transmettre: affiliation-valider.md
@@ -17,7 +18,7 @@ nav:
       - Coordonnées et logo: association-coordonnees.md
       - Sections et écoles: association-sections.md
       - Attestations: association-attestations.md
-  - Mes adhérent.e.s:
+  - Mes adhérents:
       - Rechercher et gérer: adherents-gerer.md
       - Enregistrer une adhésion: adherents-nouveau.md
       - Importer un fichier: adherents-import.md

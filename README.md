@@ -85,7 +85,7 @@ Plusieurs écrans sur la même page :
 
 Le test lit les intitulés en gras après « dans le menu », jusqu'au mot « bouton » : gardez cette formule.
 Sans passer par le menu : `Depuis le **tableau de bord** (logo central), cliquez sur le bouton **Modifier votre affiliation**.`
-Seules les pages d'accueil et d'aide (`index`, `probleme`, `limitations`, `connexion`) n'en ont pas.
+Seules les pages d'accueil et d'aide (`index`, `probleme`, `limitations`, `connexion`, `glossaire`) n'en ont pas.
 
 ### Tests de bout en bout (Playwright)
 

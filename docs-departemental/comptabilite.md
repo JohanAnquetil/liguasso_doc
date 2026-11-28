@@ -1,50 +1,55 @@
-# Comptabilité
+# Suivre et transférer la comptabilité
 
 !!! chemin "Accès"
     - Dans le menu, cliquez sur **Comptabilité**, puis sur **Transfert vers logiciel comptable**.
     - Dans le menu, cliquez sur **Comptabilité**, puis sur **Consultation d'un compte tiers**.
     - Dans le menu, cliquez sur **Comptabilité**, puis sur **Livres comptables**.
 
-Le menu **Comptabilité** regroupe les outils qui permettent de suivre les écritures générées par Ligu'asso — ventes et règlements — et de les transférer vers votre logiciel comptable.
+Ligu'asso transforme les factures et les règlements en **écritures comptables**. Le menu **Comptabilité** permet de les consulter et de les transférer vers votre logiciel de comptabilité.
 
 ![Menu Comptabilité](img/dep-comptabilite-menu.png)
 
-Il propose trois entrées :
-
-| Entrée | À quoi elle sert |
+| Entrée du menu | À quoi elle sert |
 |---|---|
-| **Transfert vers logiciel comptable** | Génère le fichier d'écritures à importer dans votre comptabilité. |
-| **Consultation d'un compte tiers** | Affiche le détail des écritures d'un tiers : association, adhérent.e… |
-| **Livres comptables** | Donne accès au Grand livre des tiers, au Journal des ventes, au Journal des règlements et à la Balance. |
+| **Transfert vers logiciel comptable** | Génère le fichier d'écritures à importer dans votre logiciel de comptabilité. |
+| **Consultation d'un compte tiers** | Affiche les écritures d'un tiers (une association), à partir d'une date. |
+| **Livres comptables** | Donne accès au **Grand livre des tiers**, au **Journal des ventes**, au **Journal des réglements** et à la **Balance**. |
 
 !!! note
-    Toutes ces pages sont en **consultation seule**, à l'exception du transfert vers le logiciel comptable.
+    Toutes ces pages sont en **consultation seule**, sauf le transfert vers le logiciel de comptabilité.
 
-## Transférer ses écritures
+## Consulter le compte d'une association
 
-L'écran **Transfert vers logiciel comptable** prépare puis génère le fichier d'écritures sur une période donnée.
+1. Ouvrez **Consultation d'un compte tiers**.
+2. Choisissez la **Comptabilité** (LIGUE, UFOLEP ou USEP) et l'**Association**.
+3. Indiquez si besoin une date de départ dans **A partir du**.
+4. Cliquez sur **Rechercher**.
 
-### 1. Rechercher les écritures
+## Transférer les écritures vers votre logiciel
 
-- **Comptabilité** : celle concernée par le transfert — USEP, UFOLEP ou Ligue.
-- **Début de période** et **Fin de période** : obligatoires. Seules les écritures comprises entre ces deux dates sont prises en compte.
-- **Type d'écritures** : *Ventes et règlements*, *Ventes uniquement* ou *Règlements uniquement*.
+### 1. Rechercher les écritures de la période
+
+1. Ouvrez **Transfert vers logiciel comptable**.
+2. Choisissez la **Comptabilité** concernée : Ligue, Ufolep ou Usep.
+3. Renseignez le **Début de période** et la **Fin de période** (obligatoires). Seules les écritures comprises entre ces deux dates sont prises en compte.
+4. Choisissez le type d'écritures : **Ventes et règlement**, **Ventes uniquement** ou **Règlements uniquement**.
+5. Cliquez sur **Rechercher**.
 
 ![Recherche des écritures](img/dep-comptabilite-recherche.png)
 
 ### 2. Vérifier le récapitulatif
 
-Le tableau présente, pour chaque journal — ventes ou règlements — et chaque mois : le nombre de pièces, le nombre d'écritures dont le compte général n'est pas renseigné, le total au débit et le total au crédit.
+Le tableau présente, pour chaque journal (ventes ou règlements) et chaque mois : le nombre de pièces, le nombre d'écritures **sans compte général**, le total au débit et le total au crédit.
 
 ![Récapitulatif](img/dep-comptabilite-resultats.png)
 
 !!! tip
-    Vérifiez que le débit et le crédit sont équilibrés avant de lancer l'export.
+    Avant l'export, vérifiez que le débit et le crédit sont équilibrés et qu'aucune écriture n'est sans compte général.
 
 ### 3. Générer le fichier
 
 1. Cliquez sur **Génération du fichier d'écritures**.
-2. Choisissez le format de votre logiciel : Sage i7, Sage 100c, Quadra / Quadratus ou Générique (Ciel, EBP…).
+2. Choisissez le format de votre logiciel : **Sage i7**, **Sage 100c**, **Quadra / Quadratus** ou **Générique** (Ciel, EBP…).
 3. Vérifiez le nom du fichier, proposé automatiquement.
 4. Cliquez sur **Générer le fichier d'écritures**.
 
@@ -52,27 +57,27 @@ Le tableau présente, pour chaque journal — ventes ou règlements — et chaqu
 
 ![Choix du format](img/dep-comptabilite-generation.png)
 
-Le fichier `.txt` est téléchargé : il ne reste plus qu'à l'importer dans votre logiciel comptable.
+Un fichier `.txt` est téléchargé : importez-le dans votre logiciel de comptabilité. Le bouton **Afficher historique** liste les transferts déjà effectués.
 
 ## Corriger les écritures sans compte général
 
-Un **triangle rouge** signale des écritures dont le compte général n'est pas renseigné : elles empêchent l'extraction.
+Un **triangle rouge** signale des écritures dont le compte général n'est pas renseigné. Elles **bloquent le transfert**.
 
 ![Triangle d'alerte](img/dep-comptabilite-alerte.png)
 
-Le mieux est de compléter le [paramétrage comptable](parametrage-plans-comptables.md) avant de générer le fichier. Sinon, ces écritures devront être corrigées dans votre logiciel.
+Le mieux est de compléter le [paramétrage comptable](parametrage-plans-comptables.md) avant de générer le fichier ; sinon, il faudra corriger ces écritures dans votre logiciel.
 
-**Identifiez d'abord les lignes concernées.** Cliquez sur le bouton **Éditer**, en bas de page : le fichier s'ouvre et laisse voir, par exemple, un compte clients non renseigné sur la pièce comptable *RL 3083*.
+1. **Identifiez les lignes en cause.** Cliquez sur **Éditer**, en bas de page : le fichier s'ouvre et indique, pour chaque écriture incomplète, le numéro de sa pièce comptable (par exemple *RL 3083*) et le compte manquant (par exemple un compte clients).
 
-![Fichier édité](img/dep-comptabilite-editer.png)
+    ![Fichier édité](img/dep-comptabilite-editer.png)
 
-**Remontez ensuite à la pièce.** Rendez-vous dans [Facturation et règlement](facturation.md), indiquez le numéro de la pièce et l'association, puis visualisez-la en cliquant sur l'**œil**.
+2. **Retrouvez la pièce.** Ouvrez [Facturation et règlement](facturation.md), indiquez le numéro de la pièce dans **N° de pièce** et l'association, puis cliquez sur l'icône en forme d'œil.
 
-![Retrouver la pièce](img/dep-comptabilite-piece.png)
+    ![Retrouver la pièce](img/dep-comptabilite-piece.png)
 
-Dans l'exemple ci-dessous, la ligne en cause est un paiement par **Carte Bleue** : ce mode de règlement n'a pas de rattachement dans le plan comptable.
+3. **Repérez la cause.** Dans l'exemple *RL 3083*, la pièce est un règlement par **carte bancaire** : ce mode de règlement n'est rattaché à aucun compte dans le plan comptable.
 
-![Ligne en cause](img/dep-comptabilite-ligne.png)
+    ![Ligne en cause](img/dep-comptabilite-ligne.png)
 
-!!! tip "La corriger durablement"
-    Rattachez le mode de règlement à un compte dans [Plans comptables](parametrage-plans-comptables.md). L'écriture cessera alors de bloquer les transferts suivants.
+!!! tip "Corriger durablement"
+    Rattachez le mode de règlement à un compte dans [Plans comptables](parametrage-plans-comptables.md), section **Plan comptable des modes de règlement**. Les transferts suivants ne seront plus bloqués.

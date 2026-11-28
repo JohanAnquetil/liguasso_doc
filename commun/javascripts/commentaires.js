@@ -148,7 +148,7 @@
       var item = el("li", { classe: "commentaire" + (c.en_attente ? " commentaire--attente" : ""), id: "commentaire-" + c.id },
         entete, el("p", { classe: "commentaire-texte", texte: c.texte }));
       if (c.en_attente) {
-        item.append(el("p", { classe: "commentaire-statut", texte: "En attente de validation — visible par vous seul·e pour l'instant." }));
+        item.append(el("p", { classe: "commentaire-statut", texte: "En attente de validation — visible par vous seul pour l'instant." }));
         return item;
       }
       var actions = el("div", { classe: "commentaire-actions" });

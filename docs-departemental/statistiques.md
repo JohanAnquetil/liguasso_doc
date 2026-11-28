@@ -1,64 +1,69 @@
-# Statistiques et extractions
+# Extraire les adhérents et les associations
 
 !!! chemin "Accès"
-    - Adhérent.e.s : dans le menu, cliquez sur **Statistiques et Extractions**, puis sur **Extractions**, puis sur **Extraction adhérents**.
+    - Adhérents : dans le menu, cliquez sur **Statistiques et Extractions**, puis sur **Extractions**, puis sur **Extraction adhérents**.
     - Associations : dans le menu, cliquez sur **Statistiques et Extractions**, puis sur **Extractions**, puis sur **Extraction associations**.
 
-Le menu **Statistiques et Extractions** permet d'extraire la liste des adhérent.e.s ou des associations de votre département, selon les critères de votre choix.
+Les extractions produisent un fichier Excel des adhérents ou des associations de votre département, filtrés selon vos critères.
 
 ![Menu Statistiques et extractions](img/dep-statistiques-menu.png)
 
-## Extraire les adhérent.e.s
+## Extraire les adhérents
 
-Tous les paramètres sont facultatifs, **sauf la saison** : plus vous en renseignez, plus l'extraction est ciblée.
+Seule la **Saison** est obligatoire ; plus vous renseignez de critères, plus l'extraction est ciblée.
 
 ### Choisir la saison et le périmètre
 
-Dans le bloc **Paramètres**, choisissez la **saison** concernée. Le champ **Département** est prérempli avec le vôtre. Pour limiter l'extraction à une association, sélectionnez-la dans le champ **Association** ; pour la limiter à un type de structure, sélectionnez-le dans la liste **Structures**.
+Dans le bloc **Paramètres**, choisissez la **Saison**. Le **Département** est déjà rempli. Pour limiter l'extraction à une association, choisissez-la dans **Association** ; pour la limiter à une fédération, choisissez **Ligue**, **Ufolep** ou **Usep** dans **Structure**.
 
 ![Paramètres de l'extraction](img/dep-extraction-parametres.png)
 
-### Filtrer
+### Filtrer les adhérents
 
-Vous pouvez affiner à l'aide des filtres : **Activité / Dispositif fédéral**, **Catégorie d'adhérent**, **État adhésion**, **Sexe** et **Tranche d'âge**.
+Tous les filtres sont facultatifs :
 
-Les options **Loisirs**, **Compétitions**, **Officiels**, **Animateurs** et **Dirigeants** ne retiennent que les adhérent.e.s concernés — cliquez sur l'interrupteur pour l'activer.
+- **Activité / Dispositif fédéral** ;
+- **Catégorie d'adhérent** : **Adhérents Socioculturels**, **Licenciés Usep**, **Licenciés Ufolep**, **Adhérents Ufopass** ;
+- **Etat adhésion** : **A réadhérer**, **En cours**, **Validée**, **Refusée**, **Rejetée** ;
+- **Sexe** et **Tranche d'âge** (par exemple **Jeune - Ligue**, **Adulte - Ufolep**, **Enfant - Usep**) ;
+- les interrupteurs **Loisirs**, **Compétitions**, **Officiels**, **Animateurs** et **Dirigeants**, pour ne garder que les adhérents concernés.
+
+Pour l'**USEP**, trois filtres propres au milieu scolaire s'ajoutent : **Ecole** (maternelle ou élémentaire), **Cycle** (**Cycle 1** à **Cycle 3**, **Hors cycle**) et **Niveau** (de la petite section au CM2).
+
+Les [champs supplémentaires](parametrage-champs.md) de votre fédération apparaissent aussi comme filtres, par exemple **Diffusion** ou **Secteur Usep pour rencontres sportives**.
 
 ![Filtres](img/dep-extraction-filtres.png)
 
-Pour les adhérent.e.s **USEP**, des filtres propres au milieu scolaire s'ajoutent : **École**, **Cycle** et **Niveau**. Le champ **Secteur USEP pour rencontres sportives** cible les adhérent.e.s d'un secteur donné, et le champ **Diffusion** permet un filtrage supplémentaire.
-
 ### Choisir le type de sortie
 
-Le champ **Type de sortie** détermine le contenu du fichier extrait. Cinq sorties sont proposées.
+Le **Type de sortie** détermine le contenu du fichier :
 
 === "Ligue"
 
-    **Sortie simple Ligue** — une liste rapide des adhérent.e.s Ligue. Pour chaque personne : son département, son association, son activité, son numéro d'adhérent, sa civilité, son nom, son prénom, sa date de naissance et son âge.
+    **Sortie simple Ligue** : une liste rapide des adhérents de la Ligue. Pour chaque personne : département, association, activité, numéro d'adhérent, civilité, nom, prénom, date de naissance et âge.
 
 === "UFOLEP"
 
-    **Sortie simple Ufolep** — une liste des adhérent.e.s UFOLEP par activité. Le fichier précise si l'activité est l'activité principale, et donne le type de licence, l'identité, l'âge et la tranche d'âge. On y trouve aussi la date d'homologation, les fonctions exercées — pratiquant, animateur, dirigeant, officiel — et la colonne **Risque**.
+    **Sortie simple Ufolep** : la liste des licenciés UFOLEP par activité. Le fichier indique si l'activité est l'activité principale, le type de licence, l'identité, l'âge et la tranche d'âge, la date d'homologation, les fonctions exercées (pratiquant, animateur, dirigeant, officiel) et la colonne **Risque**.
 
-    **Sortie complète Ufolep** — l'ensemble des informations de l'adhésion : état civil détaillé (lieu de naissance, nom des parents), coordonnées, date d'adhésion, informations de licence (catégorie, désignation, homologation, certificat médical, impression), fonctions exercées, contrôle d'honorabilité, doubles adhésions, ainsi que les informations Ufopass, MARSH et CASM.
+    **Sortie complète Ufolep** : toutes les informations de l'adhésion. État civil détaillé (lieu de naissance, nom des parents), coordonnées, date d'adhésion, informations de licence (catégorie, désignation, homologation, certificat médical, impression), fonctions exercées, contrôle d'honorabilité, doubles adhésions, informations UFOPASS, MARSH et CASM.
 
 === "USEP"
 
-    **Sortie simple Usep** — une liste des adhérent.e.s USEP rattachés à leur école. Pour chaque personne : son association, son identité, sa date de naissance, son âge, son école, sa classe et son niveau.
+    **Sortie simple Usep** : la liste des licenciés USEP rattachés à leur école. Pour chaque personne : association, identité, date de naissance, âge, école, classe et niveau.
 
-    **Sortie complète Usep** — l'ensemble des informations de l'adhésion : numéro de licence, état civil, coordonnées, date d'adhésion, type de licence, école, classe et niveau. Une éventuelle double adhésion USEP y est signalée.
+    **Sortie complète Usep** : toutes les informations de l'adhésion. Numéro de licence, état civil, coordonnées, date d'adhésion, type de licence, école, classe et niveau. Une éventuelle double adhésion USEP est signalée.
 
-!!! note
-    Toutes les sorties se terminent par la colonne **Motif rejet**.
-
-Cliquez enfin sur **Extraire les données**.
+Toutes les sorties se terminent par la colonne **Motif rejet**.
 
 ![Type de sortie](img/dep-extraction-sortie.png)
 
+Cliquez enfin sur **Extraire les données**. Le bouton **Télécharger** permet de récupérer le fichier.
+
 ## Extraire les associations
 
-Pour extraire la liste des associations de votre département, seuls la **saison** et le **type de sortie** doivent être renseignés. Les autres paramètres sont facultatifs et permettent de cibler l'extraction.
+1. Choisissez la **Saison** et le **Type de sortie** (**Ligue**, **Ufolep** ou **Usep**) : ce sont les deux seuls champs obligatoires.
+2. Affinez si besoin avec : **Structure**, **Statut juridique** (par exemple **1100 - Association loi 1901**), **Activité / Dispositif fédéral**, **Type d'affiliation UFOLEP**, et vos champs supplémentaires (**Diffusion**…).
+3. Cliquez sur **Extraire les données**.
 
 ![Extraction des associations](img/dep-extraction-associations.png)
-
-Choisissez le type de sortie, puis cliquez sur **Extraire les données**.

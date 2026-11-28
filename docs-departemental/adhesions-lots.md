@@ -1,40 +1,56 @@
-# Lots
+# Suivre et valider les lots d'adhésions
 
 !!! chemin "Accès"
     Dans le menu, cliquez sur **Adhésion**, puis sur **Lots**.
 
-Un **lot** correspond à un ensemble d'adhérent.e.s importés depuis un fichier Excel ou CSV (`.xls`, `.xlsx` ou `.csv`). Les adhésions issues d'un import ne se rangent pas dans **Gérer les adhésions** mais ici.
+Un **lot** est un ensemble d'adhésions traitées ensemble. Il est créé automatiquement à chaque **import de fichier** (`.xls`, `.xlsx` ou `.csv`), et vous pouvez en créer un vous-même pour [valider des adhésions en masse](adhesions-valider.md).
+
+Les adhésions importées ne s'affichent pas dans **Gérer les adhésions** : c'est ici qu'on les retrouve et qu'on les valide.
 
 ![Liste des lots](img/dep-lots.png)
 
-Pour voir l'ensemble des lots, activez le bouton **Afficher les lots validés**. Vous pouvez aussi créer vous-même un lot avec **Nouveau lot**.
+## Lire la liste des lots
+
+Pour chaque lot, le tableau indique son **ID**, son **Libellé**, l'**Association**, le nombre d'adhésions (**Nb adhes.**, **Nb adhes. validées**, **Nb adhes. refusées**), et les dates et auteurs de création (**Créé le**), de transfert (**Transfert le**) et de validation (**Validé le**).
+
+Par défaut, seuls les lots en cours sont affichés. Cochez **Afficher l'historique des lots validés** pour voir aussi les lots déjà validés.
 
 ![Lots](img/dep-lots-liste.png)
 
+La colonne **Actions** propose trois icônes : **Visualiser** (œil), **Supprimer** et **Valider**.
+
 ## Valider les adhésions d'un lot
 
-Quel que soit le statut des adhésions importées, vous pouvez les valider depuis cette page. Cliquez sur l'icône **visualiser**, en forme d'œil : la liste des adhésions s'affiche.
+Quel que soit leur état, les adhésions d'un lot se valident depuis cet écran.
 
-![Adhésions d'un lot](img/dep-lot-adhesions.png)
+1. Cliquez sur l'icône **Visualiser**, en forme d'œil : la liste des adhésions du lot s'affiche.
+2. Choisissez ce que vous validez :
 
-=== "Valider une partie"
+=== "Une partie du lot"
 
     Cochez les adhésions concernées, puis cliquez sur **Valider les éléments sélectionnés**.
 
     ![Valider une sélection](img/dep-lot-valider.png)
 
-=== "Tout valider"
+=== "Tout le lot"
 
     Cliquez sur **Tout sélectionner**, en haut à gauche, puis sur **Tout valider**.
 
-Un message de validation s'affiche dans les deux cas.
+![Adhésions d'un lot](img/dep-lot-adhesions.png)
+
+Un message confirme la validation.
 
 ![Message de validation](img/dep-lot-message.png)
 
-Les adhésions validées sont marquées comme telles dans le lot, où l'ensemble reste répertorié.
+Les adhésions validées sont marquées comme telles dans le lot, qui garde l'historique complet.
 
 ![Lot validé](img/dep-lot-valide.png)
 
-Elles sont ensuite retrouvables dans **Gérer les adhésions**, en recherchant l'association concernée.
+Une fois validées, elles sont aussi visibles dans **Gérer les adhésions**, en recherchant l'association concernée.
 
 ![Retrouver les adhésions](img/dep-lot-retrouver.png)
+
+## Voir aussi
+
+- [Valider des adhésions en masse](adhesions-valider.md)
+- [Importer un fichier d'adhésions](adhesions-import.md)

@@ -1,4 +1,4 @@
-# Plans comptables
+# Paramétrer les plans comptables
 
 !!! chemin "Accès"
     - Dans le menu, cliquez sur **Paramétrage**, puis sur **Comptabilité**, puis sur **Paramétres comptables**.
@@ -8,59 +8,56 @@
     - Dans le menu, cliquez sur **Paramétrage**, puis sur **Comptabilité**, puis sur **Plan comptable des produits**.
     - Dans le menu, cliquez sur **Paramétrage**, puis sur **Comptabilité**, puis sur **Plan comptable des modes de règlement**.
 
-Ce paramétrage indique à Ligu'asso comment transformer vos factures et vos règlements en écritures comptables. Il se remplit une fois, au démarrage, puis ne change qu'en cas d'évolution de votre comptabilité.
+Le paramétrage comptable indique à Ligu'asso **dans quels comptes enregistrer** chaque facture et chaque règlement, pour produire les écritures comptables. Il se remplit une fois, au démarrage, puis ne change qu'en cas d'évolution de votre comptabilité.
+
+!!! warning "Pourquoi c'est important"
+    Un produit ou un mode de règlement sans compte produit des **écritures sans compte général**, qui **bloquent le transfert** vers votre logiciel de comptabilité. → [Suivre et transférer la comptabilité](comptabilite.md)
 
 ![Menu Paramétrage comptable](img/dep-plans-menu.png)
 
-## Paramètres comptables
+## Paramètres comptables : régler l'export
 
-L'écran liste vos paramétrages comptables. Pour en modifier un, cliquez sur le bouton **Modifier**, symbolisé par un crayon, à droite de la ligne.
+L'écran liste vos paramétrages comptables. C'est ici que se règle l'**export comptable** : la façon dont les pièces sont converties en écritures importables dans votre logiciel. Pour modifier un paramétrage, cliquez sur l'icône crayon (**Modifier**), à droite de la ligne.
 
 ![Liste des paramétrages](img/dep-plans-parametres.png)
 
-C'est ici que se règle l'**export comptable** : la façon dont les pièces sont converties en écritures, pour être importées directement dans votre logiciel de comptabilité.
-
 ![Export comptable](img/dep-plans-export.png)
 
-## Plan comptable général et analytique
+## Plan comptable général et analytique : créer des comptes
 
-Cet écran sert à créer les comptes comptables **généraux** et **analytiques**. Vous pouvez rechercher un compte existant, ou en ajouter un avec **Ajouter un compte**.
+Ces écrans servent à créer les comptes **généraux** et **analytiques**. Recherchez un compte existant, ou cliquez sur **Ajouter un compte**.
 
 ![Plan comptable général](img/dep-plans-general.png)
 
-## Plan comptable tiers
+## Plan comptable tiers : le compte de chaque association
 
-Il liste les **comptes tiers**, c'est-à-dire le compte comptable propre à chaque association affiliée, et permet de les modifier.
+Le **compte tiers** est le compte comptable propre à chaque association affiliée. Recherchez les associations selon vos critères, puis modifiez un compte avec l'icône crayon.
 
 ![Plan comptable tiers](img/dep-plans-tiers.png)
 
-Retrouvez les associations selon vos critères de recherche, puis modifiez-les avec l'icône crayon.
-
 ![Modification d'un compte tiers](img/dep-plans-tiers-modif.png)
 
-## Plan comptable des produits
+## Plan comptable des produits : les comptes de chaque produit facturé
 
-Il associe chaque produit — adhésion, cotisation, etc. — aux comptes comptables à utiliser lors de sa facturation.
+Chaque produit (adhésion, cotisation, etc.) doit être associé aux comptes à utiliser quand il est facturé.
 
-**Rechercher un produit.** Choisissez la saison et la comptabilité (Ligue, UFOLEP ou USEP), ajoutez si besoin un code ou un libellé, puis cliquez sur **Rechercher**. L'icône crayon ouvre le paramétrage d'un produit, l'icône œil le consulte.
+1. Choisissez la **saison** et la **comptabilité** (Ligue, UFOLEP ou USEP), et si besoin un code ou un libellé de produit. Cliquez sur **Rechercher**.
+2. Sur la ligne du produit, l'icône crayon ouvre son paramétrage ; l'icône œil le consulte.
+3. Choisissez le **compte général**, le **compte d'attente** et, si besoin, le **compte analytique**, avec pour chacun son **sens** (par exemple **Crédit**) et son **signe** (par exemple **+**).
+4. Cliquez sur **Valider**.
 
 ![Plan comptable des produits](img/dep-plans-produits.png)
 
-**Modifier le paramétrage.** Choisissez le compte général, le compte d'attente et, si besoin, le compte analytique, avec pour chacun son **sens** (Crédit) et son **signe** (+). Cliquez ensuite sur **Valider**.
-
 ![Modification d'un produit](img/dep-plans-produits-modif.png)
 
-## Plan comptable des modes de règlement
+## Plan comptable des modes de règlement : où enregistrer les encaissements
 
-Il associe chaque mode de règlement — chèque, virement, OD de régularisation, etc. — au compte comptable où l'encaissement est enregistré.
+Chaque mode de règlement (chèque, virement, carte bancaire, OD de régularisation, etc.) doit être associé au compte où l'encaissement est enregistré.
 
-**Rechercher un mode de règlement.** Choisissez la structure (Ligue, UFOLEP ou USEP), puis cliquez sur **Rechercher**. Le filtre **Sans transfert comptable** n'affiche que ceux qui ne sont pas transmis en comptabilité.
+1. Choisissez la **structure** (Ligue, UFOLEP ou USEP), puis cliquez sur **Rechercher**. Le filtre **Sans transfert comptable** n'affiche que les modes de règlement non transmis en comptabilité.
+2. Ouvrez le mode de règlement avec l'icône crayon.
+3. Choisissez le **compte général**, son **sens** et son **signe**, puis cliquez sur **Valider**.
 
 ![Plan comptable des règlements](img/dep-plans-reglements.png)
 
-**Modifier le paramétrage.** Choisissez le compte général, son sens et son signe, puis cliquez sur **Valider**.
-
 ![Modification d'un mode de règlement](img/dep-plans-reglements-modif.png)
-
-!!! tip "Écritures bloquantes"
-    Un mode de règlement sans rattachement ici produit des écritures sans compte général, qui empêchent le transfert comptable. → [Comptabilité](comptabilite.md)

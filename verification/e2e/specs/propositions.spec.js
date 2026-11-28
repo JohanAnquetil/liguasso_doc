@@ -2,14 +2,14 @@
 const { test, expect, unique } = require('../support/fixtures');
 
 const FICHE = '/adhesions-lots/';
-const PHRASE = "Pour voir l'ensemble des lots";
+const PHRASE = 'Par défaut, seuls les lots en cours sont affichés';
 
 test.describe('Propositions de modification', () => {
   test('une modification acceptée devient une pull request', async ({ visiteur, moderation, github }) => {
     const resume = unique('Astuce sur les lots validés');
     await visiteur.ouvrir(FICHE);
     const fenetre = await visiteur.proposerUneModification();
-    await expect(fenetre.texte).toHaveValue(/^# Lots/);
+    await expect(fenetre.texte).toHaveValue(/^# Suivre et valider les lots/);
     await fenetre.remplacer(PHRASE, `Astuce : ${PHRASE.toLowerCase()}`);
     await fenetre.envoyer({ resume, pseudo: 'Sam' });
     await expect(fenetre.merci).toContainText('Merci');
@@ -17,14 +17,14 @@ test.describe('Propositions de modification', () => {
     await moderation.afficher('Propositions');
     const carte = moderation.carte(resume);
     await expect(carte.locator('.diff .moins')).toContainText(PHRASE);
-    await expect(carte.locator('.diff .plus')).toContainText('Astuce : pour voir');
+    await expect(carte.locator('.diff .plus')).toContainText('Astuce : par défaut');
     await moderation.accepterProposition(resume);
 
     const ecritures = await github.ecritures();
     expect(ecritures.map((e) => `${e.methode} ${e.chemin}`)).toEqual([
       'POST git/refs', 'PUT contents/docs-departemental/adhesions-lots.md', 'POST pulls']);
     const fichier = Buffer.from(ecritures[1].corps.content, 'base64').toString();
-    expect(fichier).toContain('Astuce : pour voir');
+    expect(fichier).toContain('Astuce : par défaut');
     expect(ecritures[2].corps.title).toContain(resume);
 
     await moderation.afficher('Propositions acceptées');

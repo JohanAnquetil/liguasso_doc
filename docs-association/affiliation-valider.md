@@ -1,32 +1,37 @@
-# Valider et transmettre
+# Valider et transmettre l'affiliation
 
 !!! chemin "Accès"
-    Dernière étape du parcours d'affiliation : voir [Affilier mon association](affiliation.md).
+    C'est la dernière étape du parcours d'affiliation : voir [Affilier mon association](affiliation.md).
 
-## Le résumé
+Une fois toutes les étapes remplies, il reste à valider l'affiliation puis à la transmettre à votre fédération départementale, qui la valide à son tour.
 
-La dernière étape récapitule l'ensemble des données saisies. Elle permet d'en vérifier l'exactitude et de récupérer le bulletin d'affiliation.
+## Vérifier le résumé
+
+La dernière étape récapitule toutes les informations saisies. Vérifiez-les : c'est aussi là que vous téléchargez le **bulletin d'affiliation** à signer.
 
 Si tout est correct, cliquez sur **Valider l'affiliation**.
 
 ![Résumé de l'affiliation](img/affiliation-resume.png)
 
-## Transmettre la demande
+## Transmettre la demande à la fédération
 
-Choisissez ensuite le mode de transmission :
+Choisissez le mode de transmission du bulletin signé :
 
-- par **envoi postal** du bulletin d'affiliation signé ;
-- par **dépôt** du bulletin signé et scanné ;
-- par **signature électronique**.
+- **envoi postal** du bulletin d'affiliation signé ;
+- **dépôt** du bulletin signé et scanné ;
+- **signature électronique**.
 
 ![Choix du mode de transmission](img/affiliation-transmission.png)
 
-## Suivre la demande
+## Suivre la validation par la fédération
 
-Revenez sur votre **tableau de bord** : votre demande y apparaît comme transmise.
+Sur votre **tableau de bord**, la demande apparaît comme transmise, en attente de validation.
 
 ![Demande transmise](img/affiliation-en-attente.png)
 
-Une fois l'affiliation validée par votre fédération départementale, vous pouvez engager les démarches d'adhésion. Tant que la fédération n'a pas validé, votre demande reste en attente — vous pouvez néanmoins consulter les autres informations de votre association.
+Quand votre fédération départementale l'a validée, le tableau de bord affiche **Votre affiliation est validée**. Vous pouvez alors enregistrer les adhésions de la saison.
 
 ![Affiliation validée](img/affiliation-validee.png)
+
+!!! note "En attendant la validation"
+    Tant que la fédération n'a pas validé l'affiliation, vous ne pouvez pas enregistrer d'adhésions pour la saison. Vous pouvez en revanche consulter les autres informations de votre association. Si la validation tarde, contactez votre fédération.

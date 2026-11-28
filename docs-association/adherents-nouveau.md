@@ -3,11 +3,17 @@
 !!! chemin "Accès"
     Dans le menu, cliquez sur **Adhésion**, puis sur **Gérer les adhésions**, puis sur le bouton **+ Nouvelle adhésion**.
 
-Depuis **Gérer les adhésions**, cliquez sur **+ Nouvelle adhésion**.
+Cette fiche explique comment enregistrer **une** adhésion. Pour en enregistrer beaucoup d'un coup, utilisez plutôt l'[import de fichier](adherents-import.md).
 
 ![Bouton Nouvelle adhésion](img/nouvelle-adhesion-bouton.png)
 
-Le parcours diffère selon la fédération concernée.
+## Avant de commencer
+
+Votre association doit être **affiliée et validée par votre fédération pour la saison** de l'adhésion. Sinon, l'adhésion ne peut pas être enregistrée.
+
+## Remplir le parcours d'adhésion
+
+Le parcours dépend de la fédération concernée.
 
 === "Ligue (socioculturel)"
 
@@ -15,7 +21,7 @@ Le parcours diffère selon la fédération concernée.
 
 === "UFOLEP"
 
-    Les étapes **Adhésion** et **Informations personnelles** sont identiques au parcours Ligue.
+    Les étapes **Adhésion** et **Informations personnelles** sont les mêmes que pour la Ligue (socioculturel). Les étapes propres à l'UFOLEP suivent.
 
     --8<-- "parcours-adhesion-ufolep.md"
 
@@ -23,18 +29,26 @@ Le parcours diffère selon la fédération concernée.
 
     --8<-- "parcours-adhesion-usep.md"
 
-## Résumé et transmission
+## Vérifier et transmettre l'adhésion à la fédération
 
-Vérifiez les informations et les activités, puis cliquez sur **Enregistrer**.
+1. Sur le résumé, vérifiez les informations et les activités, puis cliquez sur **Enregistrer**.
+2. Si tout est correct, cliquez sur **Transmettre à la fédération** et confirmez.
 
 ![Résumé de l'adhésion](img/nouvelle-adhesion-resume.png)
-
-Si tout est correct, cliquez sur **Transmettre à la fédération** et confirmez.
 
 ![Transmettre à la fédération](img/nouvelle-adhesion-transmettre.png)
 
 ![Confirmation](img/nouvelle-adhesion-confirmation.png)
 
-Retournez dans **Gérer les adhésions** pour suivre l'état d'avancement. Une fois la demande traitée et validée par la fédération, son état est mis à jour.
+Une adhésion enregistrée mais non transmise n'est pas envoyée à la fédération : pensez à la transmettre.
+
+## Suivre la validation
+
+Dans **Gérer les adhésions**, l'**État** de l'adhésion indique où elle en est : **en attente adh.** une fois transmise, puis **validée** quand la fédération l'a acceptée.
 
 ![Suivi des adhésions](img/nouvelle-adhesion-suivi.png)
+
+## Voir aussi
+
+- [Rechercher et gérer les adhésions](adherents-gerer.md)
+- [Ça ne marche pas comme prévu](probleme.md) : je ne peux pas enregistrer d'adhésion.
