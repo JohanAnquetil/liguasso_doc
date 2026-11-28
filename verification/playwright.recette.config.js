@@ -2,7 +2,7 @@
 const { defineConfig } = require('@playwright/test');
 
 module.exports = defineConfig({
-  testDir: './tests',
+  testDir: './recette',
   // Une seule session à la fois : le profil choisi est mémorisé côté serveur.
   workers: 1,
   fullyParallel: false,

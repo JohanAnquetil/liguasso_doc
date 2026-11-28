@@ -87,6 +87,24 @@ Le test lit les intitulés en gras après « dans le menu », jusqu'au mot « bo
 Sans passer par le menu : `Depuis le **tableau de bord** (logo central), cliquez sur le bouton **Modifier votre affiliation**.`
 Seules les pages d'accueil et d'aide (`index`, `probleme`, `limitations`, `connexion`) n'en ont pas.
 
+### Tests de bout en bout (Playwright)
+
+`verification/e2e` rejoue les parcours dans un vrai navigateur, sur les guides lancés en
+local : encadrés « Accès », bouton PDF, version imprimée, commentaires (envoi, validation,
+like, réponse, signalement, champ piège), modération, propositions de modification jusqu'à
+la pull request (sur un faux GitHub). Playwright démarre lui-même les guides, le service de
+commentaires et le faux GitHub.
+
+    cd verification
+    npm install && npx playwright install chromium            # la première fois
+    PYTHON=python3 npm run test:e2e                           # python avec mkdocs et commentaires/requirements.txt
+    npm run rapport:e2e
+
+Organisation : `e2e/pages/` (une classe par écran : page du guide, bloc commentaires,
+fenêtre de proposition, modération), `e2e/support/` (fixtures, faux GitHub), `e2e/specs/`
+(les scénarios). Ces tests et ceux du service tournent sur chaque pull request
+(`.github/workflows/tests.yml`).
+
 ### Vérifier les chemins sur la recette (Playwright)
 
 Le dossier `verification/` relit tous les encadrés « Accès » et vérifie sur
@@ -95,8 +113,8 @@ Il signale aussi une page qui n'a pas d'encadré.
 
     cd verification
     npm install && npx playwright install chromium   # la première fois
-    login_tests_liguasso npm test                     # identifiants via LOGIN et MDP
-    npm run rapport                                   # rapport HTML, captures en cas d'échec
+    login_tests_liguasso npm run test:recette         # identifiants via LOGIN et MDP
+    npm run rapport:recette                           # rapport HTML, captures en cas d'échec
 
 Profils utilisés par défaut : `Président.e|AL La Guerche` (guide associations) et
 `Gestionnaire départemental.e|Puy de Dôme` (guide départemental). Pour en changer :

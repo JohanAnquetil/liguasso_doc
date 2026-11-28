@@ -61,12 +61,38 @@ http://localhost:8003/api/commentaires/admin (mot de passe `ADMIN_MOT_DE_PASSE` 
 Tests :
 
     pip install -r requirements.txt pytest httpx
-    pytest
+    pytest tests                       # 110 tests, quelques secondes
+
+## Organisation du code (clean architecture)
+
+Les dépendances vont de l'extérieur vers l'intérieur : le métier ne connaît ni SQLite, ni
+FastAPI, ni GitHub.
+
+```
+liguasso_contrib/
+  domaine/          règles pures : entités, erreurs métier, textes, différences
+  application/      cas d'usage (commentaires, propositions, administration)
+                    et ports : les interfaces dont ils ont besoin
+  infrastructure/   adaptateurs des ports : SQLite, ALTCHA, GitHub, sécurité
+  interface/        API HTTP (FastAPI) et page de modération
+  composition.py    assemble le tout à partir des réglages (config.py)
+app.py              point d'entrée : uvicorn app:app
+```
+
+Tests :
+
+- `tests/unitaires/` : les cas d'usage avec des doublures en mémoire (`tests/doublures.py`),
+  sans base ni réseau ;
+- `tests/integration/` : les adaptateurs pour de vrai (SQLite, ALTCHA, GitHub face à un faux
+  serveur local) et l'API HTTP complète. Les **tests de contrat** font tourner les mêmes
+  vérifications sur SQLite et sur les doublures, pour qu'elles ne divergent jamais.
+
+Les parcours complets dans un navigateur sont dans `../verification/e2e` (Playwright).
 
 ## Fichiers
 
-- `app.py` : l'API et les règles (anti-robot, limites, signalements, propositions et GitHub).
-- `admin.html` : la page de modération.
+- `liguasso_contrib/` : le service (voir « Organisation du code »).
+- `liguasso_contrib/interface/admin.html` : la page de modération.
 - `../commun/javascripts/commentaires.js` : le bloc affiché en bas des pages.
 - `../commun/javascripts/propositions.js` : le bouton « Modifier » et l'éditeur de propositions.
 - `../commun/javascripts/altcha/` : le widget ALTCHA (licence MIT), repris tel quel.

@@ -1,0 +1,60 @@
+# Tests à chaque pull request (et sur main) : service de contributions (pytest) puis
+# parcours complets dans un navigateur (Playwright). N'a aucun lien avec le déploiement.
+name: Tests
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Dépendances Python (guides et service)
+        run: pip install -r requirements.txt -r commentaires/requirements.txt pytest httpx
+
+      - name: Tests unitaires et d'intégration du service
+        working-directory: commentaires
+        run: pytest -q tests
+
+      - name: Les deux guides se construisent (mode strict)
+        run: |
+          ./sync-commun.sh
+          mkdocs build --strict -f mkdocs.association.yml
+          mkdocs build --strict -f mkdocs.departemental.yml
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: verification/package-lock.json
+
+      - name: Playwright
+        working-directory: verification
+        run: |
+          npm ci
+          npx playwright install --with-deps chromium
+
+      - name: Tests de bout en bout
+        working-directory: verification
+        env:
+          PYTHON: python
+          CI: "1"
+        run: npm run test:e2e
+
+      - name: Rapport en cas d'échec
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: rapport-playwright
+          path: verification/playwright-report/e2e
+          retention-days: 7

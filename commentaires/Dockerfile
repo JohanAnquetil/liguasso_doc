@@ -5,7 +5,8 @@ COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt \
  && useradd --system --uid 10001 commentaires \
  && mkdir /donnees && chown commentaires /donnees
-COPY app.py admin.html ./
+COPY app.py ./
+COPY liguasso_contrib ./liguasso_contrib
 USER commentaires
 ENV DONNEES=/donnees
 VOLUME /donnees

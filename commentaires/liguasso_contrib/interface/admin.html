@@ -86,7 +86,8 @@ async function appel(chemin, options = {}) {
     headers: { "Content-Type": "application/json" },
     ...options,
   });
-  if (r.status === 401) { afficherConnexion(); throw new Error("Connexion requise."); }
+  // 401 hors connexion = session expirée ; pendant la connexion = mauvais mot de passe (message du serveur)
+  if (r.status === 401 && chemin !== "/admin/connexion") { afficherConnexion(); throw new Error("Connexion requise."); }
   const donnees = await r.json().catch(() => ({}));
   if (!r.ok) throw new Error(donnees.detail || "Erreur " + r.status);
   return donnees;

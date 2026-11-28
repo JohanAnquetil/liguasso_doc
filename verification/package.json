@@ -1,10 +1,12 @@
 {
   "name": "liguasso-doc-verification",
   "private": true,
-  "description": "Vérifie sur la recette Ligu'asso les chemins de menu indiqués dans les guides",
+  "description": "Tests Playwright : e2e en local (guides, commentaires, propositions) et chemins de menu sur la recette",
   "scripts": {
-    "test": "playwright test",
-    "rapport": "playwright show-report"
+    "test:e2e": "playwright test -c playwright.e2e.config.js",
+    "test:recette": "playwright test -c playwright.recette.config.js",
+    "rapport:e2e": "playwright show-report playwright-report/e2e",
+    "rapport:recette": "playwright show-report"
   },
   "devDependencies": {
     "@playwright/test": "^1.65.1"
