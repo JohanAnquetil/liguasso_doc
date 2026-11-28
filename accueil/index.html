@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Guide d'utilisation Ligu'asso</title>
+<meta name="description" content="Guide d'utilisation de Ligu'asso : choisissez le guide des associations ou celui des fédérations départementales (Ligue de l'enseignement, UFOLEP, USEP).">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=League+Spartan:wght@800&display=swap">
+<style>
+  :root {
+    --creme: #F7F6F2;
+    --rouge: #B82F1D;
+    --orange: #E45B35;
+    --brun: #391407;
+    --doux: #6b5d56;
+    --bord: #e7e2d8;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    min-height: 100vh; display: flex; flex-direction: column;
+    font: 16px/1.55 "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+    color: var(--brun); background: var(--creme);
+  }
+  a { color: inherit; }
+  .page { width: min(1040px, 100% - 2.5rem); margin: 0 auto; flex: 1; display: flex; flex-direction: column; }
+
+  header { display: flex; justify-content: space-between; align-items: center; padding: 1.8rem 0 0; }
+  header img { height: 38px; width: auto; display: block; }
+  header .support { font-size: .85rem; color: var(--doux); text-decoration: none; }
+  header .support:hover { color: var(--rouge); text-decoration: underline; }
+
+  .titre { padding: clamp(2.5rem, 8vh, 5rem) 0 2rem; text-align: right; }
+  h1 {
+    margin: 0; font: 800 clamp(2.6rem, 7vw, 4.6rem)/1 "League Spartan", "Inter", sans-serif;
+    color: var(--orange); letter-spacing: -.01em;
+  }
+  .titre p { margin: .6rem 0 0; font-size: clamp(1.1rem, 2.4vw, 1.4rem); }
+
+  h2 { font-size: 1.05rem; font-weight: 600; color: var(--doux); margin: 1.5rem 0 1rem; }
+  .choix { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.25rem; }
+  .guide {
+    position: relative; display: flex; flex-direction: column; gap: .7rem;
+    padding: 1.8rem 1.8rem 1.6rem; border-radius: 16px; text-decoration: none;
+    background: #fff; border: 1px solid var(--bord);
+    box-shadow: 0 2px 12px rgba(57, 20, 7, .05);
+    transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+  }
+  .guide:hover, .guide:focus-visible {
+    transform: translateY(-3px); border-color: var(--rouge);
+    box-shadow: 0 12px 32px rgba(184, 47, 29, .14); outline: none;
+  }
+  .guide:focus-visible { box-shadow: 0 0 0 3px var(--creme), 0 0 0 6px var(--rouge); }
+  .guide .icone {
+    width: 52px; height: 52px; border-radius: 14px; display: grid; place-items: center;
+    background: color-mix(in srgb, var(--rouge) 10%, #fff); color: var(--rouge);
+  }
+  .guide .icone svg { width: 28px; height: 28px; fill: currentColor; }
+  .guide .pour { font-size: .78rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--rouge); }
+  .guide h3 { margin: 0; font-size: 1.45rem; line-height: 1.2; }
+  .guide ul { margin: .2rem 0 0; padding: 0; list-style: none; color: var(--doux); font-size: .95rem; }
+  .guide li { padding-left: 1.2rem; position: relative; margin: .25rem 0; }
+  .guide li::before { content: ""; position: absolute; left: 0; top: .62em; width: 6px; height: 6px; border-radius: 50%; background: var(--orange); }
+  .guide .ouvrir {
+    margin-top: auto; padding-top: .9rem; display: inline-flex; align-items: center; gap: .45rem;
+    font-weight: 700; color: var(--rouge);
+  }
+  .guide .ouvrir svg { width: 18px; height: 18px; fill: currentColor; transition: transform .2s ease; }
+  .guide:hover .ouvrir svg { transform: translateX(4px); }
+
+  .aide {
+    margin: 2rem 0 0; padding: 1rem 1.2rem; border-radius: 12px; font-size: .92rem;
+    background: color-mix(in srgb, var(--orange) 8%, var(--creme)); color: var(--brun);
+  }
+  .aide strong { font-weight: 700; }
+
+  footer { margin-top: 3rem; padding: 1.6rem 0 2rem; border-top: 1px solid var(--bord); }
+  .logos { display: flex; justify-content: center; align-items: center; gap: clamp(1.5rem, 6vw, 4rem); flex-wrap: wrap; }
+  .logos img { height: 40px; width: auto; display: block; }
+  footer p { margin: 1.2rem 0 0; text-align: center; font-size: .85rem; color: var(--doux); }
+  footer a { color: var(--rouge); }
+  footer .tel { white-space: nowrap; }
+
+  @media (max-width: 640px) {
+    .titre { text-align: left; }
+    header .support { display: none; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .guide, .guide .ouvrir svg { transition: none; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+  <header>
+    <img src="logos/liguasso.svg" alt="ligu'asso">
+    <a class="support" href="mailto:support.liguasso@laligue.org">Support : support.liguasso@laligue.org</a>
+  </header>
+
+  <main>
+    <div class="titre">
+      <h1>Guide d’utilisation</h1>
+      <p>Ligue de l’enseignement · UFOLEP · USEP</p>
+    </div>
+
+    <h2>Choisissez votre guide</h2>
+
+    <div class="choix">
+      <a class="guide" href="association/">
+        <span class="icone" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><path d="M16 11a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm-8 0a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5C15 14.17 10.33 13 8 13zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
+        </span>
+        <span class="pour">Vous êtes une association</span>
+        <h3>Guide des associations</h3>
+        <ul>
+          <li>Se connecter et affilier son association</li>
+          <li>Enregistrer ou importer ses adhérents</li>
+          <li>Suivre ses factures et ses attestations</li>
+        </ul>
+        <span class="ouvrir">Ouvrir le guide
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/></svg>
+        </span>
+      </a>
+
+      <a class="guide" href="departemental/">
+        <span class="icone" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><path d="M12 7V3H2v18h20V7H12zM6 19H4v-2h2v2zm0-4H4v-2h2v2zm0-4H4V9h2v2zm0-4H4V5h2v2zm4 12H8v-2h2v2zm0-4H8v-2h2v2zm0-4H8V9h2v2zm0-4H8V5h2v2zm10 12h-8v-2h2v-2h-2v-2h2v-2h-2V9h8v10zm-2-8h-2v2h2v-2zm0 4h-2v2h2v-2z"/></svg>
+        </span>
+        <span class="pour">Vous êtes une fédération départementale</span>
+        <h3>Guide des fédérations départementales</h3>
+        <ul>
+          <li>Valider les affiliations et les adhésions</li>
+          <li>Facturer et suivre la comptabilité</li>
+          <li>Paramétrer sa fédération</li>
+        </ul>
+        <span class="ouvrir">Ouvrir le guide
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/></svg>
+        </span>
+      </a>
+    </div>
+
+    <p class="aide"><strong>Vous ne savez pas lequel choisir ?</strong> Si vous gérez une association (président, trésorier, correspondant), prenez le guide des associations. Si vous travaillez pour une fédération, un comité UFOLEP ou un comité USEP, prenez celui des fédérations départementales.</p>
+  </main>
+
+  <footer>
+    <div class="logos">
+      <img src="logos/ufolep.png" alt="UFOLEP">
+      <img src="logos/usep.png" alt="USEP">
+      <img src="logos/ligue-enseignement.png" alt="La Ligue de l'enseignement">
+    </div>
+    <p>Une question ? <a href="mailto:support.liguasso@laligue.org">support.liguasso@laligue.org</a> · <span class="tel">01 43 58 96 08</span></p>
+  </footer>
+</div>
+</body>
+</html>

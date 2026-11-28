@@ -31,3 +31,5 @@ RUN DOMAINE="$DOMAINE" python generer-pdf.py site/association site/departemental
 FROM caddy:2-alpine AS prod
 COPY Caddyfile /etc/caddy/Caddyfile
 COPY --from=pdf /projet/site /srv
+# Page d'accueil à la racine du site : choix entre le guide des associations et le guide départemental
+COPY accueil/ /srv/

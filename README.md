@@ -49,6 +49,7 @@ Version publiée (sites statiques servis par nginx) :
 | `commun/img/` | Toutes les captures d'écran |
 | `commun/stylesheets/` | Feuille de style |
 | `brouillons/` | Pages pas encore publiées |
+| `accueil/` | Page d'accueil à la racine du site (choix du guide), HTML simple |
 
 
 ### Réutiliser un bloc commun
