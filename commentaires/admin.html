@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex">
-<title>Modération des commentaires — Guide Ligu'asso</title>
+<title>Modération — Guide Ligu'asso</title>
 <style>
   :root { --rouge: #B82F1D; --fond: #F7F6F2; --texte: #2a1a14; --doux: #6b625d; --bord: #e4e0d8; }
   * { box-sizing: border-box; }
@@ -35,12 +35,21 @@
   #connexion { max-width: 360px; margin: 4rem auto; background: #fff; border: 1px solid var(--bord); border-radius: 10px; padding: 1.5rem; }
   #connexion input { width: 100%; font: inherit; padding: .5rem; margin: .6rem 0 1rem; border-radius: 6px; border: 1px solid var(--bord); }
   .erreur { color: var(--rouge); }
+  .separateur { width: 1px; background: var(--bord); margin: 0 .3rem; }
+  .alerte { background: #fff4d6; border: 1px solid #e8c766; border-radius: 8px; padding: .6rem .9rem; font-size: .9rem; }
+  .diff { font: 13px/1.45 ui-monospace, SFMono-Regular, Menlo, monospace; border: 1px solid var(--bord); border-radius: 6px; overflow: auto; max-height: 26rem; margin: .6rem 0; }
+  .diff div { white-space: pre-wrap; padding: 0 .6rem; }
+  .diff .plus { background: #e6f6e6; } .diff .plus::before { content: "+ "; color: #2a7a2a; }
+  .diff .moins { background: #fde8e6; } .diff .moins::before { content: "− "; color: var(--rouge); }
+  .diff .ctx { color: var(--doux); } .diff .ctx::before { content: "  "; }
+  .diff .saut { color: var(--doux); text-align: center; background: var(--fond); }
+  .type { background: var(--texte); color: #fff; border-radius: 4px; padding: 0 .45em; font-size: .78rem; }
   [hidden] { display: none !important; }
 </style>
 </head>
 <body>
 <header>
-  <h1>Modération des commentaires</h1>
+  <h1>Modération du guide Ligu'asso</h1>
   <button id="deconnexion" hidden>Se déconnecter</button>
 </header>
 
@@ -57,7 +66,12 @@
     <button data-filtre="signales">Signalés<span class="compte" data-compte="signales"></span></button>
     <button data-filtre="publies">Publiés</button>
     <button data-filtre="refuses">Refusés</button>
+    <span class="separateur"></span>
+    <button data-filtre="propositions">Propositions<span class="compte" data-compte="propositions"></span></button>
+    <button data-filtre="acceptees">Propositions acceptées</button>
+    <button data-filtre="refusees">Propositions refusées</button>
   </div>
+  <p class="alerte" id="sans-github" hidden>GITHUB_TOKEN n'est pas défini sur le serveur : les propositions ne peuvent pas encore être transformées en pull request.</p>
   <div id="liste"></div>
 </main>
 
@@ -167,18 +181,65 @@ function carte(c) {
   return bloc;
 }
 
+const FILTRES_PROPOSITIONS = { propositions: "attente", acceptees: "acceptees", refusees: "refusees" };
+
+function carteProposition(p) {
+  const lien = el("a", { href: "/" + p.page + "/", target: "_blank", rel: "noopener" }, p.page);
+  const bloc = el("div", { class: "carte" },
+    el("div", { class: "meta" },
+      el("span", { class: "type" }, p.type === "nouvelle" ? "Nouvelle fiche" : "Modification"),
+      el("span", { class: "pseudo" }, p.pseudo), el("span", {}, date(p.cree_le)), lien, el("code", {}, p.chemin)),
+    p.titre ? el("div", { class: "texte" }, el("strong", {}, p.titre)) : null,
+    el("div", { class: "texte" }, "Résumé : " + p.resume));
+  const diff = el("div", { class: "diff" });
+  p.differences.forEach(l => diff.append(el("div", { class: { "+": "plus", "-": "moins", "@": "saut" }[l.type] || "ctx" }, l.texte)));
+  bloc.append(diff);
+  const actions = el("div", { class: "actions" });
+  if (p.pr_url) actions.append(el("a", { href: p.pr_url, target: "_blank", rel: "noopener" }, "Voir la pull request sur GitHub"));
+  if (p.statut === "attente") {
+    const accepter = el("button", { class: "principal" }, "Accepter : créer la pull request");
+    accepter.addEventListener("click", async () => {
+      accepter.disabled = true; accepter.textContent = "Création sur GitHub…";
+      try {
+        const r = await appel(`/admin/propositions/${p.id}/accepter`, { method: "POST" });
+        if (r.pr_url && confirm("Pull request créée. L'ouvrir sur GitHub ?")) window.open(r.pr_url, "_blank", "noopener");
+        charger();
+      } catch (err) { alert(err.message); accepter.disabled = false; accepter.textContent = "Accepter : créer la pull request"; }
+    });
+    const refuser = el("button", { class: "danger" }, "Refuser");
+    refuser.addEventListener("click", async () => {
+      refuser.disabled = true;
+      try { await appel(`/admin/propositions/${p.id}/refuser`, { method: "POST" }); charger(); }
+      catch (err) { alert(err.message); refuser.disabled = false; }
+    });
+    actions.append(accepter, refuser);
+  }
+  bloc.append(actions);
+  return bloc;
+}
+
 async function charger() {
-  let donnees;
-  try { donnees = await appel("/admin/liste?filtre=" + filtre); } catch { return; }
+  let donnees, propositions;
+  const estProposition = filtre in FILTRES_PROPOSITIONS;
+  try {
+    [donnees, propositions] = await Promise.all([
+      appel("/admin/liste?filtre=" + (estProposition ? "attente" : filtre)),
+      appel("/admin/propositions?filtre=" + (FILTRES_PROPOSITIONS[filtre] || "attente")),
+    ]);
+  } catch { return; }
+  const enAttente = estProposition && filtre !== "propositions"
+    ? (await appel("/admin/propositions?filtre=attente").catch(() => ({ propositions: [] }))).propositions.length
+    : propositions.propositions.length;
+  donnees.compteurs.propositions = enAttente;
+  $("#sans-github").hidden = propositions.github || !estProposition;
   $("#connexion").hidden = true; $("#moderation").hidden = false; $("#deconnexion").hidden = false;
   document.querySelectorAll("[data-filtre]").forEach(b => b.setAttribute("aria-pressed", b.dataset.filtre === filtre));
   document.querySelectorAll("[data-compte]").forEach(s => {
     const n = donnees.compteurs[s.dataset.compte]; s.textContent = n; s.hidden = !n;
   });
   const liste = $("#liste");
-  liste.replaceChildren(...(donnees.commentaires.length
-    ? donnees.commentaires.map(carte)
-    : [el("p", { class: "vide" }, "Rien à afficher ici.")]));
+  const cartes = estProposition ? propositions.propositions.map(carteProposition) : donnees.commentaires.map(carte);
+  liste.replaceChildren(...(cartes.length ? cartes : [el("p", { class: "vide" }, "Rien à afficher ici.")]));
 }
 
 charger();

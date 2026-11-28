@@ -276,6 +276,12 @@
       motif.focus();
     }
 
-    charger().catch(function () { /* service indisponible : pas de section */ });
+    // Outils partagés avec propositions.js (proposer une modification ou une fiche)
+    window.LiguassoContrib = { API: API, PAGE: PAGE, appel: appel, el: el,
+      widgetAltcha: widgetAltcha, payloadAltcha: payloadAltcha, section: section };
+
+    charger().then(function () {
+      document.dispatchEvent(new CustomEvent("liguasso:contributions"));
+    }).catch(function () { /* service indisponible : pas de section */ });
   });
 })();

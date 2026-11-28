@@ -32,6 +32,8 @@ services:
     ports: ["127.0.0.1:8003:8000"]
     environment:
       ADMIN_MOT_DE_PASSE: ${ADMIN_MOT_DE_PASSE:-}
+      # Jeton GitHub pour transformer les propositions acceptées en pull requests (voir commentaires/README.md)
+      GITHUB_TOKEN: ${GITHUB_TOKEN:-}
       # Guides servis en local sur d'autres ports (rédaction)
       CORS_ORIGINES: http://localhost:8000 http://localhost:8001 http://localhost:8002 http://127.0.0.1:8000 http://127.0.0.1:8001 http://127.0.0.1:8002
     volumes:

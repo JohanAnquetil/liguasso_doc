@@ -105,7 +105,7 @@
 
   /* Tout ce qui sert à naviguer disparaît */
   .md-header, .md-tabs, .md-sidebar, .md-footer, .md-top, .md-banner,
-  .md-content__button, .bouton-pdf, .headerlink, .tabbed-labels, .commentaires,
+  .md-content__button, .bouton-pdf, .headerlink, .tabbed-labels, .commentaires, .contribuer,
   [class^="lgc-"], [class*=" lgc-"] { display: none !important; }
   .md-main__inner, .md-content, .md-content__inner { margin: 0 !important; padding: 0 !important; max-width: none !important; }
 
@@ -199,3 +199,37 @@
 .md-typeset .commentaires-mentions { margin: 0; }
 /* Champ piège anti-robot : hors de l'écran, jamais rempli par un humain */
 .commentaires-piege { position: absolute !important; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+
+/* ---------- Propositions de modification (javascripts/propositions.js) ---------- */
+.md-typeset .bouton-modifier { margin-left: .5rem; }
+.md-typeset .contribuer {
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: .6rem 1rem;
+  margin-top: 2.5rem; padding: .8rem 1rem; border-radius: 8px; font-size: .74rem;
+  background: color-mix(in srgb, var(--md-primary-fg-color) 6%, transparent);
+}
+.md-typeset .contribuer p { margin: 0; flex: 1 1 20rem; }
+.md-typeset .contribuer .md-button { margin: 0; font-size: .72rem; padding: .35em 1.1em; }
+.md-typeset .contribuer + .commentaires { margin-top: 1.5rem; }
+
+dialog.proposition {
+  width: min(56rem, 94vw); max-height: 92vh; padding: 1.4rem 1.6rem; border: 0; border-radius: 12px;
+  background: var(--md-default-bg-color); color: var(--md-default-fg-color);
+  box-shadow: 0 20px 60px rgba(0,0,0,.3); font-size: .8rem;
+}
+dialog.proposition::backdrop { background: rgba(0,0,0,.45); }
+dialog.proposition h2 { margin: 0 2rem .6rem 0; font-size: 1.1rem; font-weight: 600; color: var(--md-primary-fg-color); }
+.proposition-aide { color: var(--md-default-fg-color--light); font-size: .74rem; margin: 0 0 1rem; }
+.proposition-fermer {
+  position: absolute; top: .8rem; right: 1rem; font-size: 1.5rem; line-height: 1; cursor: pointer;
+  border: 0; background: transparent; color: var(--md-default-fg-color--light);
+}
+.proposition-formulaire { display: grid; gap: .8rem; }
+.proposition-formulaire .commentaires-champ { display: grid; gap: .2rem; font-size: .74rem; font-weight: 600; }
+.proposition-formulaire input, .proposition-formulaire textarea {
+  font: inherit; font-weight: 400; padding: .5em .65em; border-radius: 6px;
+  border: 1px solid var(--md-default-fg-color--lighter); background: var(--md-default-bg-color); color: var(--md-default-fg-color);
+}
+.proposition-formulaire textarea { font-family: var(--md-code-font-family, monospace); font-size: .74rem; line-height: 1.5; resize: vertical; min-height: 14rem; }
+.proposition-formulaire .commentaires-boutons { display: flex; gap: .5rem; flex-wrap: wrap; }
+.proposition-formulaire .md-button, .proposition-merci .md-button { margin: 0; font-size: .74rem; padding: .4em 1.2em; }
+.proposition-formulaire .commentaires-message { min-height: 1em; margin: 0; color: var(--md-primary-fg-color); font-size: .74rem; }

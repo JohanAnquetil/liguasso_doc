@@ -68,6 +68,7 @@ extra_css:
 extra_javascript:
   - javascripts/impression.js
   - javascripts/commentaires.js
+  - javascripts/propositions.js
 
 extra:
   generator: false

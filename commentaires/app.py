@@ -6,15 +6,20 @@
 - Likes, réponses (un niveau), signalements. Un commentaire signalé par plusieurs
   personnes est masqué en attendant qu'un admin tranche.
 - Page d'administration : /api/commentaires/admin (mot de passe ADMIN_MOT_DE_PASSE).
+- Propositions de modification d'une fiche, ou de nouvelle fiche, ouvertes à tous.
+  Validées par un admin, elles deviennent une pull request GitHub (GITHUB_TOKEN).
 
 Aucune adresse IP n'est stockée en clair : seulement une empreinte salée, pour limiter
 les abus. Variables d'environnement : voir README.md à côté de ce fichier.
 """
 from __future__ import annotations
 
+import base64
 import datetime as dt
+import difflib
 import hashlib
 import hmac
+import json
 import os
 import re
 import secrets
@@ -22,6 +27,8 @@ import sqlite3
 import threading
 import time
 import unicodedata
+import urllib.error
+import urllib.request
 from contextlib import contextmanager
 from pathlib import Path
 from typing import Optional
@@ -47,6 +54,16 @@ MAX_CONNEXIONS_ADMIN = 5        # tentatives par fenêtre de 15 minutes
 DUREE_SESSION_ADMIN = 8 * 3600
 DUREE_DEFI = 10 * 60
 COUT_DEFI = int(os.environ.get("ALTCHA_COUT", "5000"))
+
+GITHUB_TOKEN = os.environ.get("GITHUB_TOKEN", "")
+GITHUB_DEPOT = os.environ.get("GITHUB_DEPOT", "JohanAnquetil/liguasso_doc")
+GITHUB_API = os.environ.get("GITHUB_API", "https://api.github.com")   # modifiable pour les essais
+GITHUB_BRANCHE = os.environ.get("GITHUB_BRANCHE", "main")
+SITE_PUBLIC = os.environ.get("SITE_PUBLIC", "https://guide-liguasso.laligue.org")
+MAX_PROPOSITIONS_PAR_IP = 3     # par heure
+TAILLE_MAX_FICHE = 100_000
+# Guide (début de l'adresse de la page) -> dossier des fiches dans le dépôt
+DOSSIERS = {"association": "docs-association", "departemental": "docs-departemental", "test": "docs-test"}
 
 PAGE_VALIDE = re.compile(r"^[a-z0-9][a-z0-9/_-]{0,199}$")
 MOTIFS = {"spam": "Spam ou publicité", "propos": "Propos inappropriés",
@@ -104,6 +121,25 @@ CREATE TABLE IF NOT EXISTS signalements (
 CREATE TABLE IF NOT EXISTS defis_utilises (nonce TEXT PRIMARY KEY, expire INTEGER NOT NULL);
 CREATE TABLE IF NOT EXISTS debits (cle TEXT NOT NULL, quand INTEGER NOT NULL);
 CREATE INDEX IF NOT EXISTS debits_cle ON debits(cle, quand);
+CREATE TABLE IF NOT EXISTS propositions (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  type TEXT NOT NULL CHECK (type IN ('modification', 'nouvelle')),
+  page TEXT NOT NULL,              -- page d'où vient la proposition
+  chemin TEXT NOT NULL,            -- fichier du dépôt (docs-.../fiche.md)
+  titre TEXT,                      -- nouvelle fiche
+  pseudo TEXT NOT NULL,
+  resume TEXT NOT NULL,
+  texte_avant TEXT NOT NULL,       -- texte de départ ('' pour une nouvelle fiche)
+  texte TEXT NOT NULL,
+  blob_sha TEXT,                   -- version du fichier au départ (GitHub)
+  commit_sha TEXT,                 -- version du dépôt au départ (GitHub)
+  statut TEXT NOT NULL CHECK (statut IN ('attente', 'acceptee', 'refusee')),
+  pr_url TEXT,
+  visiteur TEXT,
+  ip TEXT,
+  cree_le TEXT NOT NULL,
+  modere_le TEXT
+);
 """
 
 _verrou = threading.Lock()
@@ -443,6 +479,207 @@ def moderer(cid: int, action: str):
             db.execute("DELETE FROM commentaires WHERE id = ?", (cid,))
         else:
             raise HTTPException(400, "Action inconnue.")
+    return {"ok": True}
+
+
+# --- Propositions de modification (fiches) -----------------------------------------------
+
+def github(methode: str, chemin: str, corps: Optional[dict] = None) -> dict:
+    """Appel à l'API GitHub. Le jeton n'est obligatoire que pour écrire (dépôt public)."""
+    entetes = {"Accept": "application/vnd.github+json", "X-GitHub-Api-Version": "2022-11-28",
+               "User-Agent": "guide-liguasso-commentaires"}
+    if GITHUB_TOKEN:
+        entetes["Authorization"] = f"Bearer {GITHUB_TOKEN}"
+    requete = urllib.request.Request(
+        f"{GITHUB_API}/repos/{GITHUB_DEPOT}{chemin}", method=methode, headers=entetes,
+        data=json.dumps(corps).encode() if corps is not None else None)
+    try:
+        with urllib.request.urlopen(requete, timeout=20) as r:
+            return json.loads(r.read() or b"{}")
+    except urllib.error.HTTPError as e:
+        if e.code == 404:
+            raise FileNotFoundError(chemin)
+        raise HTTPException(502, f"GitHub a refusé la demande ({e.code}).")
+    except urllib.error.URLError:
+        raise HTTPException(502, "GitHub ne répond pas. Réessayez plus tard.")
+
+
+def fichier_de_page(page: str) -> str:
+    """departemental/adhesions-lots -> docs-departemental/adhesions-lots.md"""
+    guide, _, relatif = page.partition("/")
+    if guide not in DOSSIERS or ".." in relatif.split("/"):
+        raise HTTPException(400, "Page inconnue.")
+    return f"{DOSSIERS[guide]}/{relatif or 'index'}.md"
+
+
+_cache_sources: dict = {}
+
+
+def source_github(chemin: str) -> dict:
+    """Texte actuel d'une fiche et versions GitHub (gardé 5 minutes en mémoire)."""
+    en_cache = _cache_sources.get(chemin)
+    if en_cache and en_cache["quand"] > time.time() - 300:
+        return en_cache
+    commit = github("GET", f"/git/ref/heads/{GITHUB_BRANCHE}")["object"]["sha"]
+    try:
+        fichier = github("GET", f"/contents/{chemin}?ref={commit}")
+    except FileNotFoundError:
+        raise HTTPException(404, "Cette fiche n'existe pas dans le dépôt.")
+    source = {"texte": base64.b64decode(fichier["content"]).decode(), "blob_sha": fichier["sha"],
+              "commit_sha": commit, "quand": time.time()}
+    _cache_sources[chemin] = source
+    return source
+
+
+def nom_de_fiche(titre: str) -> str:
+    nom = unicodedata.normalize("NFKD", titre).encode("ascii", "ignore").decode().lower()
+    return re.sub(r"[^a-z0-9]+", "-", nom).strip("-")[:60] or "nouvelle-fiche"
+
+
+def differences(avant: str, apres: str) -> list:
+    """Lignes modifiées, avec 2 lignes de contexte : [{"type": "+|-| |@", "texte": ...}]"""
+    lignes = []
+    for l in difflib.unified_diff(avant.splitlines(), apres.splitlines(), lineterm="", n=2):
+        if l.startswith(("---", "+++")):
+            continue
+        lignes.append({"type": "@" if l.startswith("@@") else l[:1] or " ", "texte": l[1:] if not l.startswith("@@") else "…"})
+    return lignes
+
+
+class NouvelleProposition(BaseModel):
+    type: str
+    page: str
+    titre: str = Field("", max_length=120)
+    pseudo: str = Field(min_length=1, max_length=40)
+    resume: str = Field(min_length=1, max_length=300)
+    texte: str = Field(min_length=1, max_length=TAILLE_MAX_FICHE)
+    blob_sha: str = ""
+    commit_sha: str = ""
+    altcha: str = ""
+    site_web: str = ""
+
+
+@api.get("/propositions/source")
+def source(page: str, response: Response):
+    if not PAGE_VALIDE.match(page):
+        raise HTTPException(400, "Page invalide.")
+    s = source_github(fichier_de_page(page))
+    response.headers["Cache-Control"] = "no-store"
+    return {"texte": s["texte"], "blob_sha": s["blob_sha"], "commit_sha": s["commit_sha"]}
+
+
+@api.post("/propositions", status_code=201)
+def proposer(donnees: NouvelleProposition, request: Request, visiteur: str = Depends(visiteur_requis)):
+    if donnees.site_web:
+        return {"id": 0}
+    if donnees.type not in ("modification", "nouvelle") or not PAGE_VALIDE.match(donnees.page):
+        raise HTTPException(400, "Proposition invalide.")
+    pseudo, resume = nettoyer(donnees.pseudo, 40), nettoyer(donnees.resume, 300)
+    texte = unicodedata.normalize("NFC", donnees.texte.replace("\r", "")).strip() + "\n"
+    if not pseudo or not resume or not texte.strip():
+        raise HTTPException(400, "Le pseudo, le résumé et le texte sont obligatoires.")
+    ip = ip_client(request)
+    limiter(f"proposition:{ip}", MAX_PROPOSITIONS_PAR_IP, 3600)
+    verifier_altcha(donnees.altcha)
+
+    if donnees.type == "modification":
+        chemin = fichier_de_page(donnees.page)
+        if not re.fullmatch(r"[0-9a-f]{40}", donnees.blob_sha) or not re.fullmatch(r"[0-9a-f]{40}", donnees.commit_sha):
+            raise HTTPException(400, "Version de la fiche manquante. Rechargez la page.")
+        # Texte de départ relu sur GitHub, à la version que la personne a modifiée
+        try:
+            depart = github("GET", f"/contents/{chemin}?ref={donnees.commit_sha}")
+        except FileNotFoundError:
+            raise HTTPException(404, "Cette fiche n'existe pas dans le dépôt.")
+        if depart["sha"] != donnees.blob_sha:
+            raise HTTPException(409, "La fiche a changé entre-temps. Rechargez la page et recommencez.")
+        avant = base64.b64decode(depart["content"]).decode()
+        if avant.strip() == texte.strip():
+            raise HTTPException(400, "Vous n'avez rien modifié.")
+        titre = None
+        blob_sha, commit_sha = donnees.blob_sha, donnees.commit_sha
+    else:
+        blob_sha = commit_sha = None   # nouvelle fiche : partira de la version actuelle du dépôt
+        titre = nettoyer(donnees.titre, 120)
+        if not titre:
+            raise HTTPException(400, "Donnez un titre à la nouvelle fiche.")
+        guide = donnees.page.partition("/")[0]
+        if guide not in DOSSIERS:
+            raise HTTPException(400, "Guide inconnu.")
+        chemin = f"{DOSSIERS[guide]}/{nom_de_fiche(titre)}.md"
+        avant = ""
+        if not texte.lstrip().startswith("# "):
+            texte = f"# {titre}\n\n{texte}"
+    with transaction() as db:
+        cur = db.execute(
+            """INSERT INTO propositions (type, page, chemin, titre, pseudo, resume, texte_avant, texte,
+                 blob_sha, commit_sha, statut, visiteur, ip, cree_le)
+               VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'attente', ?, ?, ?)""",
+            (donnees.type, donnees.page, chemin, titre, pseudo, resume, avant, texte,
+             blob_sha, commit_sha, visiteur, ip, maintenant()))
+    return {"id": cur.lastrowid}
+
+
+@api.get("/admin/propositions", dependencies=[Depends(admin_requis)])
+def liste_propositions(filtre: str = "attente"):
+    statuts = {"attente": "attente", "acceptees": "acceptee", "refusees": "refusee"}
+    if filtre not in statuts:
+        raise HTTPException(400, "Filtre inconnu.")
+    with transaction() as db:
+        lignes = db.execute("SELECT * FROM propositions WHERE statut = ? ORDER BY cree_le DESC LIMIT 100",
+                            (statuts[filtre],)).fetchall()
+    return {"github": bool(GITHUB_TOKEN), "propositions": [{
+        "id": l["id"], "type": l["type"], "page": l["page"], "chemin": l["chemin"], "titre": l["titre"],
+        "pseudo": l["pseudo"], "resume": l["resume"], "cree_le": l["cree_le"], "statut": l["statut"],
+        "pr_url": l["pr_url"], "differences": differences(l["texte_avant"], l["texte"]),
+    } for l in lignes]}
+
+
+@api.post("/admin/propositions/{pid}/accepter", dependencies=[Depends(admin_requis)])
+def accepter(pid: int):
+    """Crée une branche, y enregistre la fiche et ouvre une pull request."""
+    if not GITHUB_TOKEN:
+        raise HTTPException(503, "GITHUB_TOKEN n'est pas défini sur le serveur : impossible de créer la pull request.")
+    with transaction() as db:
+        p = db.execute("SELECT * FROM propositions WHERE id = ? AND statut = 'attente'", (pid,)).fetchone()
+    if not p:
+        raise HTTPException(404, "Proposition introuvable ou déjà traitée.")
+    branche = f"proposition-{pid}-{nom_de_fiche(p['titre'] or p['chemin'].rsplit('/', 1)[-1][:-3])}"
+    if p["type"] == "modification":
+        depart = p["commit_sha"]     # PR à partir de la version modifiée : GitHub signale les conflits
+    else:
+        depart = github("GET", f"/git/ref/heads/{GITHUB_BRANCHE}")["object"]["sha"]
+        try:
+            github("GET", f"/contents/{p['chemin']}?ref={depart}")
+            raise HTTPException(409, f"Une fiche {p['chemin']} existe déjà. Renommez-la dans la PR après coup.")
+        except FileNotFoundError:
+            pass
+    github("POST", "/git/refs", {"ref": f"refs/heads/{branche}", "sha": depart})
+    message = (f"Proposition n°{pid} : {p['resume']}" if p["type"] == "modification"
+               else f"Nouvelle fiche proposée : {p['titre']}")
+    corps_fichier = {"message": f"{message}\n\nProposée par « {p['pseudo']} » depuis le guide en ligne.",
+                     "content": base64.b64encode(p["texte"].encode()).decode(), "branch": branche}
+    if p["blob_sha"]:
+        corps_fichier["sha"] = p["blob_sha"]
+    github("PUT", f"/contents/{p['chemin']}", corps_fichier)
+    lien = f"{SITE_PUBLIC}/{p['page']}/"
+    corps_pr = (f"**Proposée par** « {p['pseudo']} » le {p['cree_le'][:10]}, depuis [{p['page']}]({lien}).\n\n"
+                f"**Résumé** : {p['resume']}\n\n"
+                + ("Nouvelle fiche : pensez à l'ajouter au menu (`nav`) dans `mkdocs.*.yml`.\n\n" if p["type"] == "nouvelle" else "")
+                + "Validée dans la page de modération du guide. Relisez puis fusionnez pour mettre en ligne.")
+    pr = github("POST", "/pulls", {"title": message[:120], "head": branche, "base": GITHUB_BRANCHE, "body": corps_pr})
+    with transaction() as db:
+        db.execute("UPDATE propositions SET statut = 'acceptee', pr_url = ?, modere_le = ? WHERE id = ?",
+                   (pr.get("html_url"), maintenant(), pid))
+    return {"pr_url": pr.get("html_url")}
+
+
+@api.post("/admin/propositions/{pid}/refuser", dependencies=[Depends(admin_requis)])
+def refuser_proposition(pid: int):
+    with transaction() as db:
+        if db.execute("UPDATE propositions SET statut = 'refusee', modere_le = ? WHERE id = ? AND statut = 'attente'",
+                      (maintenant(), pid)).rowcount == 0:
+            raise HTTPException(404, "Proposition introuvable ou déjà traitée.")
     return {"ok": True}
 
 

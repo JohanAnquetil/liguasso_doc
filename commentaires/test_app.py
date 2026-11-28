@@ -124,3 +124,97 @@ def test_admin_protege(client):
 
 def test_page_invalide_refusee(client):
     assert commenter(client, page="../etc/passwd").status_code == 400
+
+
+# --- Propositions de modification ---------------------------------------------------------
+
+import base64
+
+COMMIT = "a" * 40
+BLOB = "b" * 40
+FICHE = "# Lots\n\nUn lot regroupe des adhésions.\n"
+
+
+class FauxGitHub:
+    """Remplace l'API GitHub : garde les appels, renvoie des réponses plausibles."""
+    def __init__(self):
+        self.appels = []
+
+    def __call__(self, methode, chemin, corps=None):
+        self.appels.append((methode, chemin, corps))
+        if chemin.startswith("/git/ref/heads/"):
+            return {"object": {"sha": COMMIT}}
+        if methode == "GET" and chemin.startswith("/contents/docs-departemental/lots.md"):
+            return {"sha": BLOB, "content": base64.b64encode(FICHE.encode()).decode()}
+        if methode == "GET" and chemin.startswith("/contents/"):
+            raise FileNotFoundError(chemin)
+        if chemin == "/pulls":
+            return {"html_url": "https://github.com/exemple/pull/42"}
+        return {}
+
+
+@pytest.fixture()
+def gh(client, monkeypatch):
+    import app as module
+    faux = FauxGitHub()
+    monkeypatch.setattr(module, "github", faux)
+    monkeypatch.setattr(module, "GITHUB_TOKEN", "jeton-de-test")
+    module._cache_sources.clear()
+    return faux
+
+
+def proposer(client, **champs):
+    corps = {"type": "modification", "page": "departemental/lots", "pseudo": "Sam",
+             "resume": "Précision sur les lots", "texte": FICHE.replace("adhésions.", "adhésions importées."),
+             "blob_sha": BLOB, "commit_sha": COMMIT, "altcha": solution(client), **champs}
+    return client.post("/api/commentaires/propositions", json=corps, headers=VISITEUR)
+
+
+def test_source_d_une_fiche(client, gh):
+    r = client.get("/api/commentaires/propositions/source", params={"page": "departemental/lots"}).json()
+    assert r == {"texte": FICHE, "blob_sha": BLOB, "commit_sha": COMMIT}
+
+
+def test_proposition_puis_pull_request(client, gh):
+    pid = proposer(client).json()["id"]
+    admin(client)
+    liste = client.get("/api/commentaires/admin/propositions").json()["propositions"]
+    assert [l["texte"] for l in liste[0]["differences"] if l["type"] in "+-"] == [
+        "Un lot regroupe des adhésions.", "Un lot regroupe des adhésions importées."]
+    r = client.post(f"/api/commentaires/admin/propositions/{pid}/accepter")
+    assert r.json() == {"pr_url": "https://github.com/exemple/pull/42"}
+    branche = [c for c in gh.appels if c[1] == "/git/refs"][0][2]
+    assert branche["sha"] == COMMIT and branche["ref"].startswith("refs/heads/proposition-")
+    fichier = [c for c in gh.appels if c[0] == "PUT"][0]
+    assert fichier[1] == "/contents/docs-departemental/lots.md" and fichier[2]["sha"] == BLOB
+    assert "importées" in base64.b64decode(fichier[2]["content"]).decode()
+    assert client.get("/api/commentaires/admin/propositions", params={"filtre": "acceptees"}).json()["propositions"][0]["pr_url"]
+
+
+def test_nouvelle_fiche(client, gh):
+    pid = proposer(client, type="nouvelle", titre="Gérer les remboursements", texte="Étapes à suivre…").json()["id"]
+    admin(client)
+    client.post(f"/api/commentaires/admin/propositions/{pid}/accepter")
+    fichier = [c for c in gh.appels if c[0] == "PUT"][0]
+    assert fichier[1] == "/contents/docs-departemental/gerer-les-remboursements.md" and "sha" not in fichier[2]
+    assert base64.b64decode(fichier[2]["content"]).decode().startswith("# Gérer les remboursements\n")
+
+
+def test_proposition_sans_changement_refusee(client, gh):
+    assert proposer(client, texte=FICHE).status_code == 400
+
+
+def test_fiche_modifiee_entre_temps(client, gh):
+    assert proposer(client, blob_sha="c" * 40).status_code == 409
+
+
+def test_proposition_refusee_par_admin(client, gh):
+    pid = proposer(client).json()["id"]
+    admin(client)
+    assert client.post(f"/api/commentaires/admin/propositions/{pid}/refuser").status_code == 200
+    assert not [c for c in gh.appels if c[0] in ("POST", "PUT")]
+
+
+def test_page_hors_guide_refusee(client, gh):
+    assert client.get("/api/commentaires/propositions/source", params={"page": "autre/x"}).status_code == 400
+    assert client.get("/api/commentaires/propositions/source", params={"page": "departemental/../secret"}).status_code == 400
