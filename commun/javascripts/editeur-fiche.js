@@ -396,7 +396,8 @@
           toucher(chemin);
           rerendre(cible, conteneurModele, chemin);
           var champ = cible.querySelectorAll(":scope > .editeur-bloc")[position];
-          var f = champ && champ.querySelector("[contenteditable], input");
+          // le curseur va dans le texte du bloc (pour un encadré : son contenu, pas son titre)
+          var f = champ && (champ.querySelector("[contenteditable]") || champ.querySelector("input"));
           if (f) f.focus();
         });
         menu.append(o);

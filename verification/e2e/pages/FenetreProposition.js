@@ -46,6 +46,39 @@ class FenetreProposition {
     await this.fenetre.locator('.editeur-menu:not([hidden]) .editeur-choix', { hasText: genre }).click();
   }
 
+  /** Markdown produit par l'éditeur visuel (lu via le mode avancé, puis retour au visuel). */
+  async markdown() {
+    await this.modeAvance();
+    const md = await this.texte.inputValue();
+    await this.boutonModeAvance.click();
+    await this.attendreLeTexte();
+    return md;
+  }
+
+  /** Place le curseur juste après *repere* dans un champ de l'éditeur visuel. */
+  async curseurApres(champ, repere) {
+    await champ.click();
+    await champ.evaluate((n, r) => {
+      const w = document.createTreeWalker(n, NodeFilter.SHOW_TEXT);
+      let t; while ((t = w.nextNode()) && t.nodeValue.indexOf(r) === -1);
+      if (!t) throw new Error(`« ${r} » introuvable`);
+      const range = document.createRange(); range.setStart(t, t.nodeValue.indexOf(r) + r.length); range.collapse(true);
+      const s = getSelection(); s.removeAllRanges(); s.addRange(range);
+    }, repere);
+  }
+
+  /** Sélectionne *mot* dans un champ de l'éditeur visuel. */
+  async selectionner(champ, mot) {
+    await champ.click();
+    await champ.evaluate((n, m) => {
+      const w = document.createTreeWalker(n, NodeFilter.SHOW_TEXT);
+      let t; while ((t = w.nextNode()) && t.nodeValue.indexOf(m) === -1);
+      const i = t.nodeValue.indexOf(m);
+      const range = document.createRange(); range.setStart(t, i); range.setEnd(t, i + m.length);
+      const s = getSelection(); s.removeAllRanges(); s.addRange(range);
+    }, mot);
+  }
+
   /** Remplace *avant* par *apres* dans le texte de la fiche (mode avancé). */
   async remplacer(avant, apres) {
     await this.modeAvance();
