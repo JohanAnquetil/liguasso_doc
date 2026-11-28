@@ -1,5 +1,8 @@
 # Gérer les affiliations
 
+!!! chemin "Accès"
+    **Affiliation** › **Gérer les affiliations**
+
 Dans le menu, survolez **Affiliation** puis cliquez sur **Gérer les affiliations**.
 
 ![Menu Affiliation](img/dep-affiliations-menu.png)

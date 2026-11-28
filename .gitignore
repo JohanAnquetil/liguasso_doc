@@ -10,3 +10,9 @@ docs-test/stylesheets/
 # Réglages propres au serveur
 .env
 .env.*
+
+# Vérification Playwright
+verification/node_modules/
+verification/test-results/
+verification/playwright-report/
+verification/.auth/

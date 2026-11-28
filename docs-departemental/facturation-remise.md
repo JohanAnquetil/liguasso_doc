@@ -1,5 +1,8 @@
 # Remise en banque
 
+!!! chemin "Accès"
+    **Facturation** › **Remise en banque**
+
 Dans le menu, survolez **Facturation** puis cliquez sur **Remise en banque**.
 
 ![Menu Remise en banque](img/dep-remise-menu.png)

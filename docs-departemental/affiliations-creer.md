@@ -1,5 +1,8 @@
 # Créer une affiliation
 
+!!! chemin "Accès"
+    **Affiliation** › **Gérer les affiliations**, puis bouton **Nouvelle affiliation**
+
 ## Le parcours commun
 
 !!! warning "Champs obligatoires"

@@ -1,5 +1,8 @@
 # Enregistrer une adhésion
 
+!!! chemin "Accès"
+    **Adhésion** › **Gérer les adhésions**, puis bouton **+ Nouvelle adhésion**
+
 Depuis **Gérer les adhésions**, cliquez sur **+ Nouvelle adhésion**. Le parcours diffère selon la fédération concernée.
 
 === "Ligue (socioculturel)"

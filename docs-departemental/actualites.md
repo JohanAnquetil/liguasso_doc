@@ -1,5 +1,8 @@
 # Actualités
 
+!!! chemin "Accès"
+    **Paramétrage** › **Actualités**
+
 En tant que gestionnaire ou administrateur.rice départemental.e, vous pouvez publier des actualités à destination des **associations affiliées** et des **adhérent.e.s enregistrés**.
 
 ## Accéder à la gestion des actualités

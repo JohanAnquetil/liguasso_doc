@@ -1,6 +1,10 @@
 # Statistiques et extractions
 
-Le menu **Statistiques et extractions** permet d'extraire la liste des adhérent.e.s ou des associations de votre département, selon les critères de votre choix.
+!!! chemin "Accès"
+    - Adhérent.e.s : **Statistiques et Extractions** › **Extractions** › **Extraction adhérents**
+    - Associations : **Statistiques et Extractions** › **Extractions** › **Extraction associations**
+
+Le menu **Statistiques et Extractions** permet d'extraire la liste des adhérent.e.s ou des associations de votre département, selon les critères de votre choix.
 
 ![Menu Statistiques et extractions](img/dep-statistiques-menu.png)
 

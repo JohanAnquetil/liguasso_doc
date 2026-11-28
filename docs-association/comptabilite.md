@@ -1,5 +1,8 @@
 # Factures et règlements
 
+!!! chemin "Accès"
+    **Comptabilité** › **Mon compte**
+
 Le sous-menu **Comptabilité > Mon compte** regroupe l'ensemble des pièces de facturation liées à votre association : factures, règlements, dates, débits, crédits et lettrage.
 
 ![Mon compte](img/comptabilite.png)

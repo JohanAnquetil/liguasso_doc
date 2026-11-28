@@ -1,5 +1,13 @@
 # Plans comptables
 
+!!! chemin "Accès"
+    - **Paramétrage** › **Comptabilité** › **Paramétres comptables**
+    - **Paramétrage** › **Comptabilité** › **Plan comptable général**
+    - **Paramétrage** › **Comptabilité** › **Plan comptable analytique**
+    - **Paramétrage** › **Comptabilité** › **Plan comptable tiers**
+    - **Paramétrage** › **Comptabilité** › **Plan comptable des produits**
+    - **Paramétrage** › **Comptabilité** › **Plan comptable des modes de règlement**
+
 Ce paramétrage indique à Ligu'asso comment transformer vos factures et vos règlements en écritures comptables. Il se remplit une fois, au démarrage, puis ne change qu'en cas d'évolution de votre comptabilité.
 
 ![Menu Paramétrage comptable](img/dep-plans-menu.png)

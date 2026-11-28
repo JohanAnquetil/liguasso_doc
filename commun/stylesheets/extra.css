@@ -55,3 +55,24 @@
 .md-footer {
   border-top: 1px solid var(--md-default-fg-color--lightest);
 }
+/* Encadré « Accès » en tête de page : chemin dans le menu de Ligu'asso
+   Syntaxe :  !!! chemin "Accès"
+                  **Adhésion** › **Lots**                                  */
+:root {
+  --md-admonition-icon--chemin: url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>');
+}
+.md-typeset .admonition.chemin {
+  border-color: var(--md-primary-fg-color);
+  font-size: .78rem;
+  margin: .6em 0 1.4em;
+}
+.md-typeset .chemin > .admonition-title {
+  background-color: color-mix(in srgb, var(--md-primary-fg-color) 10%, transparent);
+}
+.md-typeset .chemin > .admonition-title::before {
+  background-color: var(--md-primary-fg-color);
+  -webkit-mask-image: var(--md-admonition-icon--chemin);
+          mask-image: var(--md-admonition-icon--chemin);
+}
+.md-typeset .chemin ul { margin: .4em 0; }
+.md-typeset .chemin li { margin-bottom: .2em; }

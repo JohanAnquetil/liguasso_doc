@@ -1,5 +1,8 @@
 # Réaffilier une association
 
+!!! chemin "Accès"
+    **Affiliation** › **Gérer les affiliations**
+
 1. Dans le menu, survolez **Affiliation** puis cliquez sur **Gérer les affiliations**.
 2. Filtrez par état en sélectionnant **à réaffilier**, ou recherchez l'association par nom ou numéro d'affiliation, puis cliquez sur **Rechercher**.
 

@@ -1,5 +1,10 @@
 # Documents, sections et écoles
 
+!!! chemin "Accès"
+    - Documents d'affiliation : **Affiliation** › **Documents d'affiliation**
+    - Sections : **Affiliation** › **Gérer les sections**
+    - Écoles : **Affiliation** › **Gérer les écoles**
+
 ## Documents d'affiliation
 
 Le sous-menu **Documents d'affiliation** regroupe les documents liés aux affiliations de votre fédération.
@@ -8,7 +13,7 @@ Le sous-menu **Documents d'affiliation** regroupe les documents liés aux affili
 
 ## Sections et écoles
 
-Dans **Affiliation > Gérer les sections / écoles**, vous pouvez ajouter des sections par type de pratique (par exemple Football) ou par école.
+Dans **Affiliation > Gérer les sections** (ou **Gérer les écoles**), vous pouvez ajouter des sections par type de pratique (par exemple Football) ou par école.
 
 ![Menu Gérer les sections](img/dep-sections-menu.png)
 

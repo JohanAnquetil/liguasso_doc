@@ -1,5 +1,10 @@
 # Comptabilité
 
+!!! chemin "Accès"
+    - **Comptabilité** › **Transfert vers logiciel comptable**
+    - **Comptabilité** › **Consultation d'un compte tiers**
+    - **Comptabilité** › **Livres comptables**
+
 Le menu **Comptabilité** regroupe les outils qui permettent de suivre les écritures générées par Ligu'asso — ventes et règlements — et de les transférer vers votre logiciel comptable.
 
 ![Menu Comptabilité](img/dep-comptabilite-menu.png)

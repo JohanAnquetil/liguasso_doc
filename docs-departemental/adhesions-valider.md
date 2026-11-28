@@ -1,5 +1,8 @@
 # Valider des adhésions en masse
 
+!!! chemin "Accès"
+    **Adhésion** › **Lots**, puis bouton **Nouveau lot**
+
 Si vous avez un nombre important d'adhésions à valider, vous pouvez les traiter en une fois plutôt qu'une par une.
 
 1. Cliquez sur le menu **Adhésion** puis **Lots**.

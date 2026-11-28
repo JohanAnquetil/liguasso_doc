@@ -1,5 +1,8 @@
 # Bulletins de ré-adhésion
 
+!!! chemin "Accès"
+    **Affiliation** › **Gestion des bulletins de ré-adhésion**
+
 Cet écran permet de demander la génération de la liasse des bulletins de ré-adhésion d'une association. La liasse est produite par la plateforme, puis mise à votre disposition par mail.
 
 ![Menu Gestion des bulletins](img/dep-bulletins-menu.png)

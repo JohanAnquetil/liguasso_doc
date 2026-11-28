@@ -1,5 +1,8 @@
 # Cartes et licences
 
+!!! chemin "Accès"
+    **Adhésion** › **Impression des cartes et licences**
+
 Rendez-vous dans **Adhésion > Impression des cartes et licences**.
 
 ![Menu Impression](img/dep-impression-menu.png)

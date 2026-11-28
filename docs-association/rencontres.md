@@ -1,5 +1,8 @@
 # Rencontres USEP
 
+!!! chemin "Accès"
+    **Rencontres** › **Gérer les rencontres**
+
 Si vous êtes une association scolaire affiliée à l'**USEP**, renseignez ici les rencontres organisées par votre association sous l'égide de l'USEP.
 
 Ces données alimentent les statistiques nationales : veillez à leur bonne saisie. En cas de question, adressez-vous à votre délégué.e départemental.e ou à votre responsable de circonscription.

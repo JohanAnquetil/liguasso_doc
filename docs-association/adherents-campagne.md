@@ -1,5 +1,8 @@
 # Campagne de ré-adhésion
 
+!!! chemin "Accès"
+    **Adhésion** › **Campagne de ré-adhésion**
+
 Ligu'asso vous permet de contacter directement vos adhérent.e.s pour leur proposer de renouveler leur adhésion, sans autre démarche d'inscription.
 
 !!! warning "Avant de commencer"

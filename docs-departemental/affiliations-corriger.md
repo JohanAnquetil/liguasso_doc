@@ -1,5 +1,8 @@
 # Corriger une affiliation
 
+!!! chemin "Accès"
+    **Affiliation** › **Gérer les affiliations**
+
 ## Modifier ou supprimer un membre du bureau
 
 !!! warning "Ce qui est modifiable"

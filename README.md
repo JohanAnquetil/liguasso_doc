@@ -65,6 +65,38 @@ Le bloc est écrit une seule fois et apparaît dans les deux guides.
 
         Contenu UFOLEP.
 
+### Indiquer le chemin d'accès
+
+Chaque page commence, juste sous le titre, par un encadré « Accès » qui donne le chemin
+dans le menu de Ligu'asso. Recopiez les intitulés **exactement** comme dans l'application :
+
+    !!! chemin "Accès"
+        **Adhésion** › **Lots**, puis bouton **Nouveau lot**
+
+Plusieurs écrans sur la même page :
+
+    !!! chemin "Accès"
+        - Sections : **Affiliation** › **Gérer les sections**
+        - Écoles : **Affiliation** › **Gérer les écoles**
+
+Sans passer par le menu : `Depuis le **tableau de bord**, bouton **Modifier votre affiliation**`.
+Seules les pages d'accueil et d'aide (`index`, `probleme`, `limitations`, `connexion`) n'en ont pas.
+
+### Vérifier les chemins sur la recette (Playwright)
+
+Le dossier `verification/` relit tous les encadrés « Accès » et vérifie sur
+http://recette.liguasso.org que chaque entrée existe dans le menu et que l'écran s'ouvre.
+Il signale aussi une page qui n'a pas d'encadré.
+
+    cd verification
+    npm install && npx playwright install chromium   # la première fois
+    login_tests_liguasso npm test                     # identifiants via LOGIN et MDP
+    npm run rapport                                   # rapport HTML, captures en cas d'échec
+
+Profils utilisés par défaut : `Président.e|AL La Guerche` (guide associations) et
+`Gestionnaire départemental.e|Puy de Dôme` (guide départemental). Pour en changer :
+`PROFIL_ASSO="Gestionnaire de l'association|Chevaux fringants"`, `PROFIL_DEP="…"`.
+
 ### Signaler une limitation
 
     !!! warning "Limitation connue — septembre 2026"

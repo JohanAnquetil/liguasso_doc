@@ -1,5 +1,8 @@
 # Valider et transmettre
 
+!!! chemin "Accès"
+    Dernière étape du parcours d'affiliation : voir [Affilier mon association](affiliation.md)
+
 ## Le résumé
 
 La dernière étape récapitule l'ensemble des données saisies. Elle permet d'en vérifier l'exactitude et de récupérer le bulletin d'affiliation.

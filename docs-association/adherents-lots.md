@@ -1,5 +1,9 @@
 # Lots et TIPO
 
+!!! chemin "Accès"
+    - Lots : **Adhésion** › **Lots**
+    - Participants TIPO : **Adhésion** › **Gestion des participants Tipo**
+
 ## Lots
 
 Le sous-menu **Lots** regroupe l'historique des fichiers d'adhésions transmis à la fédération. Pour chaque lot, vous retrouvez le nombre d'adhésions — transmises, validées, refusées — ainsi que les dates de création et de validation.

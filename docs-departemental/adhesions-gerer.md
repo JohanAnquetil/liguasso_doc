@@ -1,5 +1,8 @@
 # Rechercher et gérer les adhésions
 
+!!! chemin "Accès"
+    **Adhésion** › **Gérer les adhésions**
+
 Le menu **Adhésion** regroupe la gestion des adhérent.e.s de toutes vos associations : créer une adhésion, consulter un dossier, le modifier, renouveler ou imprimer une licence.
 
 ![Menu Adhésion](img/dep-adhesion-menu.png)

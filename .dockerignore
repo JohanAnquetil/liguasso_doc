@@ -4,3 +4,6 @@ site/
 docs-association/img/
 docs-departemental/img/
 docs-test/img/
+verification/node_modules/
+verification/test-results/
+verification/playwright-report/

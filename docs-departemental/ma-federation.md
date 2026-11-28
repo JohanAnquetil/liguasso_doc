@@ -1,5 +1,8 @@
 # Ma fédération
 
+!!! chemin "Accès"
+    **Ma fédération** › **Informations**
+
 Dans le menu, survolez **Ma fédération** puis cliquez sur **Informations**.
 
 ![Menu Ma fédération](img/dep-federation-menu.png)

@@ -1,5 +1,8 @@
 # Adhésions individuelles
 
+!!! chemin "Accès"
+    **Adhésion** › **Adhésions individuelles**
+
 Cet écran permet d'enregistrer et de suivre les **adhésions individuelles**, c'est-à-dire celles qui ne passent pas par une association.
 
 ![Menu Adhésions individuelles](img/dep-individuelles-menu.png)

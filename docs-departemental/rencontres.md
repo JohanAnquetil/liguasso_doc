@@ -1,5 +1,9 @@
 # Rencontres USEP
 
+!!! chemin "Accès"
+    - Groupes : **Rencontres** › **Paramétrage**
+    - Rencontres : **Rencontres** › **Gérer les rencontres**
+
 ## Paramétrer les groupes
 
 Avant de saisir des rencontres, définissez les groupes et sous-groupes qui serviront à les organiser. Rendez-vous dans **Rencontres > Paramétrage** et sélectionnez la saison.

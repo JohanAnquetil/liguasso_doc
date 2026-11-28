@@ -1,5 +1,8 @@
 # Attestations
 
+!!! chemin "Accès"
+    **Mon association** › **Mes attestations**
+
 Le sous-menu **Mes attestations** regroupe vos attestations, par exemple l'attestation RC UFOLEP.
 
 ![Mes attestations](img/attestations.png)

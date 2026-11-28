@@ -1,5 +1,8 @@
 # Importer un fichier d'adhésions
 
+!!! chemin "Accès"
+    **Adhésion** › **Importer des adhésions**
+
 ![type:video](https://www.youtube-nocookie.com/embed/lMVnP_gSw5U)
 
 Pour créer ou renouveler un grand nombre d'adhésions en une seule fois, utilisez **Adhésion > Importer des adhésions**.

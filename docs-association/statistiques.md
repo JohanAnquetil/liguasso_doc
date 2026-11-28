@@ -1,5 +1,8 @@
 # Statistiques et extractions
 
+!!! chemin "Accès"
+    **Statistiques et Extractions** › **Extractions** › **Extraction adhérents**
+
 Selon votre type d'affiliation, Ligu'asso vous permet d'extraire la liste de vos adhérent.e.s à partir des critères renseignés lors de leur enregistrement : saison, activité, tranche d'âge, état de l'adhésion, rôle, école, cycle, niveau.
 
 ![Extraction adhérents](img/extractions.png)

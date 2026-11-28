@@ -1,0 +1,12 @@
+{
+  "name": "liguasso-doc-verification",
+  "private": true,
+  "description": "Vérifie sur la recette Ligu'asso les chemins de menu indiqués dans les guides",
+  "scripts": {
+    "test": "playwright test",
+    "rapport": "playwright show-report"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.65.1"
+  }
+}
