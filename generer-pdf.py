@@ -10,7 +10,7 @@ mais identique pour tout le monde, quel que soit le navigateur.
 Le bouton (javascripts/impression.js) télécharge ce fichier s'il existe et revient à
 l'impression du navigateur sinon (rédaction locale, échec de cette étape).
 
-Adresse publique affichée en bas des PDF : variable DOMAINE (ex. guide-liguasso.laligue.org).
+Adresse publique affichée en bas des PDF : premier domaine de la variable DOMAINE.
 """
 import os
 import sys
@@ -20,7 +20,9 @@ from urllib.parse import quote
 
 from playwright.sync_api import sync_playwright
 
-DOMAINE = os.environ.get("DOMAINE") or "guide-liguasso.laligue.org"
+# DOMAINE peut lister plusieurs domaines pour Caddy (« a.fr, b.fr ») : on garde le premier.
+DOMAINE = (os.environ.get("DOMAINE") or "").replace(",", " ").split()
+DOMAINE = DOMAINE[0] if DOMAINE else "guide-liguasso.laligue.org"
 
 
 def pages_du_site(racine: Path):
