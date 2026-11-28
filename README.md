@@ -101,7 +101,8 @@ Profils utilisés par défaut : `Président.e|AL La Guerche` (guide associations
 ### Bouton « PDF »
 
 Chaque page a un bouton **PDF** à droite du titre. Sur le site publié, il télécharge le PDF
-de la page, préparé à chaque mise en ligne par `generer-pdf.py` (Chromium) : entête reprise
+de la page, préparé à chaque mise en ligne par `generer-pdf.py` (Chromium, dans une étape
+Docker à part, `pdf`, qui n'alourdit pas l'image de rédaction) : entête reprise
 de la couverture du guide PDF complet, onglets Ligue / UFOLEP / USEP tous affichés, chapitre
 et numéros de page en bas, logos des fédérations. Le PDF est identique quel que soit le
 navigateur de la personne.
