@@ -7,8 +7,9 @@ document.addEventListener("liguasso:contributions", function () {
   var article = document.querySelector("article.md-content__inner");
   if (!C || !article) return;
   var el = C.el;
+  var N = window.LiguassoNoyau;   // règles pures (noyau.js)
   var titrePage = article.querySelector("h1").textContent.replace(/¶/g, "").trim();
-  var estAccueil = /^[a-z]+$/.test(C.PAGE);   // page d'accueil d'un guide
+  var estAccueil = N.estAccueil(C.PAGE);   // page d'accueil d'un guide
 
   // Bouton en haut de la fiche, à côté du bouton PDF
   if (!estAccueil) {
@@ -55,7 +56,7 @@ document.addEventListener("liguasso:contributions", function () {
     var champ = function (libelle, entree) { return el("label", { classe: "commentaires-champ" }, el("span", { texte: libelle }), entree); };
 
     // Place dans le menu (nouvelle fiche) : rubrique, sous-rubrique, nom dans le menu
-    var NOUVELLE = "__nouvelle__";
+    var NOUVELLE = N.NOUVELLE;
     var menuRubrique = el("select", { name: "menu_rubrique" }, el("option", { value: "", texte: "Chargement du menu…" }));
     var menuNouvelleRubrique = el("input", { name: "menu_nouvelle_rubrique", maxlength: "60", placeholder: "Nom de la nouvelle rubrique", hidden: "" });
     var menuSous = el("select", { name: "menu_sous_rubrique" });
@@ -80,9 +81,8 @@ document.addEventListener("liguasso:contributions", function () {
       if (!menuNouvelleSous.hidden) menuNouvelleSous.focus();
     });
     function placeDansLeMenu() {
-      var rub = menuRubrique.value === NOUVELLE ? menuNouvelleRubrique.value.trim() : menuRubrique.value;
-      var sous = menuSous.value === NOUVELLE ? menuNouvelleSous.value.trim() : menuSous.value;
-      return { menu_rubrique: rub || "", menu_sous_rubrique: rub ? sous || "" : "", menu_libelle: rub ? menuLibelle.value.trim() : "" };
+      return N.placeDansLeMenu({ rubrique: menuRubrique.value, nomRubrique: menuNouvelleRubrique.value,
+        sousRubrique: menuSous.value, nomSousRubrique: menuNouvelleSous.value, libelle: menuLibelle.value });
     }
     var blocMenu = el("fieldset", { classe: "proposition-menu" },
       el("legend", { texte: "Place dans le menu" }),
@@ -150,10 +150,7 @@ document.addEventListener("liguasso:contributions", function () {
         return;
       }
       var place = type === "nouvelle" ? placeDansLeMenu() : {};
-      if ((menuRubrique.value === NOUVELLE && !place.menu_rubrique) || (menuSous.value === NOUVELLE && !menuNouvelleSous.value.trim())) {
-        message.textContent = "Donnez un nom à la nouvelle rubrique ou sous-rubrique.";
-        return;
-      }
+      if (place.erreur) { message.textContent = place.erreur; return; }
       envoyer.disabled = true;
       message.textContent = "Envoi…";
       C.payloadAltcha(widget).then(function (charge) {

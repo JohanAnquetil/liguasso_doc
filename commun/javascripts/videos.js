@@ -21,14 +21,12 @@ document.addEventListener("DOMContentLoaded", function () {
   var config = document.getElementById("__config");
   var base = config ? JSON.parse(config.textContent).base : ".";
   var racine = new URL(base.replace(/\/?$/, "/"), location.href);
+  var N = window.LiguassoNoyau;   // règles pures (noyau.js)
   fetch(new URL("videos.json", racine)).then(function (r) { return r.ok ? r.json() : []; }).then(function (videos) {
-    var fiches = {};
-    videos.forEach(function (v) { fiches[new URL(v.fiche, racine).pathname] = (fiches[v.fiche] || 0) + 1; });
+    var fiches = N.fichesAvecVideo(videos, racine);
     document.querySelectorAll(".md-nav__link[href]").forEach(function (lien) {
-      var href = lien.getAttribute("href");
-      if (href.indexOf("#") !== -1 || lien.closest(".md-nav--secondary")) return;   // pas la table des matières
-      var chemin = new URL(href, location.href).pathname;
-      if (!fiches[chemin] || lien.querySelector(".repere-video")) return;
+      if (!N.lienAvecVideo(lien.getAttribute("href"), !!lien.closest(".md-nav--secondary"), location.href, fiches)) return;
+      if (lien.querySelector(".repere-video")) return;
       var repere = document.createElement("span");
       repere.className = "repere-video";
       repere.title = "Cette fiche a un tuto vidéo";

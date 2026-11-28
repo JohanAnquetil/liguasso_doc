@@ -22,6 +22,9 @@ jobs:
       - name: Dépendances Python (guides et service)
         run: pip install -r requirements.txt -r commentaires/requirements.txt pytest httpx
 
+      - name: Outils de construction (hook vidéos, générateur de PDF)
+        run: pytest -q outils/tests
+
       - name: Tests unitaires et d'intégration du service
         working-directory: commentaires
         run: pytest -q tests
@@ -47,6 +50,10 @@ jobs:
       - name: Éditeur visuel (relecture à l'identique de toutes les fiches)
         working-directory: verification
         run: npm run test:editeur
+
+      - name: Noyau des scripts du site
+        working-directory: verification
+        run: npm run test:noyau
 
       - name: Tests de bout en bout
         working-directory: verification

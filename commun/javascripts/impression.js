@@ -10,6 +10,7 @@ document.addEventListener("DOMContentLoaded", function () {
   var article = document.querySelector("article.md-content__inner");
   var titre = article && article.querySelector("h1");
   if (!titre) return;
+  var N = window.LiguassoNoyau;   // règles pures (noyau.js)
   var titrePage = titre.textContent.replace(/¶/g, "").trim();
   var adressePdf = new URLSearchParams(location.search).get("pdf");
 
@@ -30,7 +31,7 @@ document.addEventListener("DOMContentLoaded", function () {
     fetch("page.pdf", { method: "HEAD" }).then(function (r) {
       if (!r.ok || !/pdf/i.test(r.headers.get("content-type") || "")) return;
       bouton.href = "page.pdf";
-      bouton.setAttribute("download", "Ligu'asso - " + titrePage.replace(/[\\/:*?"<>|]/g, "") + ".pdf");
+      bouton.setAttribute("download", N.nomFichierPdf(titrePage));
     }).catch(function () {});
   }
 
@@ -40,9 +41,8 @@ document.addEventListener("DOMContentLoaded", function () {
   var base = config ? JSON.parse(config.textContent).base : ".";
   var logos = base + "/img/logos/";
   var nom = (document.querySelector(".md-header__topic .md-ellipsis") || {}).textContent || "";
-  // Guide associations : « … — Associations » ; tout le reste (départemental, bac à sable) : départemental
-  var public_ = /—\s*Associations/i.test(nom) ? "Gestion Associative" : "Gestion Départementale";
-  var date = (adressePdf ? "Mis à jour le " : "Extrait le ") + new Date().toLocaleDateString("fr-FR");
+  var public_ = N.publicDuGuide(nom);
+  var date = N.dateEntete(!!adressePdf);
 
   var entete = document.createElement("div");
   entete.className = "impression-entete";
@@ -59,7 +59,7 @@ document.addEventListener("DOMContentLoaded", function () {
   // Le texte vient de la page (onglet actif du menu du guide), d'où un style écrit ici.
   var onglet = document.querySelector(".md-tabs__item--active .md-tabs__link");
   var chapitre = onglet ? onglet.textContent.trim() : "";
-  var bas = chapitre && chapitre !== titrePage ? chapitre + " \u203a " + titrePage : titrePage;
+  var bas = N.basDePage(chapitre, titrePage);
   var style = document.createElement("style");
   style.textContent =
     "@media print { @page {" +

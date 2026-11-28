@@ -4,6 +4,7 @@
 # La liste remplace celle de mkdocs.test.yml : la garder complète.
 INHERIT: ./mkdocs.test.yml
 extra_javascript:
+  - javascripts/noyau.js            # règles communes aux scripts (en premier)
   - javascripts/impression.js
   - javascripts/commentaires-local.js   # API des commentaires sur le port 8003
   - javascripts/commentaires.js

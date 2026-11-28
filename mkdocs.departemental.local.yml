@@ -3,6 +3,7 @@
 # servie par le chatbot lancé en local sur http://localhost:8080.
 INHERIT: ./mkdocs.departemental.yml
 extra_javascript:
+  - javascripts/noyau.js            # règles communes aux scripts (en premier)
   - javascripts/impression.js
   - javascripts/commentaires-local.js   # API des commentaires sur le port 8003
   - javascripts/commentaires.js
