@@ -490,3 +490,14 @@ article.md-typeset:has(.accueil-hero) > .bouton-pdf { display: none; }
 .proposition-zone { min-height: 6rem; }
 .proposition-chargement { color: var(--md-default-fg-color--light); font-size: .75rem; }
 @media (prefers-reduced-motion: reduce) { .editeur-supprimer, .editeur-plus { transition: none; } }
+
+/* Place dans le menu (proposition de nouvelle fiche) */
+.proposition-menu { border: 1px solid var(--md-default-fg-color--lightest); border-radius: 8px; padding: .5rem .9rem .8rem; display: grid; gap: .5rem; margin: 0; }
+.proposition-menu legend { font-size: .74rem; font-weight: 700; padding: 0 .3rem; }
+.proposition-menu-aide { margin: 0; font-size: .7rem; color: var(--md-default-fg-color--light); }
+.proposition-menu-ligne { display: flex; flex-wrap: wrap; gap: .5rem; }
+.proposition-menu-ligne > * { flex: 1 1 14rem; }
+.proposition-menu select {
+  font: inherit; font-weight: 400; padding: .45em .55em; border-radius: 6px;
+  border: 1px solid var(--md-default-fg-color--lighter); background: var(--md-default-bg-color); color: var(--md-default-fg-color);
+}

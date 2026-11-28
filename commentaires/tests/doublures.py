@@ -181,9 +181,11 @@ class FichesEnMemoire:
     def existe(self, chemin, version):
         return chemin in self.versions.get(version, {})
 
-    def proposer(self, branche, depart, chemin, texte, blob_sha, message, titre_pr, corps_pr):
-        self.pull_requests.append(dict(branche=branche, depart=depart, chemin=chemin, texte=texte,
-                                       blob_sha=blob_sha, message=message, titre=titre_pr, corps=corps_pr))
+    def proposer(self, branche, depart, fichiers, message, titre_pr, corps_pr):
+        principal = fichiers[0]
+        self.pull_requests.append(dict(branche=branche, depart=depart, chemin=principal.chemin, texte=principal.texte,
+                                       blob_sha=principal.blob_sha, fichiers=list(fichiers), message=message,
+                                       titre=titre_pr, corps=corps_pr))
         return f"https://github.com/exemple/pull/{len(self.pull_requests)}"
 
 

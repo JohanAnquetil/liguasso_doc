@@ -54,6 +54,52 @@ document.addEventListener("liguasso:contributions", function () {
     var annuler = el("button", { type: "button", classe: "md-button", texte: "Annuler" });
     var champ = function (libelle, entree) { return el("label", { classe: "commentaires-champ" }, el("span", { texte: libelle }), entree); };
 
+    // Place dans le menu (nouvelle fiche) : rubrique, sous-rubrique, nom dans le menu
+    var NOUVELLE = "__nouvelle__";
+    var menuRubrique = el("select", { name: "menu_rubrique" }, el("option", { value: "", texte: "Chargement du menu…" }));
+    var menuNouvelleRubrique = el("input", { name: "menu_nouvelle_rubrique", maxlength: "60", placeholder: "Nom de la nouvelle rubrique", hidden: "" });
+    var menuSous = el("select", { name: "menu_sous_rubrique" });
+    var menuNouvelleSous = el("input", { name: "menu_nouvelle_sous_rubrique", maxlength: "60", placeholder: "Nom de la nouvelle sous-rubrique", hidden: "" });
+    var menuLibelle = el("input", { name: "menu_libelle", maxlength: "60", placeholder: "Par défaut : le titre de la fiche" });
+    var rubriques = [];
+    function option(valeur, texte) { return el("option", { value: valeur, texte: texte }); }
+    function remplirSous() {
+      var r = rubriques.filter(function (x) { return x.titre === menuRubrique.value; })[0];
+      menuSous.replaceChildren(option("", "Aucune : directement dans la rubrique"));
+      (r ? r.sous_rubriques : []).forEach(function (s) { menuSous.append(option(s, s)); });
+      menuSous.append(option(NOUVELLE, "+ Nouvelle sous-rubrique…"));
+      menuNouvelleSous.hidden = true;
+    }
+    menuRubrique.addEventListener("change", function () {
+      menuNouvelleRubrique.hidden = menuRubrique.value !== NOUVELLE;
+      if (!menuNouvelleRubrique.hidden) menuNouvelleRubrique.focus();
+      remplirSous();
+    });
+    menuSous.addEventListener("change", function () {
+      menuNouvelleSous.hidden = menuSous.value !== NOUVELLE;
+      if (!menuNouvelleSous.hidden) menuNouvelleSous.focus();
+    });
+    function placeDansLeMenu() {
+      var rub = menuRubrique.value === NOUVELLE ? menuNouvelleRubrique.value.trim() : menuRubrique.value;
+      var sous = menuSous.value === NOUVELLE ? menuNouvelleSous.value.trim() : menuSous.value;
+      return { menu_rubrique: rub || "", menu_sous_rubrique: rub ? sous || "" : "", menu_libelle: rub ? menuLibelle.value.trim() : "" };
+    }
+    var blocMenu = el("fieldset", { classe: "proposition-menu" },
+      el("legend", { texte: "Place dans le menu" }),
+      el("p", { classe: "proposition-menu-aide", texte: "Choisissez où la fiche apparaîtra dans le menu du guide, ou créez une rubrique. L'équipe pourra l'ajuster." }),
+      champ("Rubrique", el("span", { classe: "proposition-menu-ligne" }, menuRubrique, menuNouvelleRubrique)),
+      champ("Sous-rubrique (facultatif)", el("span", { classe: "proposition-menu-ligne" }, menuSous, menuNouvelleSous)),
+      champ("Nom dans le menu", menuLibelle));
+    if (type === "nouvelle") {
+      C.appel("/propositions/menu?page=" + encodeURIComponent(C.PAGE)).then(function (liste) {
+        rubriques = liste;
+        menuRubrique.replaceChildren(option("", "Je ne sais pas : l'équipe choisira"));
+        liste.forEach(function (r) { menuRubrique.append(option(r.titre, r.titre)); });
+        menuRubrique.append(option(NOUVELLE, "+ Nouvelle rubrique…"));
+        remplirSous();
+      }).catch(function () { blocMenu.hidden = true; });
+    }
+
     // Éditeur visuel (editeur-fiche.js) ; à défaut, la zone de texte Markdown
     var Editeur = window.LiguassoEditeur, editeur = null;
     var zone = el("div", { classe: "proposition-zone" });
@@ -67,6 +113,7 @@ document.addEventListener("liguasso:contributions", function () {
 
     var formulaire = el("form", { classe: "proposition-formulaire", novalidate: "" },
       type === "nouvelle" ? champ("Titre de la fiche", champTitre) : null,
+      type === "nouvelle" ? blocMenu : null,
       el("div", { classe: "commentaires-champ" }, el("span", { texte: type === "modification" ? "Texte de la fiche" : "Contenu" }), zone),
       champ("Résumé de votre proposition", resume),
       champ("Pseudo", pseudo),
@@ -102,13 +149,19 @@ document.addEventListener("liguasso:contributions", function () {
         message.textContent = "Tous les champs sont obligatoires.";
         return;
       }
+      var place = type === "nouvelle" ? placeDansLeMenu() : {};
+      if ((menuRubrique.value === NOUVELLE && !place.menu_rubrique) || (menuSous.value === NOUVELLE && !menuNouvelleSous.value.trim())) {
+        message.textContent = "Donnez un nom à la nouvelle rubrique ou sous-rubrique.";
+        return;
+      }
       envoyer.disabled = true;
       message.textContent = "Envoi…";
       C.payloadAltcha(widget).then(function (charge) {
         return C.appel("/propositions", { method: "POST", corps: {
           type: type, page: C.PAGE, titre: champTitre.value, texte: valeurTexte(), resume: resume.value,
           pseudo: pseudo.value, blob_sha: versions.blob_sha || "", commit_sha: versions.commit_sha || "",
-          site_web: piege.value, altcha: charge } });
+          menu_rubrique: place.menu_rubrique || "", menu_sous_rubrique: place.menu_sous_rubrique || "",
+          menu_libelle: place.menu_libelle || "", site_web: piege.value, altcha: charge } });
       }).then(function () {
         localStorage.setItem("liguasso-pseudo", pseudo.value.trim());
         formulaire.replaceWith(el("div", { classe: "proposition-merci" },
